@@ -1,6 +1,6 @@
 # Trump 股票/ETF 交易分析报告
 
-> 生成时间: 2026-05-31 15:02 · OGE Form 278-T · 第二任期上任以来
+> 生成时间: 2026-05-31 21:19 · OGE Form 278-T · 第二任期上任以来
 
 ## 数据范围
 
@@ -63,6 +63,26 @@ Horizon 收益以 **最早一笔未平买入** 的交易日为 anchor（Trump ti
 <figure class="report-fig">
 <img src="figures/17_open_holdings.png" alt="当前净多头 Top10：名义 + 买入后 horizon 收益">
 <figcaption>当前净多头 Top10：名义 + 买入后 horizon 收益</figcaption>
+</figure>
+
+
+## Trump 组合持仓与 PnL 时间序列
+
+按 **FIFO 净多头** 重建每个交易日的 EOD 持仓：
+- **持仓规模**：未平仓买入的 OGE `amount_min` 合计（成本）及按收盘价 mark-to-market 的市值；
+- **每日 PnL**：各仍持有标的的日度价格变动 × 对应名义仓位，卖出日记入已实现收益；
+- **累计 PnL**：全部交易日 daily PnL 的 running sum（整组合曲线）。
+
+- 样本交易日: **337** 天
+- 截止 **2026-05-29**：MTM 持仓 **$95.1M**，累计 PnL **$11.6M**
+- 持仓 MTM 峰值: **$95.1M**（2026-05-29）
+
+明细: `reports/portfolio_daily.csv`
+
+
+<figure class="report-fig">
+<img src="figures/18_portfolio_timeseries.png" alt="组合持仓规模与累计 PnL 随时间变化（FIFO 日度）">
+<figcaption>组合持仓规模与累计 PnL 随时间变化（FIFO 日度）</figcaption>
 </figure>
 
 

@@ -210,6 +210,7 @@ _FIGURE_CAPTIONS: dict[str, str] = {
     "05_post_returns": "Legacy：披露后收益分布",
     "16_media_match_timelines": "Top3 匹配 ticker：买入 / Trump 发帖 / 卖出或仍持有",
     "17_open_holdings": "当前净多头 Top10：名义 + 买入后 horizon 收益",
+    "18_portfolio_timeseries": "组合持仓规模与累计 PnL 随时间变化（FIFO 日度）",
     "06_backtest_cum": "Legacy：等权披露日回测累计收益",
     "07_event_study": "事件研究：披露日 abnormal return",
     "08_disclosure_timeline": "披露日批次：披露名义总额 + 笔数",
@@ -268,6 +269,42 @@ def _trade_action_summary_lines() -> list[str]:
     lines.append(f"| **合计** | **{total_c:,}** | **{_fmt_usd(total_n)}** | 100% |")
     lines.append("")
     return lines
+
+
+def _portfolio_daily_section(summary: dict) -> list[str]:
+    meta = summary.get("portfolio_daily") or {}
+    if not meta:
+        path = ROOT / "reports" / "portfolio_daily.csv"
+        if path.exists():
+            df = pd.read_csv(path)
+            if not df.empty:
+                last = df.iloc[-1]
+                meta = {
+                    "last_date": str(last["date"]),
+                    "position_mtm_end": float(last["position_mtm"]),
+                    "cum_pnl_end": float(last["cum_pnl"]),
+                    "peak_mtm": float(df["position_mtm"].max()),
+                }
+    if not meta:
+        return []
+
+    return [
+        "",
+        "## Trump 组合持仓与 PnL 时间序列",
+        "",
+        "按 **FIFO 净多头** 重建每个交易日的 EOD 持仓：",
+        "- **持仓规模**：未平仓买入的 OGE `amount_min` 合计（成本）及按收盘价 mark-to-market 的市值；",
+        "- **每日 PnL**：各仍持有标的的日度价格变动 × 对应名义仓位，卖出日记入已实现收益；",
+        "- **累计 PnL**：全部交易日 daily PnL 的 running sum（整组合曲线）。",
+        "",
+        f"- 样本交易日: **{meta.get('n_days', '—')}** 天",
+        f"- 截止 **{meta.get('last_date', '—')}**：MTM 持仓 **{_fmt_usd(meta.get('position_mtm_end', 0))}**，"
+        f"累计 PnL **{_fmt_usd(meta.get('cum_pnl_end', 0))}**",
+        f"- 持仓 MTM 峰值: **{_fmt_usd(meta.get('peak_mtm', 0))}**（{meta.get('peak_mtm_date', '—')}）",
+        "",
+        "明细: `reports/portfolio_daily.csv`",
+        "",
+    ]
 
 
 def _open_holdings_section(summary: dict) -> list[str]:
@@ -379,6 +416,8 @@ def _md_report(
     lines += fig("04_buy_sell")
     lines += _open_holdings_section(summary)
     lines += fig("17_open_holdings")
+    lines += _portfolio_daily_section(summary)
+    lines += fig("18_portfolio_timeseries")
     lines += [
         "",
         "## Cross-Check",
@@ -1010,12 +1049,27 @@ def _add_section_ids_and_toc(html: str) -> tuple[str, str]:
     return html, links
 
 
-def _embed_figure_src(html: str, figures_dir: Path) -> str:
+def _embed_figure_src(html: str, figures_dir: Path, *, compress: bool = True) -> str:
     def _repl(match: re.Match) -> str:
         fname = match.group(1)
         path = figures_dir / fname
         if not path.exists():
             return match.group(0)
+        if compress:
+            from io import BytesIO
+
+            from PIL import Image
+
+            with Image.open(path) as img:
+                max_w = 900
+                if img.width > max_w:
+                    ratio = max_w / img.width
+                    img = img.resize((max_w, int(img.height * ratio)), Image.Resampling.LANCZOS)
+                buf = BytesIO()
+                img.convert("RGB").save(buf, format="JPEG", quality=72, optimize=True)
+                payload = buf.getvalue()
+            b64 = base64.b64encode(payload).decode("ascii")
+            return f'src="data:image/jpeg;base64,{b64}"'
         b64 = base64.b64encode(path.read_bytes()).decode("ascii")
         return f'src="data:image/png;base64,{b64}"'
 
@@ -1065,7 +1119,9 @@ def _html_report(
     </nav>"""
 
     tip = (
-        "单文件版：图表已内嵌，可上传至任意静态网页托管后在微信中打开链接。"
+        "手机/微信：若 GitHub 链接打不开，请用 Safari/Chrome 打开 "
+        "<code>cdn.jsdelivr.net/gh/haijiang666/Trump_following@main/docs/index.html</code>，"
+        "或把 <code>reports/FINAL_REPORT.mobile.html</code> 作为文件发到微信。"
         if standalone
         else f"局域网预览：电脑与手机同一 WiFi 时，运行 "
         f"<code>python scripts/serve_report.py</code>，手机浏览器访问 "

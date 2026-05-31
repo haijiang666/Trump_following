@@ -35,7 +35,12 @@ from src.events import fetch_all_events
 from src.prices import fetch_prices_for_trades
 from src.holdings import attach_holding_to_trades, fifo_match_trades, holding_summary_stats
 from src.trade_returns import run_both_analyses
-from src.portfolio_snapshot import compute_open_holdings_top_n, open_holdings_summary_records
+from src.portfolio_snapshot import (
+    compute_open_holdings_top_n,
+    compute_portfolio_daily_timeseries,
+    open_holdings_summary_records,
+    portfolio_daily_summary_records,
+)
 from src.visualizations import generate_all_charts
 
 
@@ -239,6 +244,9 @@ def main() -> int:
     open_holdings = compute_open_holdings_top_n(ret_analysis["trump_timing"], all_lots, top_n=10)
     open_holdings.to_csv(reports / "open_holdings_top10.csv", index=False)
     summary["open_holdings"] = open_holdings_summary_records(open_holdings)
+    portfolio_daily = compute_portfolio_daily_timeseries(tradable, price_cache, settings)
+    portfolio_daily.to_csv(reports / "portfolio_daily.csv", index=False)
+    summary["portfolio_daily"] = portfolio_daily_summary_records(portfolio_daily)
     (reports / "final_summary.json").write_text(json.dumps(summary, indent=2, default=str))
 
     chart_paths = generate_all_charts(
@@ -252,6 +260,7 @@ def main() -> int:
         ret_analysis,
         media_timelines=media_analysis.get("media_timelines"),
         open_holdings=open_holdings,
+        portfolio_daily=portfolio_daily,
     )
     for p in chart_paths:
         print(f"  {p.name}")

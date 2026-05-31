@@ -614,6 +614,68 @@ def plot_open_holdings_snapshot(holdings: pd.DataFrame, out_dir: Path) -> Path |
     return _save(fig, out_dir, "17_open_holdings")
 
 
+def plot_portfolio_daily_timeseries(daily: pd.DataFrame, out_dir: Path) -> Path | None:
+    """Gross-long FIFO portfolio: MTM exposure and cumulative PnL over time."""
+    if daily.empty:
+        return None
+
+    df = daily.copy()
+    df["date"] = pd.to_datetime(df["date"])
+    df = df.sort_values("date")
+
+    fig, axes = plt.subplots(2, 1, figsize=(12, 7), sharex=True, gridspec_kw={"height_ratios": [1.1, 1]})
+
+    ax0 = axes[0]
+    cost_m = df["position_cost"] / 1e6
+    mtm_m = df["position_mtm"] / 1e6
+    ax0.fill_between(df["date"], 0, mtm_m, alpha=0.18, color="#8e44ad")
+    ax0.plot(df["date"], mtm_m, color="#8e44ad", lw=2.0, label="MTM value")
+    ax0.plot(df["date"], cost_m, color="#566573", lw=1.4, ls="--", label="Cost basis (amount_min)")
+    ax0.set_ylabel("Position size ($M)")
+    ax0.set_title("Gross-long portfolio size (FIFO, EOD)")
+    ax0.legend(loc="upper left", fontsize=9)
+    ax0.grid(True, alpha=0.3)
+
+    ax1 = axes[1]
+    pnl = df["cum_pnl"]
+    scale = 1e6 if pnl.abs().max() >= 5e5 else 1e3
+    ylab = "Cumulative PnL ($M)" if scale == 1e6 else "Cumulative PnL ($K)"
+    ax1.plot(df["date"], pnl / scale, color="#1e4d8c", lw=2.0, label="Cumulative PnL")
+    ax1.fill_between(
+        df["date"],
+        0,
+        pnl / scale,
+        where=pnl >= 0,
+        alpha=0.15,
+        color="#2ecc71",
+        interpolate=True,
+    )
+    ax1.fill_between(
+        df["date"],
+        0,
+        pnl / scale,
+        where=pnl < 0,
+        alpha=0.15,
+        color="#e74c3c",
+        interpolate=True,
+    )
+    ax1.axhline(0, color="gray", lw=0.8)
+    ax1.set_ylabel(ylab)
+    ax1.set_xlabel("Date")
+    ax1.set_title("Portfolio cumulative PnL (sum of daily MTM changes)")
+    ax1.legend(loc="upper left", fontsize=9)
+    ax1.grid(True, alpha=0.3)
+
+    for ax in axes:
+        for label in ax.get_xticklabels():
+            label.set_rotation(45)
+            label.set_ha("right")
+
+    fig.suptitle("Trump Portfolio — Position Size & Cumulative PnL", fontsize=12, y=1.01)
+    fig.tight_layout()
+    return _save(fig, out_dir, "18_portfolio_timeseries")
+
+
 def generate_all_charts(
     trades: pd.DataFrame,
     returns_df: pd.DataFrame,
@@ -625,6 +687,7 @@ def generate_all_charts(
     return_analysis: dict | None = None,
     media_timelines: list | None = None,
     open_holdings: pd.DataFrame | None = None,
+    portfolio_daily: pd.DataFrame | None = None,
 ) -> list[Path]:
     trump_df = return_analysis.get("trump_timing") if return_analysis else None
     paths = [
@@ -637,6 +700,10 @@ def generate_all_charts(
         oh = plot_open_holdings_snapshot(open_holdings, out_dir)
         if oh:
             paths.append(oh)
+    if portfolio_daily is not None and not portfolio_daily.empty:
+        pt = plot_portfolio_daily_timeseries(portfolio_daily, out_dir)
+        if pt:
+            paths.append(pt)
     paths += [
         plot_post_returns(returns_df, out_dir),
         plot_backtest_cum(bt, out_dir),

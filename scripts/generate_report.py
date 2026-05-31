@@ -1129,6 +1129,11 @@ def main() -> None:
     print(f"Wrote {html_path}")
     print(f"Wrote {mobile_path} (单文件，适合上传后在微信打开)")
 
+    pages_index = reports.parent / "docs" / "index.html"
+    pages_index.parent.mkdir(exist_ok=True)
+    pages_index.write_text(mobile_path.read_text(encoding="utf-8"), encoding="utf-8")
+    print(f"Wrote {pages_index} (GitHub Pages → https://haijiang666.github.io/Trump_following/)")
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,157 @@
+/Users/haijiang/Desktop/Trump_following/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/haijiang/Desktop/Trump_following/src/equity_trades.py:263: UserWarning: Parsing dates in %d/%m/%Y format when dayfirst=False (the default) was specified. Pass `dayfirst=True` or specify a format to silence this warning.
+  ts = pd.to_datetime(cand, errors="coerce")
+/Users/haijiang/Desktop/Trump_following/src/equity_trades.py:263: UserWarning: Parsing dates in %d/%m/%Y format when dayfirst=False (the default) was specified. Pass `dayfirst=True` or specify a format to silence this warning.
+  ts = pd.to_datetime(cand, errors="coerce")
+/Users/haijiang/Desktop/Trump_following/src/equity_trades.py:263: UserWarning: Parsing dates in %d/%m/%Y format when dayfirst=False (the default) was specified. Pass `dayfirst=True` or specify a format to silence this warning.
+  ts = pd.to_datetime(cand, errors="coerce")
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: PCG$X"}}}
+$PCG$X: possibly delisted; no timezone found
+
+1 Failed download:
+['PCG$X']: possibly delisted; no timezone found
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: PCG$X"}}}
+$PCG$X: possibly delisted; no timezone found
+
+1 Failed download:
+['PCG$X']: possibly delisted; no timezone found
+Wrote /Users/haijiang/Desktop/Trump_following/reports/FINAL_REPORT.md
+Wrote /Users/haijiang/Desktop/Trump_following/reports/FINAL_REPORT.pdf
+Wrote /Users/haijiang/Desktop/Trump_following/reports/FINAL_REPORT.html
+Wrote /Users/haijiang/Desktop/Trump_following/reports/FINAL_REPORT.mobile.html (单文件，适合上传后在微信打开)
+============================================================
+STEP 1: Download all Trump 278-T filings since inauguration
+                         doc_id status  pages likely_equity_filing disclosure_date
+0       trump_278t_2025_08_19_a     ok   22.0                False      2025-08-19
+1       trump_278t_2025_08_19_b     ok    7.0                False      2025-08-19
+2         trump_278t_2025_11_17     ok    3.0                False      2025-11-17
+3         trump_278t_2026_01_14     ok    8.0                False      2026-01-14
+4         trump_278t_2026_04_23     ok    8.0                False      2026-04-23
+6  trump_278t_2026_05_08_equity     ok  113.0                 True      2026-05-12
+
+STEP 2: Cross-check — official OGE Form 278-T?
+{
+  "is_oge_url": true,
+  "n_oge_documents": 3,
+  "n_total_documents": 7,
+  "form_type": "OGE Form 278-T (Periodic Transaction Report)",
+  "legal_basis": "5 U.S.C. app. \u00a7 13104(l); transactions >$1,000 within 30-45 days",
+  "all_valid": true,
+  "n_valid_documents": 5
+}
+
+STEP 3: Parse stock/ETF trades (all filings)
+  Filings: 6, table rows: 4208
+  Parse rate: 92.7%
+  Parsed: 3900 equity rows, tickers: 2314
+
+STEP 4: Web cross-check (sample trades)
+  [OK] DELL purchase 2026-02-10
+  [OK] NVDA purchase 2026-02-10
+  [OK] MSFT sale 2026-02-10
+  [OK] AMZN sale 2026-02-10
+  [OK] META sale 2026-03-18
+
+STEP 5: FIFO holding periods (buy→sell matching)
+  Matched pairs: 291, median hold 31d
+
+STEP 6: Prices (657 tickers)
+
+STEP 7: Horizon returns (Trump timing vs Follow)
+  Trump timing (notional-weighted):
+ horizon_days  notional_weighted_return  n_trades
+            1                 -0.001496      2288
+            3                  0.001602      2288
+            5                  0.000012      2288
+           10                 -0.001475      2288
+           20                 -0.000834      2288
+           30                  0.012767      2288
+  Trump timing — BUY only:
+ horizon_days  notional_weighted_return  n_trades
+            1                 -0.005525      1774
+            3                 -0.003889      1774
+            5                 -0.004758      1774
+           10                 -0.003288      1774
+           20                  0.005085      1774
+           30                  0.016567      1774
+  Trump timing — SELL only (short):
+ horizon_days  notional_weighted_return  n_trades
+            1                  0.008256       513
+            3                  0.014902       513
+            5                  0.011556       513
+           10                  0.002911       513
+           20                 -0.015149       513
+           30                  0.003575       513
+  Realized FIFO: 290 lots, NW return -8.57%, PnL $-730,951
+  Follow disclosure — ALL:
+ horizon_days  notional_weighted_return  n_trades
+            1                  0.000600      2288
+            3                 -0.001535      2288
+            5                 -0.003031      2288
+           10                  0.006784      2288
+           20                  0.034565         4
+           30                  0.003068         4
+  Follow disclosure — BUY only:
+ horizon_days  notional_weighted_return  n_trades
+            1                 -0.000916      1774
+            3                 -0.001666      1774
+            5                 -0.003812      1774
+           10                  0.018662      1774
+           20                  0.034565         4
+           30                  0.003068         4
+  Follow disclosure — SELL only (short):
+ horizon_days  notional_weighted_return  n_trades
+            1                  0.004267       513
+            3                 -0.001224       513
+            5                 -0.001147       513
+           10                 -0.021974       513
+           20                       NaN         0
+           30                       NaN         0
+
+STEP 8: Legacy returns + holdings columns
+  2314 trades, median reveal lag 71d
+
+STEP 9: Trump posts (Truth Social only)
+  Trump posts loaded: 6729 ({'truth_social': 6729})
+  Stock-related posts: 4673
+  Post links: 2428 ({'disclosure_event': 2307, 'ticker_mentioned': 73, 'social_near_trade': 33, 'social_near_disclosure': 15})
+  Trades with Trump post match: 41 / 2314
+
+STEP 9b: Media pattern analysis (PnL / buy→post→sell)
+  FIFO lots with ticker-specific media: 3
+  buy→post→sell during hold: 2
+
+STEP 10: Event study
+                      mean       std  count       p_value    sum_ar
+event_window_day                                                   
+0                -0.003856  0.026368    655  1.981572e-04 -2.525587
+1                -0.013580  0.028024    655  7.155963e-32 -8.894902
+5                 0.000032  0.021941    655  9.698090e-01  0.021261
+20               -0.032518  0.055307      3  4.156428e-01 -0.097554
+
+STEP 11: Backtest (legacy equal-weight by disclosure day)
+{'mean_return_per_trade': -0.0036645091628080047, 'median_return_per_trade': -0.0035646697830542494, 'portfolio_return_equal_weight': 0.02245667317610911, 'sharpe': -1.1344120943951204, 'max_drawdown': -0.00367953452293146, 'n_trades': 2310, 'n_disclosure_days': 3, 'win_rate': 0.43333333333333335}
+
+STEP 11: Visualizations
+  01_monthly_volume.png
+  02_reveal_lag.png
+  03_top_tickers.png
+  04_buy_sell.png
+  17_open_holdings.png
+  05_post_returns.png
+  06_backtest_cum.png
+  07_event_study.png
+  08_disclosure_timeline.png
+  16_media_match_timelines.png
+  09_holding_days.png
+  10_trump_notional_returns.png
+  15_trump_buy_vs_sell.png
+  11_follow_notional_returns.png
+  12_trump_cumulative_pnl.png
+  13_follow_cumulative_pnl.png
+  14_follow_buy_vs_sell.png
+
+STEP 12: Generate report (MD + PDF)
+
+Done → reports/FINAL_REPORT.md + reports/FINAL_REPORT.pdf + reports/FINAL_REPORT.html

@@ -1,0 +1,81 @@
+{
+  "is_oge_url": true,
+  "n_oge_documents": 3,
+  "n_total_documents": 7,
+  "form_type": "OGE Form 278-T (Periodic Transaction Report)",
+  "legal_basis": "5 U.S.C. app. \u00a7 13104(l); transactions >$1,000 within 30-45 days",
+  "documents": [
+    {
+      "doc_id": "trump_278t_2025_08_19_a",
+      "pages": 22.0,
+      "filing_date": "2025-08-12",
+      "disclosure_date": "2025-08-19",
+      "file_exists": true,
+      "form_278t_detected": true,
+      "likely_equity": false,
+      "status": "ok"
+    },
+    {
+      "doc_id": "trump_278t_2025_08_19_b",
+      "pages": 7.0,
+      "filing_date": "2025-08-12",
+      "disclosure_date": "2025-08-19",
+      "file_exists": true,
+      "form_278t_detected": true,
+      "likely_equity": false,
+      "status": "ok"
+    },
+    {
+      "doc_id": "trump_278t_2025_11_17",
+      "pages": 3.0,
+      "filing_date": "2025-11-14",
+      "disclosure_date": "2025-11-17",
+      "file_exists": true,
+      "form_278t_detected": true,
+      "likely_equity": false,
+      "status": "ok"
+    },
+    {
+      "doc_id": "trump_278t_2026_01_14",
+      "pages": 8.0,
+      "filing_date": "2026-01-14",
+      "disclosure_date": "2026-01-14",
+      "file_exists": true,
+      "form_278t_detected": true,
+      "likely_equity": false,
+      "status": "ok"
+    },
+    {
+      "doc_id": "trump_278t_2026_04_23",
+      "pages": 8.0,
+      "filing_date": "2026-04-20",
+      "disclosure_date": "2026-04-23",
+      "file_exists": true,
+      "form_278t_detected": false,
+      "likely_equity": false,
+      "status": "ok"
+    },
+    {
+      "doc_id": "trump_278t_2026_05_08_bond",
+      "pages": NaN,
+      "filing_date": "2026-05-08",
+      "disclosure_date": "2026-05-08",
+      "file_exists": false,
+      "form_278t_detected": false,
+      "likely_equity": false,
+      "status": "error: URL not reachable: https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/405E4EC4E27BE8D185258DF7002DD1C0/$FILE/Trump,%20Donald%20J.-05.08.2026-278T(1).pdf"
+    },
+    {
+      "doc_id": "trump_278t_2026_05_08_equity",
+      "pages": 113.0,
+      "filing_date": "2026-05-08",
+      "disclosure_date": "2026-05-12",
+      "file_exists": true,
+      "form_278t_detected": true,
+      "likely_equity": true,
+      "status": "ok"
+    }
+  ],
+  "all_valid": true,
+  "n_valid_documents": 5
+}

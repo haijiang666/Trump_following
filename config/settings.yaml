@@ -1,0 +1,67 @@
+project_root: .
+
+paths:
+  raw_disclosures: data/raw/disclosures
+  raw_social: data/raw/social
+  raw_news: data/raw/news
+  processed: data/processed
+  prices: data/processed/prices
+  manual: data/manual
+
+person:
+  name: Donald J Trump
+  last_name: Trump
+  first_name: Donald
+
+oge:
+  base_url: https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index
+  search_collection: https://www.oge.gov/web/OGE.nsf/Officials%20Individual%20Disclosures%20Search%20Collection?OpenForm
+  inauguration_date: "2025-01-20"
+  analysis_end_date: "2026-05-30"
+  filing_date: "2026-05-08"
+  disclosure_received_date: "2026-05-12"
+  # Empty = use built-in TRUMP_278T_FILINGS catalog in equity_disclosures.py
+  filings: []
+
+price:
+  pre_window_days: 30
+  post_window_days: 90
+  benchmark_ticker: SPY
+
+event_study:
+  estimation_window: [-120, -21]
+  event_windows: [0, 1, 5, 20]
+
+backtest:
+  commission_bps: 5
+  slippage_bps: 10
+  follow_delay_days: 1
+
+social:
+  truth_social_account: realDonaldTrump
+  truth_archive_url: https://ix.cnn.io/data/truth-social/truth_archive.json
+  truth_rss_url: https://trumpstruth.org/feed
+  match_windows:
+    trade_days: 30
+    disclosure_days: 30
+  # Only link Trump's own posts (Truth Social); skip Google News for trade matching.
+  match_trump_posts_only: true
+  news_max_items: 20
+  ticker_news_top_n: 12
+  ticker_news_max_items: 5
+  news_rss_queries:
+    - "Donald Trump stock"
+    - "Donald Trump stock trade"
+    - "Donald Trump disclosure"
+    - "Trump OGE disclosure stock"
+    - "Trump periodic transaction report stock"
+    - "Trump Truth Social stock market"
+    - "Trump tweet stock market"
+    - "Trump X post stocks"
+    - "Trump portfolio stocks"
+    - "Trump Nvidia stock"
+    - "Trump sells stock"
+    - "Trump buys stock"
+    - "President Trump stock disclosure"
+
+timezone: US/Eastern

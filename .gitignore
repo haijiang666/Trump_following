@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.env
+*.egg-info/
+dist/
+build/
+.mplconfig/
+
+# Large OGE PDFs — re-download via pipeline (see README)
+data/raw/**/*.pdf
+
+# Optional: omit 17MB Truth archive cache (pipeline re-fetches from CNN)
+# data/raw/social/truth_archive_cache.json

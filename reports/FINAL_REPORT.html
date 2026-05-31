@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="description" content="Trump 第二任期股票/ETF 交易分析报告（手机可读版）"/>
+  <title>Trump 股票/ETF 交易分析报告</title>
+  <style>
+:root {
+  color-scheme: light;
+  --bg: #f4f5f7;
+  --paper: #ffffff;
+  --text: #1a1a2e;
+  --muted: #5c6370;
+  --border: #e2e6ed;
+  --accent: #1e4d8c;
+  --code-bg: #f1f3f6;
+  --nav-h: 3rem;
+}
+* { box-sizing: border-box; }
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+article {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+.mobile-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  margin: -2rem -2.25rem 1.25rem;
+  border-radius: 10px 10px 0 0;
+}
+.mobile-nav .nav-title {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 0.35rem;
+}
+.mobile-nav .nav-toggle {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: #eef2f8;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.mobile-nav .nav-links {
+  display: none;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  max-height: 50vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.mobile-nav.is-open .nav-links { display: flex; }
+.mobile-nav .nav-links a {
+  display: block;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.88rem;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+  background: #fafbfc;
+  border: 1px solid var(--border);
+}
+.mobile-nav .nav-links a:active { background: #eef2f8; }
+h1 { font-size: 1.85rem; margin-top: 0; border-bottom: 2px solid var(--accent); padding-bottom: .5rem; word-break: break-word; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; color: var(--accent); scroll-margin-top: calc(var(--nav-h) + 1rem); word-break: break-word; }
+h3 { font-size: 1.1rem; margin-top: 1.6rem; word-break: break-word; }
+blockquote {
+  margin: 1rem 0;
+  padding: .75rem 1rem;
+  border-left: 4px solid var(--accent);
+  background: #f0f4fa;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+p, ul, ol { margin: .75rem 0; word-break: break-word; }
+ul, ol { padding-left: 1.4rem; }
+li { margin: .25rem 0; }
+a { color: var(--accent); }
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+.table-wrap::after {
+  content: "← 左右滑动查看 →";
+  display: none;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--muted);
+  padding: 0.25rem;
+}
+table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: .88rem;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: .45rem .6rem;
+  text-align: left;
+  white-space: nowrap;
+}
+th { background: #eef2f8; font-weight: 600; position: sticky; top: 0; }
+tr:nth-child(even) td { background: #fafbfc; }
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .88em;
+  background: var(--code-bg);
+  padding: .12em .35em;
+  border-radius: 4px;
+  word-break: break-all;
+}
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.75rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: .78rem;
+  line-height: 1.45;
+}
+pre code { background: none; padding: 0; white-space: pre; }
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.25rem auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+figure.report-fig {
+  margin: 1.5rem 0;
+  padding: 0.85rem 0.5rem 1rem;
+  background: #fafbfc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-align: center;
+}
+figure.report-fig img {
+  margin: 0 auto;
+  border: none;
+  border-radius: 4px;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+figure.report-fig figcaption {
+  margin-top: 0.65rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.4;
+  white-space: normal;
+  word-break: break-word;
+}
+strong { font-weight: 650; }
+.footer-tip {
+  margin-top: 2rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: #f0f4fa;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+@media (max-width: 768px) {
+  body { font-size: 15px; }
+  .page { padding: 0.5rem 0 2.5rem; max-width: 100%; }
+  article {
+    padding: 1rem 0.85rem 1.5rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+  }
+  .mobile-nav {
+    margin: -1rem -0.85rem 1rem;
+    border-radius: 0;
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+  h1 { font-size: 1.35rem; line-height: 1.35; }
+  h2 { font-size: 1.12rem; margin-top: 1.6rem; }
+  h3 { font-size: 1rem; }
+  .table-wrap::after { display: block; }
+  .table-wrap th, .table-wrap td { padding: 0.32rem 0.42rem; font-size: 0.74rem; }
+  figure.report-fig { padding: 0.45rem 0.25rem 0.65rem; margin: 1rem 0; }
+  figure.report-fig figcaption { font-size: 0.78rem; }
+  pre { font-size: 0.72rem; padding: 0.55rem; }
+}
+@media print {
+  body { background: white; }
+  .page { padding: 0; max-width: none; }
+  article { border: none; box-shadow: none; padding: 0; }
+  .mobile-nav, .footer-tip { display: none; }
+  img { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <div class="page">
+    <article>
+
+    <nav class="mobile-nav" aria-label="报告目录">
+      <p class="nav-title">Trump 交易分析报告 · 手机版</p>
+      <button type="button" class="nav-toggle" aria-expanded="false">展开目录 ▾</button>
+      <div class="nav-links"><a href="#sec-1">数据范围</a><a href="#sec-2">Trump 当前净多头持仓（Top 10）</a><a href="#sec-3">Cross-Check</a><a href="#sec-4">样本验证</a><a href="#sec-5">Trump 本人发帖匹配</a><a href="#sec-6">Trump 发帖 × 收益 / 行为规律</a><a href="#sec-7">持仓时间（FIFO 买→卖配对）</a><a href="#sec-8">1. Trump 自身交易 timing（锚点 = 交易发生日）</a><a href="#sec-9">2. Follow Trump（锚点 = OGE 披露日）</a><a href="#sec-10">附录：旧版等权披露日回测（参考）</a><a href="#sec-11">Top Tickers（按 Trump 名义金额 amount_min 合计）</a><a href="#sec-12">说明</a></div>
+    </nav>
+      <h1>Trump 股票/ETF 交易分析报告</h1>
+<blockquote>
+<p>生成时间: 2026-05-31 15:02 · OGE Form 278-T · 第二任期上任以来</p>
+</blockquote>
+<h2 id="sec-1">数据范围</h2>
+<ul>
+<li><strong>分析区间</strong>: 2025-01-21 → 2026-03-31（交易发生日）</li>
+<li><strong>278-T 文件数</strong>: 6 份（有效 5）</li>
+<li><strong>披露日</strong>: 2025-08-19, 2026-01-14, 2026-04-23, 2026-05-12</li>
+<li><strong>股票/ETF 可交易笔数</strong>: <strong>2,260</strong>（<strong>657</strong> 只 ticker）</li>
+<li><strong>股票/ETF 名义下限合计</strong>: <strong>$144.5M</strong>（OGE <code>amount_min</code> 求和）</li>
+<li><strong>全部解析行</strong>: <strong>3,900</strong>（含债券等；全文件名义合计约 <strong>$253.4M</strong>）</li>
+<li><strong>表格解析率</strong>: <strong>92.7%</strong></li>
+</ul>
+<p><strong>交易规模（Trump timing；名义 = OGE <code>amount_min</code>，金额优先于笔数）</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方向</th>
+<th style="text-align: right;">笔数</th>
+<th style="text-align: right;">名义下限合计</th>
+<th style="text-align: right;">占总额比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>买入</td>
+<td style="text-align: right;">1,774</td>
+<td style="text-align: right;">$105.4M</td>
+<td style="text-align: right;">70.8%</td>
+</tr>
+<tr>
+<td>卖出</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">$43.5M</td>
+<td style="text-align: right;">29.2%</td>
+</tr>
+<tr>
+<td><strong>合计</strong></td>
+<td style="text-align: right;"><strong>2,287</strong></td>
+<td style="text-align: right;"><strong>$148.9M</strong></td>
+<td style="text-align: right;">100%</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="report-fig">
+<img src="figures/08_disclosure_timeline.png" alt="披露日批次：披露名义总额 + 笔数">
+<figcaption>披露日批次：披露名义总额 + 笔数</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/01_monthly_volume.png" alt="交易时间线（按日/周）：名义金额为主；柱顶标注 Top3 公司 buy/sell 名义">
+<figcaption>交易时间线（按日/周）：名义金额为主；柱顶标注 Top3 公司 buy/sell 名义</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/04_buy_sell.png" alt="买入 vs 卖出：笔数与名义金额双饼图">
+<figcaption>买入 vs 卖出：笔数与名义金额双饼图</figcaption>
+</figure>
+
+<h2 id="sec-2">Trump 当前净多头持仓（Top 10）</h2>
+<p>基于 <strong>FIFO 未配对买入</strong>（<code>match_status=open</code>），按净名义金额排序。<br>
+Horizon 收益以 <strong>最早一笔未平买入</strong> 的交易日为 anchor（Trump timing）。<br>
+截至分析截止日仍标注 <strong>仍持有</strong>；明细见 <code>reports/open_holdings_top10.csv</code>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ticker</th>
+<th style="text-align: right;">净名义($)</th>
+<th style="text-align: right;">未平笔数</th>
+<th>最早买入</th>
+<th>最近买入</th>
+<th style="text-align: right;">持有天</th>
+<th>状态</th>
+<th style="text-align: right;">+1d</th>
+<th style="text-align: right;">+5d</th>
+<th style="text-align: right;">+10d</th>
+<th style="text-align: right;">+20d</th>
+<th style="text-align: right;">+30d</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AMZN</td>
+<td style="text-align: right;">2,396,015</td>
+<td style="text-align: right;">15</td>
+<td>2026-01-23</td>
+<td>2026-03-27</td>
+<td style="text-align: right;">127</td>
+<td>仍持有</td>
+<td style="text-align: right;">-0.31%</td>
+<td style="text-align: right;">0.06%</td>
+<td style="text-align: right;">-12.06%</td>
+<td style="text-align: right;">-14.17%</td>
+<td style="text-align: right;">-10.73%</td>
+</tr>
+<tr>
+<td>AAPL</td>
+<td style="text-align: right;">2,200,008</td>
+<td style="text-align: right;">8</td>
+<td>2026-01-23</td>
+<td>2026-03-25</td>
+<td style="text-align: right;">127</td>
+<td>仍持有</td>
+<td style="text-align: right;">2.97%</td>
+<td style="text-align: right;">4.61%</td>
+<td style="text-align: right;">12.13%</td>
+<td style="text-align: right;">7.41%</td>
+<td style="text-align: right;">4.87%</td>
+</tr>
+<tr>
+<td>MSFT</td>
+<td style="text-align: right;">2,062,013</td>
+<td style="text-align: right;">13</td>
+<td>2026-01-26</td>
+<td>2026-03-31</td>
+<td style="text-align: right;">124</td>
+<td>仍持有</td>
+<td style="text-align: right;">2.19%</td>
+<td style="text-align: right;">-9.97%</td>
+<td style="text-align: right;">-12.05%</td>
+<td style="text-align: right;">-17.09%</td>
+<td style="text-align: right;">-13.52%</td>
+</tr>
+<tr>
+<td>CMCSA</td>
+<td style="text-align: right;">2,046,006</td>
+<td style="text-align: right;">6</td>
+<td>2026-01-12</td>
+<td>2026-03-25</td>
+<td style="text-align: right;">138</td>
+<td>仍持有</td>
+<td style="text-align: right;">-2.00%</td>
+<td style="text-align: right;">-1.96%</td>
+<td style="text-align: right;">-0.08%</td>
+<td style="text-align: right;">12.49%</td>
+<td style="text-align: right;">7.20%</td>
+</tr>
+<tr>
+<td>PTC</td>
+<td style="text-align: right;">2,018,006</td>
+<td style="text-align: right;">6</td>
+<td>2026-01-23</td>
+<td>2026-03-02</td>
+<td style="text-align: right;">127</td>
+<td>仍持有</td>
+<td style="text-align: right;">2.24%</td>
+<td style="text-align: right;">-3.71%</td>
+<td style="text-align: right;">-3.96%</td>
+<td style="text-align: right;">-6.94%</td>
+<td style="text-align: right;">0.79%</td>
+</tr>
+<tr>
+<td>COST</td>
+<td style="text-align: right;">1,862,012</td>
+<td style="text-align: right;">12</td>
+<td>2026-01-06</td>
+<td>2026-03-25</td>
+<td style="text-align: right;">144</td>
+<td>仍持有</td>
+<td style="text-align: right;">-0.73%</td>
+<td style="text-align: right;">5.94%</td>
+<td style="text-align: right;">10.55%</td>
+<td style="text-align: right;">10.19%</td>
+<td style="text-align: right;">11.26%</td>
+</tr>
+<tr>
+<td>MCHP</td>
+<td style="text-align: right;">1,530,005</td>
+<td style="text-align: right;">5</td>
+<td>2026-02-10</td>
+<td>2026-03-17</td>
+<td style="text-align: right;">109</td>
+<td>仍持有</td>
+<td style="text-align: right;">5.06%</td>
+<td style="text-align: right;">2.93%</td>
+<td style="text-align: right;">-1.23%</td>
+<td style="text-align: right;">-13.90%</td>
+<td style="text-align: right;">-14.72%</td>
+</tr>
+<tr>
+<td>VOO</td>
+<td style="text-align: right;">1,500,002</td>
+<td style="text-align: right;">2</td>
+<td>2026-03-02</td>
+<td>2026-03-25</td>
+<td style="text-align: right;">89</td>
+<td>仍持有</td>
+<td style="text-align: right;">-0.88%</td>
+<td style="text-align: right;">-1.18%</td>
+<td style="text-align: right;">-2.55%</td>
+<td style="text-align: right;">-7.69%</td>
+<td style="text-align: right;">1.44%</td>
+</tr>
+<tr>
+<td>GOOGL</td>
+<td style="text-align: right;">1,445,009</td>
+<td style="text-align: right;">9</td>
+<td>2026-01-10</td>
+<td>2026-03-31</td>
+<td style="text-align: right;">140</td>
+<td>仍持有</td>
+<td style="text-align: right;">1.24%</td>
+<td style="text-align: right;">-2.97%</td>
+<td style="text-align: right;">0.81%</td>
+<td style="text-align: right;">-4.00%</td>
+<td style="text-align: right;">-5.71%</td>
+</tr>
+<tr>
+<td>AVGO</td>
+<td style="text-align: right;">1,381,008</td>
+<td style="text-align: right;">8</td>
+<td>2026-01-31</td>
+<td>2026-03-31</td>
+<td style="text-align: right;">119</td>
+<td>仍持有</td>
+<td style="text-align: right;">-3.26%</td>
+<td style="text-align: right;">3.87%</td>
+<td style="text-align: right;">0.43%</td>
+<td style="text-align: right;">-5.22%</td>
+<td style="text-align: right;">-2.96%</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="report-fig">
+<img src="figures/17_open_holdings.png" alt="当前净多头 Top10：名义 + 买入后 horizon 收益">
+<figcaption>当前净多头 Top10：名义 + 买入后 horizon 收益</figcaption>
+</figure>
+
+<h2 id="sec-3">Cross-Check</h2>
+<ul>
+<li>OGE 官方来源: ✅</li>
+<li>Form 278-T 检测: ✅</li>
+</ul>
+<h3>已纳入文件（逐份统计）</h3>
+<p>名义金额 = 各笔 OGE 区间<strong>下限</strong>（<code>amount_min</code>）相加；债券 filing 中「股票/ETF」多为 0 或 OCR 误映射。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>doc_id</th>
+<th style="text-align: right;">页数</th>
+<th>披露日</th>
+<th style="text-align: right;">解析笔数</th>
+<th style="text-align: right;">股票/ETF笔数</th>
+<th style="text-align: right;">ticker数</th>
+<th style="text-align: right;">股票名义($)</th>
+<th style="text-align: right;">全文件名义($)</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>trump_278t_2025_08_19_a</td>
+<td style="text-align: right;">22</td>
+<td>2025-08-19</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">$400K</td>
+<td style="text-align: right;">$21.2M</td>
+<td>以债券为主（含少量误解析）</td>
+</tr>
+<tr>
+<td>trump_278t_2025_08_19_b</td>
+<td style="text-align: right;">7</td>
+<td>2025-08-19</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">$15K</td>
+<td>市政/公司债</td>
+</tr>
+<tr>
+<td>trump_278t_2025_11_17</td>
+<td style="text-align: right;">3</td>
+<td>2025-11-17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td>市政/公司债</td>
+</tr>
+<tr>
+<td>trump_278t_2026_01_14</td>
+<td style="text-align: right;">8</td>
+<td>2026-01-14</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">$50K</td>
+<td style="text-align: right;">$14.0M</td>
+<td>以债券为主（含少量误解析）</td>
+</tr>
+<tr>
+<td>trump_278t_2026_04_23</td>
+<td style="text-align: right;">8</td>
+<td>2026-04-23</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">$4.3M</td>
+<td>市政/公司债</td>
+</tr>
+<tr>
+<td>trump_278t_2026_05_08_bond</td>
+<td style="text-align: right;">—</td>
+<td>2026-05-08</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td>未下载</td>
+</tr>
+<tr>
+<td>trump_278t_2026_05_08_equity</td>
+<td style="text-align: right;">113</td>
+<td>2026-05-12</td>
+<td style="text-align: right;">3723</td>
+<td style="text-align: right;">2256</td>
+<td style="text-align: right;">640</td>
+<td style="text-align: right;">$144.0M</td>
+<td style="text-align: right;">$213.8M</td>
+<td>股票/ETF 批量</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-4">样本验证</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ticker</th>
+<th>动作</th>
+<th>日期</th>
+<th>匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DELL</td>
+<td>purchase</td>
+<td>2026-02-10</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>NVDA</td>
+<td>purchase</td>
+<td>2026-02-10</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>MSFT</td>
+<td>sale</td>
+<td>2026-02-10</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>AMZN</td>
+<td>sale</td>
+<td>2026-02-10</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>META</td>
+<td>sale</td>
+<td>2026-03-18</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sec-5">Trump 本人发帖匹配</h2>
+<p>来源：<strong>仅 Truth Social</strong>（CNN 归档 + trumpstruth.org RSS + 手动 JSON）。<br>
+<strong>不含</strong> Google News 等第三方报道——只有 Trump <strong>自己发的帖</strong> 才能反映主动点名/炒作某公司的意图。<br>
+规则：以 <strong>交易为中心</strong>，对每笔交易在交易日 ±30 天、披露日 ±30 天内检索 Trump 帖文。<br>
+<strong>Ticker 级链接</strong>：帖文须 <strong>明确提及 ticker</strong>（<code>$T</code> 或公司全名）；未点名 ticker 的宏观帖不参与匹配。</p>
+<ul>
+<li>载入 Trump 帖文（<code>events.parquet</code>）: <strong>6729</strong> 条</li>
+<li>参与匹配的独立帖文: <strong>13</strong> 条（去重）</li>
+<li>匹配链接总行数: <strong>121</strong>（含披露锚点 <strong>2,307</strong>）</li>
+<li>至少 1 条 <strong>Trump 发帖</strong> 匹配的交易: <strong>41</strong> / 2314</li>
+<li>至少 1 条 <strong>ticker 级</strong> 发帖匹配的交易: <strong>41</strong> / 2314</li>
+</ul>
+<p><strong>按链接类型</strong></p>
+<ul>
+<li><code>disclosure_event</code>: 2,307</li>
+<li><code>ticker_mentioned</code>: 73</li>
+<li><code>social_near_trade</code>: 33</li>
+<li><code>social_near_disclosure</code>: 15</li>
+</ul>
+<p><strong>按平台（独立事件数，非链接行数）</strong></p>
+<ul>
+<li>truth_social: 13</li>
+</ul>
+<p><strong>样例帖文</strong></p>
+<ul>
+<li>[truth_social] Palantir Technologies (PLTR) has proven to have great war fighting capabilities and equipment. Just ask our enemies!!! P</li>
+<li>[truth_social] A front page Article in The Fake News Wall Street Journal states, without any verification, that I offered Jamie Dimon, </li>
+<li>[truth_social] Trump sues JPMorgan Chase and CEO Jamie Dimon for $5B over alleged 'political' debanking: https://www.foxbusiness.com/po</li>
+<li>[truth_social] Numbers recently released show that TARIFFS have reduced the Trade Deficit of the United States by more than half. This </li>
+<li>[truth_social] To show you how ridiculous the opinion is, the Court said that I'm not allowed to charge even $1 DOLLAR to any Country u</li>
+<li>[truth_social] A very happy and blessed Good Friday to all, especially to the 186,000 Americans who gained Private Sector jobs in the m</li>
+</ul>
+<h2 id="sec-6">Trump 发帖 × 收益 / 行为规律</h2>
+<p>以下仅用 <strong>Trump 本人 Truth Social 帖文中明确出现 ticker</strong> 的 strict 匹配（宏观帖、英文 homograph 如 A/S/HE 已过滤）。<br>
+Trump PnL = 该笔 <strong>买入</strong> 交易 timing +10 交易日名义 PnL；已实现 PnL = FIFO 配对 lot 的 entry→exit 收益。<br>
+Top 表按 <code>(ticker, event)</code> 去重；<strong>sale</strong> 行的 PnL 来自该笔卖出交易自身 timing，非买入。</p>
+<h3>是否存在「先买 → 发帖 → 卖」？</h3>
+<ul>
+<li>FIFO 配对中 <strong>3</strong> 对持仓期间有 <strong>ticker 级别 Trump 发帖</strong> 提及</li>
+<li>其中 <strong>2</strong> 对：<strong>买入 → 持仓期内 Trump 发帖 → 卖出</strong></li>
+<li><strong>0</strong> 对：Trump 发帖在买入前 30 天内</li>
+<li>持仓期内发帖相对买入日中位 lag: <strong>3.0</strong> 天</li>
+<li>上述「买→发帖→卖」样例：买入 +10d 平均收益 <strong>-1.73%</strong>（PnL <strong>$-1,843</strong>）；已实现平均 <strong>-5.69%</strong>（PnL <strong>$-507</strong>）</li>
+</ul>
+<p><strong>解读</strong>：在 <strong>帖文必须出现 ticker</strong> 的严格筛选下：<br>
+- <strong>2</strong> 对 FIFO 持仓满足「买→持仓期内 Trump 点名 ticker→卖」，中位发帖 lag <strong>约 3.0 天</strong>；<br>
+- 第三方新闻报道（Google News 等）<strong>已排除</strong>，不参与本分析；<br>
+- 未见稳定的「secret 建仓 → Truth 点名该 ticker → 数日内卖出」链条；<br>
+- Truth <strong>宏观帖</strong>（通胀、美元等）若未点名 ticker，已从本分析剔除。</p>
+<h3>Top 交易×Trump 发帖（按交易名义金额排序）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ticker</th>
+<th>动作</th>
+<th>交易日</th>
+<th style="text-align: right;">名义($)</th>
+<th>发帖日</th>
+<th style="text-align: right;">Δ天</th>
+<th style="text-align: right;">+10d PnL</th>
+<th>平台</th>
+<th>帖文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PLTR</td>
+<td>sale</td>
+<td>2026-02-10</td>
+<td style="text-align: right;">1,000,001</td>
+<td>2026-04-10</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">38,133</td>
+<td>truth_social</td>
+<td>Palantir Technologies (PLTR) has proven to have great war fighting cap</td>
+</tr>
+<tr>
+<td>JPM</td>
+<td>sale</td>
+<td>2026-01-02</td>
+<td style="text-align: right;">50,001</td>
+<td>2026-01-17</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1,782</td>
+<td>truth_social</td>
+<td>A front page Article in The Fake News Wall Street Journal states, with</td>
+</tr>
+<tr>
+<td>JPM</td>
+<td>sale</td>
+<td>2026-01-12</td>
+<td style="text-align: right;">50,001</td>
+<td>2026-01-22</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3,726</td>
+<td>truth_social</td>
+<td>Trump sues JPMorgan Chase and CEO Jamie Dimon for $5B over alleged 'po</td>
+</tr>
+<tr>
+<td>TTD</td>
+<td>purchase</td>
+<td>2026-02-10</td>
+<td style="text-align: right;">50,001</td>
+<td>2026-04-04</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">-5,279</td>
+<td>truth_social</td>
+<td>Not only were the jobs numbers GREAT yesterday, 178,000 new jobs, but</td>
+</tr>
+<tr>
+<td>TTD</td>
+<td>purchase</td>
+<td>2026-02-10</td>
+<td style="text-align: right;">50,001</td>
+<td>2026-02-20</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">-5,279</td>
+<td>truth_social</td>
+<td>To show you how ridiculous the opinion is, the Court said that I'm not</td>
+</tr>
+<tr>
+<td>TTD</td>
+<td>purchase</td>
+<td>2026-02-10</td>
+<td style="text-align: right;">50,001</td>
+<td>2026-04-03</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">-5,279</td>
+<td>truth_social</td>
+<td>A very happy and blessed Good Friday to all, especially to the 186,000</td>
+</tr>
+<tr>
+<td>GS</td>
+<td>purchase</td>
+<td>2026-03-02</td>
+<td style="text-align: right;">15,001</td>
+<td>2026-05-12</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">-1,165</td>
+<td>truth_social</td>
+<td>CNBC incorrectly reported that the Great Jensen Huang, of Nvidia, was</td>
+</tr>
+<tr>
+<td>GS</td>
+<td>purchase</td>
+<td>2026-03-02</td>
+<td style="text-align: right;">15,001</td>
+<td>2026-05-12</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">-1,165</td>
+<td>truth_social</td>
+<td>RT @realDonaldTrumpCNBC incorrectly reported that the Great Jensen Hua</td>
+</tr>
+<tr>
+<td>GS</td>
+<td>purchase</td>
+<td>2026-03-02</td>
+<td style="text-align: right;">15,001</td>
+<td>2026-05-13</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">-1,165</td>
+<td>truth_social</td>
+<td>RT @realDonaldTrumpCNBC incorrectly reported that the Great Jensen Hua</td>
+</tr>
+<tr>
+<td>LMT</td>
+<td>purchase</td>
+<td>2026-03-12</td>
+<td style="text-align: right;">15,001</td>
+<td>2026-03-06</td>
+<td style="text-align: right;">-6</td>
+<td style="text-align: right;">-586</td>
+<td>truth_social</td>
+<td>We just concluded a very good meeting with the largest U.S. Defense Ma</td>
+</tr>
+<tr>
+<td>TMO</td>
+<td>purchase</td>
+<td>2026-03-21</td>
+<td style="text-align: right;">15,001</td>
+<td>2026-03-11</td>
+<td style="text-align: right;">-10</td>
+<td style="text-align: right;">357</td>
+<td>truth_social</td>
+<td>I am on my way to the Great State of Ohio, which I love and WON BIG th</td>
+</tr>
+<tr>
+<td>NOC</td>
+<td>purchase</td>
+<td>2025-03-17</td>
+<td style="text-align: right;">1,001</td>
+<td>2026-03-06</td>
+<td style="text-align: right;">354</td>
+<td style="text-align: right;">44</td>
+<td>truth_social</td>
+<td>We just concluded a very good meeting with the largest U.S. Defense Ma</td>
+</tr>
+</tbody>
+</table></div>
+<p>完整列表: <code>reports/media_top_trade_event_pairs.csv</code></p>
+<h3>Top3 匹配 ticker 时间线（买 → 发帖 → 卖 / 仍持有）</h3>
+<p>下图展示 <strong>匹配名义金额最大的 3 只 ticker</strong>：绿色▼=买入、蓝色◆=Trump Truth 发帖、红色▲=卖出；灰条=持仓区间，右端标注是否仍持有。</p>
+<figure class="report-fig">
+<img src="figures/16_media_match_timelines.png" alt="Top3 匹配 ticker：买入 / Trump 发帖 / 卖出或仍持有">
+<figcaption>Top3 匹配 ticker：买入 / Trump 发帖 / 卖出或仍持有</figcaption>
+</figure>
+
+<h3>Trump 发帖匹配的 Top Ticker（按 Trump 名义金额排序）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ticker</th>
+<th style="text-align: right;">Trump名义($)</th>
+<th style="text-align: right;">独立事件</th>
+<th style="text-align: right;">交易笔数</th>
+<th style="text-align: right;">买/卖链接</th>
+<th style="text-align: right;">Trump NW +10d</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PLTR</td>
+<td style="text-align: right;">1,335,012</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">7/5</td>
+<td style="text-align: right;">3.60%</td>
+</tr>
+<tr>
+<td>JPM</td>
+<td style="text-align: right;">451,015</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6/6</td>
+<td style="text-align: right;">0.86%</td>
+</tr>
+<tr>
+<td>TTD</td>
+<td style="text-align: right;">135,009</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">19/2</td>
+<td style="text-align: right;">-12.05%</td>
+</tr>
+<tr>
+<td>GS</td>
+<td style="text-align: right;">61,005</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">15/0</td>
+<td style="text-align: right;">0.65%</td>
+</tr>
+<tr>
+<td>TMO</td>
+<td style="text-align: right;">45,003</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3/0</td>
+<td style="text-align: right;">-2.00%</td>
+</tr>
+<tr>
+<td>LMT</td>
+<td style="text-align: right;">31,003</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3/0</td>
+<td style="text-align: right;">-4.08%</td>
+</tr>
+<tr>
+<td>NOC</td>
+<td style="text-align: right;">1,001</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1/0</td>
+<td style="text-align: right;">4.39%</td>
+</tr>
+</tbody>
+</table></div>
+<h3>「买→发帖→卖」样例（ticker 必须在帖中出现）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ticker</th>
+<th>买</th>
+<th>卖</th>
+<th style="text-align: right;">持仓d</th>
+<th>发帖日</th>
+<th style="text-align: right;">发帖-买(d)</th>
+<th style="text-align: right;">买+10d收益</th>
+<th style="text-align: right;">买+10d PnL</th>
+<th style="text-align: right;">已实现收益</th>
+<th style="text-align: right;">已实现 PnL</th>
+<th>样例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JPM</td>
+<td>2026-01-17</td>
+<td>2026-03-18</td>
+<td style="text-align: right;">60</td>
+<td>2026-01-17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4.00%</td>
+<td style="text-align: right;">$40</td>
+<td style="text-align: right;">-4.95%</td>
+<td style="text-align: right;">$-50</td>
+<td>A front page Article in The Fake News Wall Street</td>
+</tr>
+<tr>
+<td>JPM</td>
+<td>2026-01-11</td>
+<td>2026-01-22</td>
+<td style="text-align: right;">11</td>
+<td>2026-01-17</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">-7.45%</td>
+<td style="text-align: right;">$-3,726</td>
+<td style="text-align: right;">-6.43%</td>
+<td style="text-align: right;">$-964</td>
+<td>A front page Article in The Fake News Wall Street</td>
+</tr>
+</tbody>
+</table></div>
+<p>明细: <code>reports/media_buy_post_sell_patterns.csv</code></p>
+<h2 id="sec-7">持仓时间（FIFO 买→卖配对）</h2>
+<ul>
+<li>成功配对: <strong>291</strong> 对，涉及 <strong>202</strong> 个 ticker</li>
+<li>持仓中位: <strong>31</strong> 天，均值: <strong>37</strong> 天</li>
+<li>规则: 同 ticker 按日期排序，<strong>先进先出</strong>；无对应买入的卖出标为 <code>prior_position</code>；未卖出买入标为 <code>open</code></li>
+<li>明细: <code>reports/matched_lots.csv</code>（每笔买-卖对），<code>reports/holdings_by_ticker.csv</code>（每 ticker 平均持仓）</li>
+</ul>
+<h3>Top tickers（按 Trump 名义金额）</h3>
+<pre><code>ticker  n_matched_pairs  n_open_buys  n_prior_sells  avg_holding_days  median_holding_days  min_holding_days  max_holding_days  trump_total_notional
+  AMZN                4           15              0             31.00                 32.5              24.0              35.0             8848023.0
+  MSFT                4           13              0             92.50                 20.5               6.0             323.0             8443021.0
+   VOO                1            2              2             47.00                 47.0              47.0              47.0             5500006.0
+  NVDA                4            7              0             28.75                 31.0              11.0              42.0             3617015.0
+   SPY                1            1              2             11.00                 11.0              11.0              11.0             3500005.0
+    BA                2            4              0             39.50                 39.5              35.0              44.0             2533008.0
+  ORCL                2           14              0             25.00                 25.0              15.0              35.0             2530018.0
+  UBER                2           12              0             36.50                 36.5              36.0              37.0             2289015.0
+  META                4           13              0            102.00                 38.0               9.0             323.0             2202021.0
+   ACN                4            4              0             30.00                 31.5              22.0              35.0             2184012.0
+</code></pre>
+<figure class="report-fig">
+<img src="figures/09_holding_days.png" alt="FIFO 持仓天数分布">
+<figcaption>FIFO 持仓天数分布</figcaption>
+</figure>
+
+<h2 id="sec-8">1. Trump 自身交易 timing（锚点 = <strong>交易发生日</strong>）</h2>
+<ul>
+<li><strong>事件研究</strong>：每笔交易当日为锚点，看 +h 交易日价格；买入 sign=+1，卖出 sign=−1</li>
+<li><strong>已实现（realized）</strong>：FIFO 配对 <strong>entry=买入日收盘</strong>、<strong>exit=卖出日收盘</strong>（见 §1d）</li>
+<li>notional = OGE <code>amount_min</code>；窗口: <strong>1, 3, 5, 10, 20, 30</strong> 个交易日</li>
+</ul>
+<h3>1a. 合计（买 + 卖）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>窗口(交易日)</th>
+<th style="text-align: right;">笔数</th>
+<th style="text-align: right;">总名义($)</th>
+<th style="text-align: right;">总PnL($)</th>
+<th style="text-align: right;"><strong>名义加权收益率</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+1d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">-222,803</td>
+<td style="text-align: right;"><strong>-0.15%</strong></td>
+</tr>
+<tr>
+<td>+3d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">238,569</td>
+<td style="text-align: right;"><strong>0.16%</strong></td>
+</tr>
+<tr>
+<td>+5d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">1,785</td>
+<td style="text-align: right;"><strong>0.00%</strong></td>
+</tr>
+<tr>
+<td>+10d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">-219,695</td>
+<td style="text-align: right;"><strong>-0.15%</strong></td>
+</tr>
+<tr>
+<td>+20d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">-124,233</td>
+<td style="text-align: right;"><strong>-0.08%</strong></td>
+</tr>
+<tr>
+<td>+30d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">1,901,053</td>
+<td style="text-align: right;"><strong>1.28%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<figure class="report-fig">
+<img src="figures/10_trump_notional_returns.png" alt="Trump timing：名义加权 horizon 收益">
+<figcaption>Trump timing：名义加权 horizon 收益</figcaption>
+</figure>
+
+<h3>1b. Trump 买（仅 <code>purchase</code>）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>窗口(交易日)</th>
+<th style="text-align: right;">笔数</th>
+<th style="text-align: right;">总名义($)</th>
+<th style="text-align: right;">总PnL($)</th>
+<th style="text-align: right;"><strong>名义加权收益率</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+1d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">-582,065</td>
+<td style="text-align: right;"><strong>-0.55%</strong></td>
+</tr>
+<tr>
+<td>+3d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">-409,758</td>
+<td style="text-align: right;"><strong>-0.39%</strong></td>
+</tr>
+<tr>
+<td>+5d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">-501,241</td>
+<td style="text-align: right;"><strong>-0.48%</strong></td>
+</tr>
+<tr>
+<td>+10d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">-346,415</td>
+<td style="text-align: right;"><strong>-0.33%</strong></td>
+</tr>
+<tr>
+<td>+20d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">535,786</td>
+<td style="text-align: right;"><strong>0.51%</strong></td>
+</tr>
+<tr>
+<td>+30d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">1,745,498</td>
+<td style="text-align: right;"><strong>1.66%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3>1c. Trump 卖（仅 <code>sale</code>，按做空计 sign=−1）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>窗口(交易日)</th>
+<th style="text-align: right;">笔数</th>
+<th style="text-align: right;">总名义($)</th>
+<th style="text-align: right;">总PnL($)</th>
+<th style="text-align: right;"><strong>名义加权收益率</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+1d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">359,414</td>
+<td style="text-align: right;"><strong>0.83%</strong></td>
+</tr>
+<tr>
+<td>+3d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">648,753</td>
+<td style="text-align: right;"><strong>1.49%</strong></td>
+</tr>
+<tr>
+<td>+5d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">503,088</td>
+<td style="text-align: right;"><strong>1.16%</strong></td>
+</tr>
+<tr>
+<td>+10d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">126,750</td>
+<td style="text-align: right;"><strong>0.29%</strong></td>
+</tr>
+<tr>
+<td>+20d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">-659,496</td>
+<td style="text-align: right;"><strong>-1.51%</strong></td>
+</tr>
+<tr>
+<td>+30d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">155,647</td>
+<td style="text-align: right;"><strong>0.36%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<figure class="report-fig">
+<img src="figures/15_trump_buy_vs_sell.png" alt="Trump timing：买入 vs 卖出 NW 收益对比">
+<figcaption>Trump timing：买入 vs 卖出 NW 收益对比</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/12_trump_cumulative_pnl.png" alt="Trump timing：累计 PnL（按交易日）">
+<figcaption>Trump timing：累计 PnL（按交易日）</figcaption>
+</figure>
+
+<h3>1d. 已实现收益（FIFO entry → exit）</h3>
+<p>假设：<strong>entry</strong> = 买入日收盘价，<strong>exit</strong> = 卖出日收盘价；名义 = min(买/卖 <code>amount_min</code>)。<br>
+未平仓买入按 <strong>mark-to-market</strong> 至 2026-05-30（未实现）。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align: right;">配对/笔数</th>
+<th style="text-align: right;">名义($)</th>
+<th style="text-align: right;">总 PnL($)</th>
+<th style="text-align: right;"><strong>NW 收益率</strong></th>
+<th style="text-align: right;">中位持仓(天)</th>
+<th style="text-align: right;">胜率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>已实现（买→卖）</td>
+<td style="text-align: right;">290</td>
+<td style="text-align: right;">8,531,290</td>
+<td style="text-align: right;">-730,951</td>
+<td style="text-align: right;"><strong>-8.57%</strong></td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">15.2%</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>无对应买入的卖出（<code>prior_position</code>）: <strong>227</strong> 笔 — 未计入 realized</li>
+</ul>
+<p>明细: <code>reports/realized_fifo_lots.csv</code></p>
+<h2 id="sec-9">2. Follow Trump（锚点 = <strong>OGE 披露日</strong>）</h2>
+<ul>
+<li>披露日跟单，方向与 Trump 一致：<strong>买入 = 做多</strong>，<strong>卖出 = 做空</strong></li>
+<li>下面先给 <strong>合计</strong>，再拆 <strong>Follow 买</strong> / <strong>Follow 卖</strong></li>
+</ul>
+<h3>2a. 合计（买 + 卖）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>窗口(交易日)</th>
+<th style="text-align: right;">笔数</th>
+<th style="text-align: right;">总名义($)</th>
+<th style="text-align: right;">总PnL($)</th>
+<th style="text-align: right;"><strong>名义加权收益率</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+1d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">89,330</td>
+<td style="text-align: right;"><strong>0.06%</strong></td>
+</tr>
+<tr>
+<td>+3d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">-228,627</td>
+<td style="text-align: right;"><strong>-0.15%</strong></td>
+</tr>
+<tr>
+<td>+5d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">-451,342</td>
+<td style="text-align: right;"><strong>-0.30%</strong></td>
+</tr>
+<tr>
+<td>+10d</td>
+<td style="text-align: right;">2288</td>
+<td style="text-align: right;">148,906,275</td>
+<td style="text-align: right;">1,010,177</td>
+<td style="text-align: right;"><strong>0.68%</strong></td>
+</tr>
+<tr>
+<td>+20d</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">450,004</td>
+<td style="text-align: right;">15,554</td>
+<td style="text-align: right;"><strong>3.46%</strong></td>
+</tr>
+<tr>
+<td>+30d</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">450,004</td>
+<td style="text-align: right;">1,380</td>
+<td style="text-align: right;"><strong>0.31%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<figure class="report-fig">
+<img src="figures/11_follow_notional_returns.png" alt="Follow 披露日：名义加权 horizon 收益">
+<figcaption>Follow 披露日：名义加权 horizon 收益</figcaption>
+</figure>
+
+<h3>2b. Follow 买（仅 <code>purchase</code>，做多）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>窗口(交易日)</th>
+<th style="text-align: right;">笔数</th>
+<th style="text-align: right;">总名义($)</th>
+<th style="text-align: right;">总PnL($)</th>
+<th style="text-align: right;"><strong>名义加权收益率</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+1d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">-96,512</td>
+<td style="text-align: right;"><strong>-0.09%</strong></td>
+</tr>
+<tr>
+<td>+3d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">-175,491</td>
+<td style="text-align: right;"><strong>-0.17%</strong></td>
+</tr>
+<tr>
+<td>+5d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">-401,577</td>
+<td style="text-align: right;"><strong>-0.38%</strong></td>
+</tr>
+<tr>
+<td>+10d</td>
+<td style="text-align: right;">1774</td>
+<td style="text-align: right;">105,356,763</td>
+<td style="text-align: right;">1,966,202</td>
+<td style="text-align: right;"><strong>1.87%</strong></td>
+</tr>
+<tr>
+<td>+20d</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">450,004</td>
+<td style="text-align: right;">15,554</td>
+<td style="text-align: right;"><strong>3.46%</strong></td>
+</tr>
+<tr>
+<td>+30d</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">450,004</td>
+<td style="text-align: right;">1,380</td>
+<td style="text-align: right;"><strong>0.31%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3>2c. Follow 卖（仅 <code>sale</code>，做空）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>窗口(交易日)</th>
+<th style="text-align: right;">笔数</th>
+<th style="text-align: right;">总名义($)</th>
+<th style="text-align: right;">总PnL($)</th>
+<th style="text-align: right;"><strong>名义加权收益率</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+1d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">185,744</td>
+<td style="text-align: right;"><strong>0.43%</strong></td>
+</tr>
+<tr>
+<td>+3d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">-53,275</td>
+<td style="text-align: right;"><strong>-0.12%</strong></td>
+</tr>
+<tr>
+<td>+5d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">-49,929</td>
+<td style="text-align: right;"><strong>-0.11%</strong></td>
+</tr>
+<tr>
+<td>+10d</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">43,534,511</td>
+<td style="text-align: right;">-956,611</td>
+<td style="text-align: right;"><strong>-2.20%</strong></td>
+</tr>
+<tr>
+<td>+20d</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr>
+<td>+30d</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="report-fig">
+<img src="figures/14_follow_buy_vs_sell.png" alt="Follow：买入 vs 卖出 NW 收益对比">
+<figcaption>Follow：买入 vs 卖出 NW 收益对比</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/13_follow_cumulative_pnl.png" alt="Follow 披露日：累计 PnL">
+<figcaption>Follow 披露日：累计 PnL</figcaption>
+</figure>
+
+<h2 id="sec-10">附录：旧版等权披露日回测（参考）</h2>
+<ul>
+<li>Reveal lag 中位: <strong>71</strong> 天</li>
+<li>等权按披露日复利 (+1td only): <strong>2.25%</strong></li>
+<li>胜率 (+1td): <strong>43.3%</strong></li>
+</ul>
+<figure class="report-fig">
+<img src="figures/02_reveal_lag.png" alt="披露滞后（交易日 → 披露日）">
+<figcaption>披露滞后（交易日 → 披露日）</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/06_backtest_cum.png" alt="Legacy：等权披露日回测累计收益">
+<figcaption>Legacy：等权披露日回测累计收益</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/05_post_returns.png" alt="Legacy：披露后收益分布">
+<figcaption>Legacy：披露后收益分布</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/07_event_study.png" alt="事件研究：披露日 abnormal return">
+<figcaption>事件研究：披露日 abnormal return</figcaption>
+</figure>
+
+<h2 id="sec-11">Top Tickers（按 Trump 名义金额 <code>amount_min</code> 合计）</h2>
+<pre><code>ticker  trades  buys  sales  total_notional  avg_post_5d  avg_post_1d
+  AMZN      23    19      4       8848023.0    -0.015898     0.010574
+  MSFT      21    17      4       8443021.0     0.014650    -0.003886
+   VOO       6     3      3       5500006.0     0.000000     0.000000
+  NVDA      15    11      4       3617015.0    -0.000359     0.010674
+   SPY       5     2      3       3500005.0     0.001206    -0.001119
+    BA       8     6      2       2533008.0    -0.046143     0.007874
+  ORCL      18    16      2       2530018.0    -0.022355     0.012198
+  UBER      16    14      2       2289015.0    -0.022296    -0.016304
+  META      21    17      4       2202021.0    -0.000204     0.012678
+  AAPL       8     8      0       2200008.0     0.014145     0.013806
+   ACN      12     8      4       2184012.0     0.013803    -0.019890
+  NFLX      12    10      2       2167012.0     0.012701    -0.000761
+ CMCSA       6     6      0       2046006.0    -0.004016     0.001606
+   PTC       8     7      1       2034008.0     0.005044    -0.017733
+  COST      12    12      0       1862012.0     0.070889     0.010960
+</code></pre>
+<figure class="report-fig">
+<img src="figures/03_top_tickers.png" alt="Trump 名义金额 Top Ticker（amount_min 合计）">
+<figcaption>Trump 名义金额 Top Ticker（amount_min 合计）</figcaption>
+</figure>
+
+<h2 id="sec-12">说明</h2>
+<ul>
+<li>上任以来 <strong>6 份</strong> 278-T 中，<strong>股票/ETF 批量披露</strong>集中在 <code>trump_278t_2026_05_08_equity</code>（2026-05-12 收到）；其余多为市政/公司债 periodic report。</li>
+<li>名义金额 = OGE 披露区间<strong>下限</strong>相加，非精确成交价；单笔可能落在 $1,001–$15,000 至 $50M+ 等 bracket。</li>
+<li><code>return_post_disclosure_20d</code> 在披露日距数据截止不足 20 交易日时为空。</li>
+</ul>
+<p>完整数据: <code>reports/trades_analysis.csv</code></p>
+      <div class="footer-tip">局域网预览：电脑与手机同一 WiFi 时，运行 <code>python scripts/serve_report.py</code>，手机浏览器访问 <code>http://192.168.0.103:8765/</code>，可复制链接到微信。</div>
+    </article>
+  </div>
+  <script>
+(function () {
+  var nav = document.querySelector('.mobile-nav');
+  var btn = document.querySelector('.nav-toggle');
+  if (!nav || !btn) return;
+  btn.addEventListener('click', function () {
+    var open = nav.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? '收起目录 ▴' : '展开目录 ▾';
+  });
+  document.querySelectorAll('.nav-links a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      nav.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = '展开目录 ▾';
+    });
+  });
+})();
+</script>
+</body>
+</html>

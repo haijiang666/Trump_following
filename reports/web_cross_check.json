@@ -1,0 +1,49 @@
+[
+  {
+    "ticker": "DELL",
+    "action": "purchase",
+    "date": "2026-02-10",
+    "amount_min": 1000001,
+    "source": "OGE 278-T + press",
+    "found_in_parse": true,
+    "match_count": 1,
+    "sample_asset": "DELL TECHNOLOGIES INC CL C"
+  },
+  {
+    "ticker": "NVDA",
+    "action": "purchase",
+    "date": "2026-02-10",
+    "source": "OGE 278-T + MarketWatch",
+    "found_in_parse": true,
+    "match_count": 1,
+    "sample_asset": "NVIDIA CORP"
+  },
+  {
+    "ticker": "MSFT",
+    "action": "sale",
+    "date": "2026-02-10",
+    "amount_min": 5000001,
+    "source": "OGE 278-T + press",
+    "found_in_parse": true,
+    "match_count": 1,
+    "sample_asset": "MICROSOFT CORP COM"
+  },
+  {
+    "ticker": "AMZN",
+    "action": "sale",
+    "date": "2026-02-10",
+    "source": "OGE 278-T + press",
+    "found_in_parse": true,
+    "match_count": 1,
+    "sample_asset": "AMAZON COM INC"
+  },
+  {
+    "ticker": "META",
+    "action": "sale",
+    "date": "2026-03-18",
+    "source": "OGE 278-T + press",
+    "found_in_parse": true,
+    "match_count": 1,
+    "sample_asset": "META PLATFORMS INC CLASS A"
+  }
+]

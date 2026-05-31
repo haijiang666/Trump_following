@@ -1,0 +1,1604 @@
+{
+  "total_rows_parsed": 3900,
+  "tradable_with_ticker": 2314,
+  "tradable_equity_etf": 2260,
+  "unique_tickers": 657,
+  "date_range": [
+    "2025-01-21",
+    "2026-03-31"
+  ],
+  "disclosure_dates": [
+    "2025-08-19",
+    "2026-01-14",
+    "2026-04-23",
+    "2026-05-12"
+  ],
+  "n_filings": 6,
+  "median_reveal_lag_days": 71.0,
+  "holding_stats": {
+    "n_matched_pairs": 291,
+    "median_holding_days": 31.0,
+    "mean_holding_days": 36.62199312714777,
+    "n_tickers_with_pairs": 202
+  },
+  "parse_rate_vs_table": 0.9268060836501901,
+  "per_document_stats": [
+    {
+      "doc_id": "trump_278t_2025_08_19_a",
+      "table_rows_in_pdf": 500,
+      "parsed_raw_rows": 396,
+      "equity_rows_in_doc": 108,
+      "in_filing_period": 396,
+      "parse_rate_vs_table": 0.216
+    },
+    {
+      "doc_id": "trump_278t_2025_08_19_b",
+      "table_rows_in_pdf": 0,
+      "parsed_raw_rows": 1,
+      "equity_rows_in_doc": 1,
+      "in_filing_period": 1,
+      "parse_rate_vs_table": 0
+    },
+    {
+      "doc_id": "trump_278t_2025_11_17",
+      "table_rows_in_pdf": 0,
+      "parsed_raw_rows": 0,
+      "equity_rows_in_doc": 0,
+      "in_filing_period": 0,
+      "parse_rate_vs_table": 0
+    },
+    {
+      "doc_id": "trump_278t_2026_01_14",
+      "table_rows_in_pdf": 0,
+      "parsed_raw_rows": 133,
+      "equity_rows_in_doc": 50,
+      "in_filing_period": 129,
+      "parse_rate_vs_table": 0
+    },
+    {
+      "doc_id": "trump_278t_2026_04_23",
+      "table_rows_in_pdf": 151,
+      "parsed_raw_rows": 74,
+      "equity_rows_in_doc": 18,
+      "in_filing_period": 65,
+      "parse_rate_vs_table": 0.11920529801324503
+    },
+    {
+      "doc_id": "trump_278t_2026_05_08_equity",
+      "table_rows_in_pdf": 3557,
+      "parsed_raw_rows": 3833,
+      "equity_rows_in_doc": 3723,
+      "in_filing_period": 3801,
+      "parse_rate_vs_table": 1.0466685409052572
+    }
+  ],
+  "web_cross_check": [
+    {
+      "ticker": "DELL",
+      "action": "purchase",
+      "date": "2026-02-10",
+      "amount_min": 1000001,
+      "source": "OGE 278-T + press",
+      "found_in_parse": true,
+      "match_count": 1,
+      "sample_asset": "DELL TECHNOLOGIES INC CL C"
+    },
+    {
+      "ticker": "NVDA",
+      "action": "purchase",
+      "date": "2026-02-10",
+      "source": "OGE 278-T + MarketWatch",
+      "found_in_parse": true,
+      "match_count": 1,
+      "sample_asset": "NVIDIA CORP"
+    },
+    {
+      "ticker": "MSFT",
+      "action": "sale",
+      "date": "2026-02-10",
+      "amount_min": 5000001,
+      "source": "OGE 278-T + press",
+      "found_in_parse": true,
+      "match_count": 1,
+      "sample_asset": "MICROSOFT CORP COM"
+    },
+    {
+      "ticker": "AMZN",
+      "action": "sale",
+      "date": "2026-02-10",
+      "source": "OGE 278-T + press",
+      "found_in_parse": true,
+      "match_count": 1,
+      "sample_asset": "AMAZON COM INC"
+    },
+    {
+      "ticker": "META",
+      "action": "sale",
+      "date": "2026-03-18",
+      "source": "OGE 278-T + press",
+      "found_in_parse": true,
+      "match_count": 1,
+      "sample_asset": "META PLATFORMS INC CLASS A"
+    }
+  ],
+  "backtest_metrics": {
+    "mean_return_per_trade": -0.0036645091628080047,
+    "median_return_per_trade": -0.0035646697830542494,
+    "portfolio_return_equal_weight": 0.02245667317610911,
+    "sharpe": -1.1344120943951204,
+    "max_drawdown": -0.00367953452293146,
+    "n_trades": 2310,
+    "n_disclosure_days": 3,
+    "win_rate": 0.43333333333333335
+  },
+  "return_analysis": {
+    "trump_timing": [
+      {
+        "horizon_days": 1,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": -222802.65880245456,
+        "notional_weighted_return": -0.0014962610461006734,
+        "equal_weight_mean_return": -0.0021895074609599606,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 3,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": 238568.77242287935,
+        "notional_weighted_return": 0.0016021404902035147,
+        "equal_weight_mean_return": -0.00317573855115392,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 5,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": 1785.3317986951442,
+        "notional_weighted_return": 1.1989634410605895e-05,
+        "equal_weight_mean_return": -0.005707790638817217,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 10,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": -219695.21148745355,
+        "notional_weighted_return": -0.0014753925681604322,
+        "equal_weight_mean_return": -0.00403638653014461,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 20,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": -124232.51807940885,
+        "notional_weighted_return": -0.0008343000862751341,
+        "equal_weight_mean_return": 0.0037808776202046955,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 30,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": 1901052.5397106265,
+        "notional_weighted_return": 0.012766772519899692,
+        "equal_weight_mean_return": 0.020351414949404983,
+        "pct_of_all_notional": 1.0
+      }
+    ],
+    "trump_timing_buy": [
+      {
+        "horizon_days": 1,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": -582064.8501317367,
+        "notional_weighted_return": -0.005524703242180445,
+        "equal_weight_mean_return": -0.0025697026198407457,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 3,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": -409757.53484593134,
+        "notional_weighted_return": -0.0038892380819058703,
+        "equal_weight_mean_return": -0.002631261769616246,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 5,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": -501240.9171408807,
+        "notional_weighted_return": -0.004757558061468543,
+        "equal_weight_mean_return": -0.007142621606036264,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 10,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": -346414.8123429088,
+        "notional_weighted_return": -0.0032880168532029483,
+        "equal_weight_mean_return": -0.004026901339349803,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 20,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": 535786.0933722266,
+        "notional_weighted_return": 0.00508544566210929,
+        "equal_weight_mean_return": 0.005978857417352726,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 30,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": 1745498.1397149768,
+        "notional_weighted_return": 0.016567499703032607,
+        "equal_weight_mean_return": 0.024820183085540203,
+        "pct_of_all_notional": 1.0
+      }
+    ],
+    "trump_timing_sell": [
+      {
+        "horizon_days": 1,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": 359414.0933664309,
+        "notional_weighted_return": 0.008255843125616615,
+        "equal_weight_mean_return": -0.0008592875159405236,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 3,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": 648753.3519562815,
+        "notional_weighted_return": 0.01490204752630118,
+        "equal_weight_mean_return": -0.005009285921558345,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 5,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": 503088.12737154955,
+        "notional_weighted_return": 0.011556076221266148,
+        "equal_weight_mean_return": -0.0007491019467916985,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 10,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": 126749.85051835481,
+        "notional_weighted_return": 0.0029114798261626234,
+        "equal_weight_mean_return": -0.004073124552056533,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 20,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": -659495.7225412012,
+        "notional_weighted_return": -0.015148802809366601,
+        "equal_weight_mean_return": -0.003744616230907509,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 30,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": 155646.94781848902,
+        "notional_weighted_return": 0.0035752543038438866,
+        "equal_weight_mean_return": 0.004949711606335272,
+        "pct_of_all_notional": 1.0
+      }
+    ],
+    "follow_disclosure": [
+      {
+        "horizon_days": 1,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": 89330.05284488513,
+        "notional_weighted_return": 0.0005999079141888756,
+        "equal_weight_mean_return": -0.0020624520073946593,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 3,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": -228626.74906367075,
+        "notional_weighted_return": -0.0015353735029881765,
+        "equal_weight_mean_return": -0.0027168168938086442,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 5,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": -451341.69890131743,
+        "notional_weighted_return": -0.0030310455278081292,
+        "equal_weight_mean_return": -0.003923551111473858,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 10,
+        "n_trades": 2288,
+        "total_notional": 148906275.0,
+        "total_pnl": 1010177.438191651,
+        "notional_weighted_return": 0.006783981656862016,
+        "equal_weight_mean_return": 0.011131183333742049,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 20,
+        "n_trades": 4,
+        "total_notional": 450004.0,
+        "total_pnl": 15554.36263901268,
+        "notional_weighted_return": 0.03456494306497871,
+        "equal_weight_mean_return": 0.031539727571741304,
+        "pct_of_all_notional": 0.003022062031972796
+      },
+      {
+        "horizon_days": 30,
+        "n_trades": 4,
+        "total_notional": 450004.0,
+        "total_pnl": 1380.4303012107139,
+        "notional_weighted_return": 0.003067595624062706,
+        "equal_weight_mean_return": 0.023737423667147383,
+        "pct_of_all_notional": 0.003022062031972796
+      }
+    ],
+    "follow_disclosure_buy": [
+      {
+        "horizon_days": 1,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": -96511.6014729341,
+        "notional_weighted_return": -0.0009160456217977587,
+        "equal_weight_mean_return": -0.006296739012638822,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 3,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": -175491.2880723014,
+        "notional_weighted_return": -0.0016656860278850955,
+        "equal_weight_mean_return": -0.006161149430708971,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 5,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": -401576.59733749763,
+        "notional_weighted_return": -0.0038115882255940004,
+        "equal_weight_mean_return": -0.004113097404419621,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 10,
+        "n_trades": 1774,
+        "total_notional": 105356763.0,
+        "total_pnl": 1966201.557270689,
+        "notional_weighted_return": 0.018662319354578964,
+        "equal_weight_mean_return": 0.022335958331334435,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 20,
+        "n_trades": 4,
+        "total_notional": 450004.0,
+        "total_pnl": 15554.36263901268,
+        "notional_weighted_return": 0.03456494306497871,
+        "equal_weight_mean_return": 0.031539727571741304,
+        "pct_of_all_notional": 0.00427123980640901
+      },
+      {
+        "horizon_days": 30,
+        "n_trades": 4,
+        "total_notional": 450004.0,
+        "total_pnl": 1380.4303012107139,
+        "notional_weighted_return": 0.003067595624062706,
+        "equal_weight_mean_return": 0.023737423667147383,
+        "pct_of_all_notional": 0.00427123980640901
+      }
+    ],
+    "follow_disclosure_sell": [
+      {
+        "horizon_days": 1,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": 185744.41455249954,
+        "notional_weighted_return": 0.004266601606079819,
+        "equal_weight_mean_return": 0.012563435860875065,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 3,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": -53275.063100100575,
+        "notional_weighted_return": -0.0012237432298274943,
+        "equal_weight_mean_return": 0.009170557212879621,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 5,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": -49928.7730523006,
+        "notional_weighted_return": -0.0011468780033454518,
+        "equal_weight_mean_return": -0.0032969997130542113,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 10,
+        "n_trades": 513,
+        "total_notional": 43534511.0,
+        "total_pnl": -956611.4110634777,
+        "notional_weighted_return": -0.021973633999552166,
+        "equal_weight_mean_return": -0.027670551269270063,
+        "pct_of_all_notional": 1.0
+      },
+      {
+        "horizon_days": 20,
+        "n_trades": 0,
+        "total_notional": 0.0,
+        "total_pnl": 0.0,
+        "notional_weighted_return": NaN,
+        "equal_weight_mean_return": NaN,
+        "pct_of_all_notional": 0.0
+      },
+      {
+        "horizon_days": 30,
+        "n_trades": 0,
+        "total_notional": 0.0,
+        "total_pnl": 0.0,
+        "notional_weighted_return": NaN,
+        "equal_weight_mean_return": NaN,
+        "pct_of_all_notional": 0.0
+      }
+    ],
+    "realized_fifo": {
+      "realized": {
+        "n_lots": 290,
+        "total_notional": 8531290.0,
+        "total_pnl": -730951.2441256526,
+        "nw_return": -0.08567886499294393,
+        "median_return_pct": -0.06669535937618676,
+        "median_holding_days": 31.0,
+        "win_rate": 0.15172413793103448
+      },
+      "open_unrealized": {
+        "n_lots": 0,
+        "total_notional": 0.0,
+        "total_pnl": 0.0,
+        "nw_return": NaN
+      },
+      "mark_date": "2026-05-30",
+      "n_prior_sells": 227
+    }
+  },
+  "event_matching": {
+    "n_links": 2428,
+    "n_media_links": 121,
+    "n_events_loaded": 6729,
+    "n_unique_events_linked": 13,
+    "n_unique_events_ticker_specific": 13,
+    "n_trades_with_media": 41,
+    "n_trades_with_ticker_specific": 41,
+    "n_trades_total": 2314,
+    "by_link_type": {
+      "disclosure_event": 2307,
+      "ticker_mentioned": 73,
+      "social_near_trade": 33,
+      "social_near_disclosure": 15
+    },
+    "by_platform_link_rows": {
+      "truth_social": 121
+    },
+    "by_platform_unique_events": {
+      "truth_social": 13
+    },
+    "n_unique_events": 13,
+    "by_platform": {
+      "truth_social": 121
+    },
+    "sample_events": [
+      {
+        "platform": "truth_social",
+        "text": "Palantir Technologies (PLTR) has proven to have great war fighting capabilities and equipment. Just ask our enemies!!! President DJT",
+        "event_id": "c14797a02d51"
+      },
+      {
+        "platform": "truth_social",
+        "text": "A front page Article in The Fake News Wall Street Journal states, without any verification, that I offered Jamie Dimon, of JPMorgan Chase, the job of Fed Chairman. This statement is totally untrue, there was never such an offer and, in fact, I'll be suing JPMorgan Chase over the next two weeks for incorrectly and inappropriately DEBANKING me after the January 6th Protest, a protest that turned out to be correct for those doing the protesting \u2014 The Election was RIGGED! Why wouldn't The Wall Street Journal call me to ask whether or not such an offer was made? I would have very quickly told them, \"NO,\" and that would have been the end of the story. Also, one was led to believe that I offered Jamie Dimon the job of Secretary of the Treasury, but that would be one that he would be very interested in. The problem is, I have Scott Bessent doing a fantastic job, A SUPERSTAR \u2014 Why would I give it to Jamie? No such offer was made there, or even thought of, either. The Wall Street Journal ought to do better \"fact checking,\" or its already strained credibility will continue to DIVE. Thank you for your attention to this matter!",
+        "event_id": "ad8f8438de5f"
+      },
+      {
+        "platform": "truth_social",
+        "text": "Trump sues JPMorgan Chase and CEO Jamie Dimon for $5B over alleged 'political' debanking: https://www.foxbusiness.com/politics/trump-sues-jpmorgan-chase-ceo-jamie-dimon-5b-over-alleged-political-debanking",
+        "event_id": "723403574d54"
+      },
+      {
+        "platform": "truth_social",
+        "text": "Numbers recently released show that TARIFFS have reduced the Trade Deficit of the United States by more than half. This is larger than anyone, except ME, projected, and will only get stronger in the near future. Everybody should pray that the United States Supreme Court has the Wisdom and Genius to allow Tariffs to GUARD our National Security, and our Financial Freedom! There are Evil, America hating Forces against us. We can not let them prevail. Thank you for your attention to this matter. MAKE AMERICA GREAT AGAIN!",
+        "event_id": "55ccc479be03"
+      },
+      {
+        "platform": "truth_social",
+        "text": "To show you how ridiculous the opinion is, the Court said that I'm not allowed to charge even $1 DOLLAR to any Country under IEEPA, I assume to protect other Countries, not the United States which they should be interested in protecting \u2014 But I am allowed to cut off any and all Trade or Business with that same Country, even imposing a Foreign Country destroying embargo, and do anything else I want to do to them \u2014 How nonsensical is that? They are saying that I have the absolute right to license, but not the right to charge a license fee. What license has ever been issued without the right to charge a fee? But now the Court has given me the unquestioned right to ban all sorts of things from coming into our Country, a much more powerful Right than many people thought we had. Our Country is the \"HOTTEST\" anywhere in the World, but now, I am going in a different direction, which is even stronger than our original choice. As Justice Kavanaugh wrote in his Dissent: \"Although I firmly disagree with the Court's holding today, the decision might not substantially constrain a President's ability to order tariffs going forward. That is because numerous other federal statutes authorize the President to impose tariffs and might justify most (if not all) of the tariffs issued in this case...Those statutes include, for example, the Trade Expansion Act of 1962 (Section 232); the Trade Act of 1974 (Sections 122, 201, and 301); and the Tariff Act of 1930 (Section 338).\" Thank you Justice Kavanaugh! In actuality, while I am sure they did not mean to do so, the Supreme Court's decision today made a President's ability to both regulate Trade, and impose TARIFFS, more powerful and crystal clear, rather than less. There will no longer be any doubt, and the Income coming in, and the protection of our Companies and Country, will actually increase because of this decision. Based on longstanding Law and Hundreds of Victories to the contrary, the Supreme Court did not overrule TARIFFS, they me",
+        "event_id": "12d649aba1b1"
+      },
+      {
+        "platform": "truth_social",
+        "text": "A very happy and blessed Good Friday to all, especially to the 186,000 Americans who gained Private Sector jobs in the month of March alone! My Economic Policies have created an enormously powerful engine of Economic Growth, and nothing can slow it down. Factory Construction Jobs are soaring as a result of the rapid Onshoring and surging Investment that TARIFFS have generated, all while the Trade Deficit has shrunk by 52% in a year! President DONALD J. TRUMP",
+        "event_id": "befa94b7ee66"
+      },
+      {
+        "platform": "truth_social",
+        "text": "Not only were the jobs numbers GREAT yesterday, 178,000 new jobs, but the TRADE DEFICIT was down 55%, the biggest drop in history. THANK YOU MR. TARIFF! All of this and, simultaneously, getting rid of a Nuclear Iran. MAGA!!!",
+        "event_id": "eff69f0c9c97"
+      },
+      {
+        "platform": "truth_social",
+        "text": "We just concluded a very good meeting with the largest U.S. Defense Manufacturing Companies where we discussed Production and Production Schedules. They have agreed to quadruple Production of the \"Exquisite Class\" Weaponry in that we want to reach, as rapidly as possible, the highest levels of quantity. Expansion began three months prior to the meeting, and Plants and Production of many of these Weapons are already under way. We have a virtually unlimited supply of Medium and Upper Medium Grade Munitions, which we are using, as an example, in Iran, and recently used in Venezuela. Regardless, however, we have also increased Orders at these levels. The Companies represented were the CEOs of BAE Systems, Boeing, Honeywell Aerospace, L3Harris Missile Solutions, Lockheed Martin, Northrop Grumman, and Raytheon. The meeting concluded with another meeting scheduled in two months. States all over the Country are bidding for these new Plants. Thank you for your attention to this matter! President DONALD J. TRUMP",
+        "event_id": "30351b45447e"
+      }
+    ]
+  },
+  "media_pattern_analysis": {
+    "top_trade_event_pairs": [
+      {
+        "ticker": "PLTR",
+        "action": "sale",
+        "transaction_date": "2026-02-10",
+        "event_time": "2026-04-10",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": 59,
+        "trump_pnl_10d": 38133.44989531252,
+        "notional": 1000001.0,
+        "headline": "Palantir Technologies (PLTR) has proven to have great war fighting capabilities and equipment. Just ask our enemies!!! President DJT",
+        "url": "https://truthsocial.com/@realDonaldTrump/116380894672815869",
+        "query": ""
+      },
+      {
+        "ticker": "JPM",
+        "action": "sale",
+        "transaction_date": "2026-01-02",
+        "event_time": "2026-01-17",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": 15,
+        "trump_pnl_10d": 1782.1032303498428,
+        "notional": 50001.0,
+        "headline": "A front page Article in The Fake News Wall Street Journal states, without any verification, that I offered Jamie Dimon, of JPMorgan Chase, the job of Fed Chairm",
+        "url": "https://truthsocial.com/@realDonaldTrump/115911321115123547",
+        "query": ""
+      },
+      {
+        "ticker": "JPM",
+        "action": "sale",
+        "transaction_date": "2026-01-12",
+        "event_time": "2026-01-22",
+        "platform": "truth_social",
+        "link_type": "social_near_trade",
+        "days_event_minus_txn": 10,
+        "trump_pnl_10d": 3725.9214956324226,
+        "notional": 50001.0,
+        "headline": "Trump sues JPMorgan Chase and CEO Jamie Dimon for $5B over alleged 'political' debanking: https://www.foxbusiness.com/politics/trump-sues-jpmorgan-chase-ceo-jam",
+        "url": "https://truthsocial.com/@realDonaldTrump/115940059516984793",
+        "query": ""
+      },
+      {
+        "ticker": "TTD",
+        "action": "purchase",
+        "transaction_date": "2026-02-10",
+        "event_time": "2026-04-04",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": 53,
+        "trump_pnl_10d": -5279.166018396389,
+        "notional": 50001.0,
+        "headline": "Not only were the jobs numbers GREAT yesterday, 178,000 new jobs, but the TRADE DEFICIT was down 55%, the biggest drop in history. THANK YOU MR. TARIFF! All of ",
+        "url": "https://truthsocial.com/@realDonaldTrump/116346686438015338",
+        "query": ""
+      },
+      {
+        "ticker": "TTD",
+        "action": "purchase",
+        "transaction_date": "2026-02-10",
+        "event_time": "2026-02-20",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": 10,
+        "trump_pnl_10d": -5279.166018396389,
+        "notional": 50001.0,
+        "headline": "To show you how ridiculous the opinion is, the Court said that I'm not allowed to charge even $1 DOLLAR to any Country under IEEPA, I assume to protect other Co",
+        "url": "https://truthsocial.com/@realDonaldTrump/116104407604484915",
+        "query": ""
+      },
+      {
+        "ticker": "TTD",
+        "action": "purchase",
+        "transaction_date": "2026-02-10",
+        "event_time": "2026-04-03",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": 52,
+        "trump_pnl_10d": -5279.166018396389,
+        "notional": 50001.0,
+        "headline": "A very happy and blessed Good Friday to all, especially to the 186,000 Americans who gained Private Sector jobs in the month of March alone! My Economic Policie",
+        "url": "https://truthsocial.com/@realDonaldTrump/116342994589318293",
+        "query": ""
+      },
+      {
+        "ticker": "GS",
+        "action": "purchase",
+        "transaction_date": "2026-03-02",
+        "event_time": "2026-05-12",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": 71,
+        "trump_pnl_10d": -1165.1581825534086,
+        "notional": 15001.0,
+        "headline": "CNBC incorrectly reported that the Great Jensen Huang, of Nvidia, was not invited to the incredible gathering of the World's Greatest Businessmen/women proudly ",
+        "url": "https://truthsocial.com/@realDonaldTrump/116565066757116256",
+        "query": ""
+      },
+      {
+        "ticker": "GS",
+        "action": "purchase",
+        "transaction_date": "2026-03-02",
+        "event_time": "2026-05-12",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": 71,
+        "trump_pnl_10d": -1165.1581825534086,
+        "notional": 15001.0,
+        "headline": "RT @realDonaldTrumpCNBC incorrectly reported that the Great Jensen Huang, of Nvidia, was not invited to the incredible gathering of the World's Greatest Busines",
+        "url": "https://truthsocial.com/@realDonaldTrump/116565073088871081",
+        "query": ""
+      },
+      {
+        "ticker": "GS",
+        "action": "purchase",
+        "transaction_date": "2026-03-02",
+        "event_time": "2026-05-13",
+        "platform": "truth_social",
+        "link_type": "social_near_disclosure",
+        "days_event_minus_txn": 72,
+        "trump_pnl_10d": -1165.1581825534086,
+        "notional": 15001.0,
+        "headline": "RT @realDonaldTrumpCNBC incorrectly reported that the Great Jensen Huang, of Nvidia, was not invited to the incredible gathering of the World's Greatest Busines",
+        "url": "https://truthsocial.com/@realDonaldTrump/116565480086717671",
+        "query": ""
+      },
+      {
+        "ticker": "LMT",
+        "action": "purchase",
+        "transaction_date": "2026-03-12",
+        "event_time": "2026-03-06",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": -6,
+        "trump_pnl_10d": -585.9496193284815,
+        "notional": 15001.0,
+        "headline": "We just concluded a very good meeting with the largest U.S. Defense Manufacturing Companies where we discussed Production and Production Schedules. They have ag",
+        "url": "https://truthsocial.com/@realDonaldTrump/116184185735585906",
+        "query": ""
+      },
+      {
+        "ticker": "TMO",
+        "action": "purchase",
+        "transaction_date": "2026-03-21",
+        "event_time": "2026-03-11",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": -10,
+        "trump_pnl_10d": 357.04729982110206,
+        "notional": 15001.0,
+        "headline": "I am on my way to the Great State of Ohio, which I love and WON BIG three times, to visit Thermo Fisher, a Pharmaceutical Manufacturing Company, that is investi",
+        "url": "https://truthsocial.com/@realDonaldTrump/116211753106602288",
+        "query": ""
+      },
+      {
+        "ticker": "NOC",
+        "action": "purchase",
+        "transaction_date": "2025-03-17",
+        "event_time": "2026-03-06",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": 354,
+        "trump_pnl_10d": 43.89717019438054,
+        "notional": 1001.0,
+        "headline": "We just concluded a very good meeting with the largest U.S. Defense Manufacturing Companies where we discussed Production and Production Schedules. They have ag",
+        "url": "https://truthsocial.com/@realDonaldTrump/116184185735585906",
+        "query": ""
+      },
+      {
+        "ticker": "S",
+        "action": "purchase",
+        "transaction_date": "2026-01-21",
+        "event_time": "2026-03-06",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": 44,
+        "trump_pnl_10d": -13.056543694972389,
+        "notional": 1001.0,
+        "headline": "There will be no deal with Iran except UNCONDITIONAL SURRENDER! After that, and the selection of a GREAT & ACCEPTABLE Leader(s), we, and many of our wonderful a",
+        "url": "https://truthsocial.com/@realDonaldTrump/116182551337254643",
+        "query": ""
+      },
+      {
+        "ticker": "TTD",
+        "action": "purchase",
+        "transaction_date": "2026-01-02",
+        "event_time": "2025-12-16",
+        "platform": "truth_social",
+        "link_type": "ticker_mentioned",
+        "days_event_minus_txn": -17,
+        "trump_pnl_10d": -58.44481809624335,
+        "notional": 1001.0,
+        "headline": "Numbers recently released show that TARIFFS have reduced the Trade Deficit of the United States by more than half. This is larger than anyone, except ME, projec",
+        "url": "https://truthsocial.com/@realDonaldTrump/115731785428395132",
+        "query": ""
+      }
+    ],
+    "top_events_by_pnl": [
+      {
+        "event_id": "c14797a02d51",
+        "platform": "truth_social",
+        "event_time": "2026-04-10 00:00:00",
+        "text": "Palantir Technologies (PLTR) has proven to have great war fighting capabilities and equipment. Just ask our enemies!!! President DJT",
+        "url": "https://truthsocial.com/@realDonaldTrump/116380894672815869",
+        "query": "",
+        "n_trades": 12,
+        "tickers": "PLTR",
+        "total_pnl": 48102.26070316502,
+        "avg_pnl": 4008.5217252637517,
+        "total_notional": 1335012.0,
+        "nw_return": 0.03603133208028469
+      },
+      {
+        "event_id": "723403574d54",
+        "platform": "truth_social",
+        "event_time": "2026-01-22 00:00:00",
+        "text": "Trump sues JPMorgan Chase and CEO Jamie Dimon for $5B over alleged 'political' debanking: https://www.foxbusiness.com/politics/trump-sues-jpmorgan-chase-ceo-jamie-dimon-5b-over-alleged-political-debanking",
+        "url": "https://truthsocial.com/@realDonaldTrump/115940059516984793",
+        "query": "",
+        "n_trades": 6,
+        "tickers": "JPM",
+        "total_pnl": 1428.014848584261,
+        "avg_pnl": 238.0024747640435,
+        "total_notional": 167006.0,
+        "nw_return": 0.008550679907214477
+      },
+      {
+        "event_id": "ad8f8438de5f",
+        "platform": "truth_social",
+        "event_time": "2026-01-17 00:00:00",
+        "text": "A front page Article in The Fake News Wall Street Journal states, without any verification, that I offered Jamie Dimon, of JPMorgan Chase, the job of Fed Chairman. This statement is totally untrue, there was never such an offer and, in fact, I'll be suing JPMorgan Chase over the next two weeks for incorrectly and inappropriately DEBANKING me after the January 6th Protest, a protest that turned out to be correct for those doing the protesting \u2014 The Election was RIGGED! Why wouldn't The Wall Street Journal call me to ask whether or not such an offer was made? I would have very quickly told them, \"NO,\" and that would have been the end of the story. Also, one was led to believe that I offered Jamie Dimon the job of Secretary of the Treasury, but that would be one that he would be very interested in. The problem is, I have Scott Bessent doing a fantastic job, A SUPERSTAR \u2014 Why would I give it to Jamie? No such offer was made there, or even thought of, either. The Wall Street Journal ought to do better \"fact checking,\" or its already strained credibility will continue to DIVE. Thank you for your attention to this matter!",
+        "url": "https://truthsocial.com/@realDonaldTrump/115911321115123547",
+        "query": "",
+        "n_trades": 6,
+        "tickers": "JPM",
+        "total_pnl": 1428.014848584261,
+        "avg_pnl": 238.0024747640435,
+        "total_notional": 167006.0,
+        "nw_return": 0.008550679907214477
+      },
+      {
+        "event_id": "70f943fc1a8a",
+        "platform": "truth_social",
+        "event_time": "2026-05-13 00:00:00",
+        "text": "RT @realDonaldTrumpCNBC incorrectly reported that the Great Jensen Huang, of Nvidia, was not invited to the incredible gathering of the World's Greatest Businessmen/women proudly going to China. In actuality, Jensen is currently on Air Force One and, unless I ask him to leave, which is highly unlikely, CNBC's reporting is incorrect or, as they say in politics, FAKE NEWS! It is an Honor to have Jensen, Elon, Tim Apple, Larry Fink, Stephen Schwarzmann, Kelly Ortberg (Boeing), Brian Sikes (Cargill), Jane Fraser (Citi), Larry Culp (GE Aerospace), David Solomon (Goldman Sachs), Sanjay Mehrotra (Micron), Cristiano Amon (Qualcomm), and many others journeying to the Great Country of China where I will be asking President Xi, a Leader of extraordinary distinction, to \"open up\" China so that these brilliant people can work their magic, and help bring the People's Republic to an even higher level! In fact, I promise, that when we are together, which will be in a matter of hours, I will make that my very first request. I have never seen or heard of any idea that would be more beneficial to our incredible Countries! President DONALD J. TRUMP",
+        "url": "https://truthsocial.com/@realDonaldTrump/116565480086717671",
+        "query": "",
+        "n_trades": 5,
+        "tickers": "GS",
+        "total_pnl": 399.0945656861162,
+        "avg_pnl": 79.81891313722323,
+        "total_notional": 61005.0,
+        "nw_return": 0.006541997634392529
+      },
+      {
+        "event_id": "65ee12e05001",
+        "platform": "truth_social",
+        "event_time": "2026-05-12 00:00:00",
+        "text": "RT @realDonaldTrumpCNBC incorrectly reported that the Great Jensen Huang, of Nvidia, was not invited to the incredible gathering of the World's Greatest Businessmen/women proudly going to China. In actuality, Jensen is currently on Air Force One and, unless I ask him to leave, which is highly unlikely, CNBC's reporting is incorrect or, as they say in politics, FAKE NEWS! It is an Honor to have Jensen, Elon, Tim Apple, Larry Fink, Stephen Schwarzmann, Kelly Ortberg (Boeing), Brian Sikes (Cargill), Jane Fraser (Citi), Larry Culp (GE Aerospace), David Solomon (Goldman Sachs), Sanjay Mehrotra (Micron), Cristiano Amon (Qualcomm), and many others journeying to the Great Country of China where I will be asking President Xi, a Leader of extraordinary distinction, to \"open up\" China so that these brilliant people can work their magic, and help bring the People's Republic to an even higher level! In fact, I promise, that when we are together, which will be in a matter of hours, I will make that my very first request. I have never seen or heard of any idea that would be more beneficial to our incredible Countries! President DONALD J. TRUMP",
+        "url": "https://truthsocial.com/@realDonaldTrump/116565073088871081",
+        "query": "",
+        "n_trades": 5,
+        "tickers": "GS",
+        "total_pnl": 399.0945656861162,
+        "avg_pnl": 79.81891313722323,
+        "total_notional": 61005.0,
+        "nw_return": 0.006541997634392529
+      },
+      {
+        "event_id": "9c3d4c5b6726",
+        "platform": "truth_social",
+        "event_time": "2026-05-12 00:00:00",
+        "text": "CNBC incorrectly reported that the Great Jensen Huang, of Nvidia, was not invited to the incredible gathering of the World's Greatest Businessmen/women proudly going to China. In actuality, Jensen is currently on Air Force One and, unless I ask him to leave, which is highly unlikely, CNBC's reporting is incorrect or, as they say in politics, FAKE NEWS! It is an Honor to have Jensen, Elon, Tim Apple, Larry Fink, Stephen Schwarzmann, Kelly Ortberg (Boeing), Brian Sikes (Cargill), Jane Fraser (Citi), Larry Culp (GE Aerospace), David Solomon (Goldman Sachs), Sanjay Mehrotra (Micron), Cristiano Amon (Qualcomm), and many others journeying to the Great Country of China where I will be asking President Xi, a Leader of extraordinary distinction, to \"open up\" China so that these brilliant people can work their magic, and help bring the People's Republic to an even higher level! In fact, I promise, that when we are together, which will be in a matter of hours, I will make that my very first request. I have never seen or heard of any idea that would be more beneficial to our incredible Countries! President DONALD J. TRUMP",
+        "url": "https://truthsocial.com/@realDonaldTrump/116565066757116256",
+        "query": "",
+        "n_trades": 5,
+        "tickers": "GS",
+        "total_pnl": 399.0945656861162,
+        "avg_pnl": 79.81891313722323,
+        "total_notional": 61005.0,
+        "nw_return": 0.006541997634392529
+      },
+      {
+        "event_id": "bf1bb6de3067",
+        "platform": "truth_social",
+        "event_time": "2026-03-06 00:00:00",
+        "text": "There will be no deal with Iran except UNCONDITIONAL SURRENDER! After that, and the selection of a GREAT & ACCEPTABLE Leader(s), we, and many of our wonderful and very brave allies and partners, will work tirelessly to bring Iran back from the brink of destruction, making it economically bigger, better, and stronger than ever before. IRAN WILL HAVE A GREAT FUTURE. \"MAKE IRAN GREAT AGAIN (MIGA!).\" Thank you for your attention to this matter! President DONALD J. TRUMP",
+        "url": "https://truthsocial.com/@realDonaldTrump/116182551337254643",
+        "query": "",
+        "n_trades": 2,
+        "tickers": "S",
+        "total_pnl": -173.28132257474815,
+        "avg_pnl": -86.64066128737407,
+        "total_notional": 2002.0,
+        "nw_return": -0.08655410718019388
+      },
+      {
+        "event_id": "55ccc479be03",
+        "platform": "truth_social",
+        "event_time": "2025-12-16 00:00:00",
+        "text": "Numbers recently released show that TARIFFS have reduced the Trade Deficit of the United States by more than half. This is larger than anyone, except ME, projected, and will only get stronger in the near future. Everybody should pray that the United States Supreme Court has the Wisdom and Genius to allow Tariffs to GUARD our National Security, and our Financial Freedom! There are Evil, America hating Forces against us. We can not let them prevail. Thank you for your attention to this matter. MAKE AMERICA GREAT AGAIN!",
+        "url": "https://truthsocial.com/@realDonaldTrump/115731785428395132",
+        "query": "",
+        "n_trades": 2,
+        "tickers": "TTD",
+        "total_pnl": -186.21481015877873,
+        "avg_pnl": -93.10740507938937,
+        "total_notional": 2002.0,
+        "nw_return": -0.09301439068870067
+      },
+      {
+        "event_id": "2bb745429fa1",
+        "platform": "truth_social",
+        "event_time": "2026-03-11 00:00:00",
+        "text": "I am on my way to the Great State of Ohio, which I love and WON BIG three times, to visit Thermo Fisher, a Pharmaceutical Manufacturing Company, that is investing $2 Billion Dollars in U.S. Manufacturing, and bringing GREAT paying jobs back to Ohio from overseas. Thermo Fisher is doing this because of my America First Trade Policies, most specifically TARIFFS, which charge other Countries for access to our Markets while protecting our important Industries, and strengthening our Supply Chains. Thanks to my \"Most Favored Nation\" Deals, Prescription Drug Prices are coming down by A LOT, and I have asked Congress to CODIFY these Policies. After that I will be heading to the wonderful Commonwealth of Kentucky. See you soon!",
+        "url": "https://truthsocial.com/@realDonaldTrump/116211753106602288",
+        "query": "",
+        "n_trades": 3,
+        "tickers": "TMO",
+        "total_pnl": -902.3074982608196,
+        "avg_pnl": -300.76916608693983,
+        "total_notional": 45003.0,
+        "nw_return": -0.0200499410763909
+      },
+      {
+        "event_id": "30351b45447e",
+        "platform": "truth_social",
+        "event_time": "2026-03-06 00:00:00",
+        "text": "We just concluded a very good meeting with the largest U.S. Defense Manufacturing Companies where we discussed Production and Production Schedules. They have agreed to quadruple Production of the \"Exquisite Class\" Weaponry in that we want to reach, as rapidly as possible, the highest levels of quantity. Expansion began three months prior to the meeting, and Plants and Production of many of these Weapons are already under way. We have a virtually unlimited supply of Medium and Upper Medium Grade Munitions, which we are using, as an example, in Iran, and recently used in Venezuela. Regardless, however, we have also increased Orders at these levels. The Companies represented were the CEOs of BAE Systems, Boeing, Honeywell Aerospace, L3Harris Missile Solutions, Lockheed Martin, Northrop Grumman, and Raytheon. The meeting concluded with another meeting scheduled in two months. States all over the Country are bidding for these new Plants. Thank you for your attention to this matter! President DONALD J. TRUMP",
+        "url": "https://truthsocial.com/@realDonaldTrump/116184185735585906",
+        "query": "",
+        "n_trades": 4,
+        "tickers": "LMT, NOC",
+        "total_pnl": -1221.7417302524073,
+        "avg_pnl": -305.4354325631018,
+        "total_notional": 32004.0,
+        "nw_return": -0.03817465723823295
+      },
+      {
+        "event_id": "12d649aba1b1",
+        "platform": "truth_social",
+        "event_time": "2026-02-20 00:00:00",
+        "text": "To show you how ridiculous the opinion is, the Court said that I'm not allowed to charge even $1 DOLLAR to any Country under IEEPA, I assume to protect other Countries, not the United States which they should be interested in protecting \u2014 But I am allowed to cut off any and all Trade or Business with that same Country, even imposing a Foreign Country destroying embargo, and do anything else I want to do to them \u2014 How nonsensical is that? They are saying that I have the absolute right to license, but not the right to charge a license fee. What license has ever been issued without the right to charge a fee? But now the Court has given me the unquestioned right to ban all sorts of things from coming into our Country, a much more powerful Right than many people thought we had. Our Country is the \"HOTTEST\" anywhere in the World, but now, I am going in a different direction, which is even stronger than our original choice. As Justice Kavanaugh wrote in his Dissent: \"Although I firmly disagree with the Court's holding today, the decision might not substantially constrain a President's ability to order tariffs going forward. That is because numerous other federal statutes authorize the President to impose tariffs and might justify most (if not all) of the tariffs issued in this case...Those statutes include, for example, the Trade Expansion Act of 1962 (Section 232); the Trade Act of 1974 (Sections 122, 201, and 301); and the Tariff Act of 1930 (Section 338).\" Thank you Justice Kavanaugh! In actuality, while I am sure they did not mean to do so, the Supreme Court's decision today made a President's ability to both regulate Trade, and impose TARIFFS, more powerful and crystal clear, rather than less. There will no longer be any doubt, and the Income coming in, and the protection of our Companies and Country, will actually increase because of this decision. Based on longstanding Law and Hundreds of Victories to the contrary, the Supreme Court did not overrule TARIFFS, they me",
+        "url": "https://truthsocial.com/@realDonaldTrump/116104407604484915",
+        "query": "",
+        "n_trades": 5,
+        "tickers": "TTD",
+        "total_pnl": -15169.930519264557,
+        "avg_pnl": -3033.9861038529116,
+        "total_notional": 117005.0,
+        "nw_return": -0.12965198512255507
+      },
+      {
+        "event_id": "befa94b7ee66",
+        "platform": "truth_social",
+        "event_time": "2026-04-03 00:00:00",
+        "text": "A very happy and blessed Good Friday to all, especially to the 186,000 Americans who gained Private Sector jobs in the month of March alone! My Economic Policies have created an enormously powerful engine of Economic Growth, and nothing can slow it down. Factory Construction Jobs are soaring as a result of the rapid Onshoring and surging Investment that TARIFFS have generated, all while the Trade Deficit has shrunk by 52% in a year! President DONALD J. TRUMP",
+        "url": "https://truthsocial.com/@realDonaldTrump/116342994589318293",
+        "query": "",
+        "n_trades": 7,
+        "tickers": "TTD",
+        "total_pnl": -16022.55763768215,
+        "avg_pnl": -2288.9368053831645,
+        "total_notional": 133007.0,
+        "nw_return": -0.12046401796658936
+      },
+      {
+        "event_id": "eff69f0c9c97",
+        "platform": "truth_social",
+        "event_time": "2026-04-04 00:00:00",
+        "text": "Not only were the jobs numbers GREAT yesterday, 178,000 new jobs, but the TRADE DEFICIT was down 55%, the biggest drop in history. THANK YOU MR. TARIFF! All of this and, simultaneously, getting rid of a Nuclear Iran. MAGA!!!",
+        "url": "https://truthsocial.com/@realDonaldTrump/116346686438015338",
+        "query": "",
+        "n_trades": 7,
+        "tickers": "TTD",
+        "total_pnl": -16022.55763768215,
+        "avg_pnl": -2288.9368053831645,
+        "total_notional": 133007.0,
+        "nw_return": -0.12046401796658936
+      }
+    ],
+    "bottom_events_by_pnl": [
+      {
+        "event_id": "eff69f0c9c97",
+        "platform": "truth_social",
+        "event_time": "2026-04-04 00:00:00",
+        "text": "Not only were the jobs numbers GREAT yesterday, 178,000 new jobs, but the TRADE DEFICIT was down 55%, the biggest drop in history. THANK YOU MR. TARIFF! All of this and, simultaneously, getting rid of a Nuclear Iran. MAGA!!!",
+        "n_trades": 7,
+        "tickers": "TTD",
+        "total_pnl": -16022.55763768215
+      },
+      {
+        "event_id": "befa94b7ee66",
+        "platform": "truth_social",
+        "event_time": "2026-04-03 00:00:00",
+        "text": "A very happy and blessed Good Friday to all, especially to the 186,000 Americans who gained Private Sector jobs in the month of March alone! My Economic Policies have created an enormously powerful engine of Economic Growth, and nothing can slow it down. Factory Construction Jobs are soaring as a result of the rapid Onshoring and surging Investment that TARIFFS have generated, all while the Trade Deficit has shrunk by 52% in a year! President DONALD J. TRUMP",
+        "n_trades": 7,
+        "tickers": "TTD",
+        "total_pnl": -16022.55763768215
+      },
+      {
+        "event_id": "12d649aba1b1",
+        "platform": "truth_social",
+        "event_time": "2026-02-20 00:00:00",
+        "text": "To show you how ridiculous the opinion is, the Court said that I'm not allowed to charge even $1 DOLLAR to any Country under IEEPA, I assume to protect other Countries, not the United States which they should be interested in protecting \u2014 But I am allowed to cut off any and all Trade or Business with that same Country, even imposing a Foreign Country destroying embargo, and do anything else I want to do to them \u2014 How nonsensical is that? They are saying that I have the absolute right to license, but not the right to charge a license fee. What license has ever been issued without the right to charge a fee? But now the Court has given me the unquestioned right to ban all sorts of things from coming into our Country, a much more powerful Right than many people thought we had. Our Country is the \"HOTTEST\" anywhere in the World, but now, I am going in a different direction, which is even stronger than our original choice. As Justice Kavanaugh wrote in his Dissent: \"Although I firmly disagree with the Court's holding today, the decision might not substantially constrain a President's ability to order tariffs going forward. That is because numerous other federal statutes authorize the President to impose tariffs and might justify most (if not all) of the tariffs issued in this case...Those statutes include, for example, the Trade Expansion Act of 1962 (Section 232); the Trade Act of 1974 (Sections 122, 201, and 301); and the Tariff Act of 1930 (Section 338).\" Thank you Justice Kavanaugh! In actuality, while I am sure they did not mean to do so, the Supreme Court's decision today made a President's ability to both regulate Trade, and impose TARIFFS, more powerful and crystal clear, rather than less. There will no longer be any doubt, and the Income coming in, and the protection of our Companies and Country, will actually increase because of this decision. Based on longstanding Law and Hundreds of Victories to the contrary, the Supreme Court did not overrule TARIFFS, they me",
+        "n_trades": 5,
+        "tickers": "TTD",
+        "total_pnl": -15169.930519264557
+      },
+      {
+        "event_id": "30351b45447e",
+        "platform": "truth_social",
+        "event_time": "2026-03-06 00:00:00",
+        "text": "We just concluded a very good meeting with the largest U.S. Defense Manufacturing Companies where we discussed Production and Production Schedules. They have agreed to quadruple Production of the \"Exquisite Class\" Weaponry in that we want to reach, as rapidly as possible, the highest levels of quantity. Expansion began three months prior to the meeting, and Plants and Production of many of these Weapons are already under way. We have a virtually unlimited supply of Medium and Upper Medium Grade Munitions, which we are using, as an example, in Iran, and recently used in Venezuela. Regardless, however, we have also increased Orders at these levels. The Companies represented were the CEOs of BAE Systems, Boeing, Honeywell Aerospace, L3Harris Missile Solutions, Lockheed Martin, Northrop Grumman, and Raytheon. The meeting concluded with another meeting scheduled in two months. States all over the Country are bidding for these new Plants. Thank you for your attention to this matter! President DONALD J. TRUMP",
+        "n_trades": 4,
+        "tickers": "LMT, NOC",
+        "total_pnl": -1221.7417302524073
+      },
+      {
+        "event_id": "2bb745429fa1",
+        "platform": "truth_social",
+        "event_time": "2026-03-11 00:00:00",
+        "text": "I am on my way to the Great State of Ohio, which I love and WON BIG three times, to visit Thermo Fisher, a Pharmaceutical Manufacturing Company, that is investing $2 Billion Dollars in U.S. Manufacturing, and bringing GREAT paying jobs back to Ohio from overseas. Thermo Fisher is doing this because of my America First Trade Policies, most specifically TARIFFS, which charge other Countries for access to our Markets while protecting our important Industries, and strengthening our Supply Chains. Thanks to my \"Most Favored Nation\" Deals, Prescription Drug Prices are coming down by A LOT, and I have asked Congress to CODIFY these Policies. After that I will be heading to the wonderful Commonwealth of Kentucky. See you soon!",
+        "n_trades": 3,
+        "tickers": "TMO",
+        "total_pnl": -902.3074982608196
+      },
+      {
+        "event_id": "55ccc479be03",
+        "platform": "truth_social",
+        "event_time": "2025-12-16 00:00:00",
+        "text": "Numbers recently released show that TARIFFS have reduced the Trade Deficit of the United States by more than half. This is larger than anyone, except ME, projected, and will only get stronger in the near future. Everybody should pray that the United States Supreme Court has the Wisdom and Genius to allow Tariffs to GUARD our National Security, and our Financial Freedom! There are Evil, America hating Forces against us. We can not let them prevail. Thank you for your attention to this matter. MAKE AMERICA GREAT AGAIN!",
+        "n_trades": 2,
+        "tickers": "TTD",
+        "total_pnl": -186.21481015877873
+      },
+      {
+        "event_id": "bf1bb6de3067",
+        "platform": "truth_social",
+        "event_time": "2026-03-06 00:00:00",
+        "text": "There will be no deal with Iran except UNCONDITIONAL SURRENDER! After that, and the selection of a GREAT & ACCEPTABLE Leader(s), we, and many of our wonderful and very brave allies and partners, will work tirelessly to bring Iran back from the brink of destruction, making it economically bigger, better, and stronger than ever before. IRAN WILL HAVE A GREAT FUTURE. \"MAKE IRAN GREAT AGAIN (MIGA!).\" Thank you for your attention to this matter! President DONALD J. TRUMP",
+        "n_trades": 2,
+        "tickers": "S",
+        "total_pnl": -173.28132257474815
+      },
+      {
+        "event_id": "65ee12e05001",
+        "platform": "truth_social",
+        "event_time": "2026-05-12 00:00:00",
+        "text": "RT @realDonaldTrumpCNBC incorrectly reported that the Great Jensen Huang, of Nvidia, was not invited to the incredible gathering of the World's Greatest Businessmen/women proudly going to China. In actuality, Jensen is currently on Air Force One and, unless I ask him to leave, which is highly unlikely, CNBC's reporting is incorrect or, as they say in politics, FAKE NEWS! It is an Honor to have Jensen, Elon, Tim Apple, Larry Fink, Stephen Schwarzmann, Kelly Ortberg (Boeing), Brian Sikes (Cargill), Jane Fraser (Citi), Larry Culp (GE Aerospace), David Solomon (Goldman Sachs), Sanjay Mehrotra (Micron), Cristiano Amon (Qualcomm), and many others journeying to the Great Country of China where I will be asking President Xi, a Leader of extraordinary distinction, to \"open up\" China so that these brilliant people can work their magic, and help bring the People's Republic to an even higher level! In fact, I promise, that when we are together, which will be in a matter of hours, I will make that my very first request. I have never seen or heard of any idea that would be more beneficial to our incredible Countries! President DONALD J. TRUMP",
+        "n_trades": 5,
+        "tickers": "GS",
+        "total_pnl": 399.0945656861162
+      }
+    ],
+    "top_tickers_by_matches": [
+      {
+        "ticker": "PLTR",
+        "n_event_trade_pairs": 12,
+        "n_unique_events": 1,
+        "n_trades": 12,
+        "n_buys": 7,
+        "n_sells": 5,
+        "trump_total_notional": 1335012.0,
+        "n_all_trades": 12,
+        "trump_pnl_10d": 48102.26070316502,
+        "matched_notional": 1335012.0,
+        "trump_nw_return_10d": 0.03603133208028469
+      },
+      {
+        "ticker": "JPM",
+        "n_event_trade_pairs": 12,
+        "n_unique_events": 2,
+        "n_trades": 6,
+        "n_buys": 6,
+        "n_sells": 6,
+        "trump_total_notional": 451015.0,
+        "n_all_trades": 15,
+        "trump_pnl_10d": 1428.014848584261,
+        "matched_notional": 167006.0,
+        "trump_nw_return_10d": 0.008550679907214477
+      },
+      {
+        "ticker": "TTD",
+        "n_event_trade_pairs": 21,
+        "n_unique_events": 4,
+        "n_trades": 7,
+        "n_buys": 19,
+        "n_sells": 2,
+        "trump_total_notional": 135009.0,
+        "n_all_trades": 9,
+        "trump_pnl_10d": -16022.55763768215,
+        "matched_notional": 133007.0,
+        "trump_nw_return_10d": -0.12046401796658936
+      },
+      {
+        "ticker": "GS",
+        "n_event_trade_pairs": 15,
+        "n_unique_events": 3,
+        "n_trades": 5,
+        "n_buys": 15,
+        "n_sells": 0,
+        "trump_total_notional": 61005.0,
+        "n_all_trades": 5,
+        "trump_pnl_10d": 399.0945656861162,
+        "matched_notional": 61005.0,
+        "trump_nw_return_10d": 0.006541997634392529
+      },
+      {
+        "ticker": "TMO",
+        "n_event_trade_pairs": 3,
+        "n_unique_events": 1,
+        "n_trades": 3,
+        "n_buys": 3,
+        "n_sells": 0,
+        "trump_total_notional": 45003.0,
+        "n_all_trades": 3,
+        "trump_pnl_10d": -902.3074982608196,
+        "matched_notional": 45003.0,
+        "trump_nw_return_10d": -0.0200499410763909
+      },
+      {
+        "ticker": "LMT",
+        "n_event_trade_pairs": 3,
+        "n_unique_events": 1,
+        "n_trades": 3,
+        "n_buys": 3,
+        "n_sells": 0,
+        "trump_total_notional": 31003.0,
+        "n_all_trades": 3,
+        "trump_pnl_10d": -1265.6389004467878,
+        "matched_notional": 31003.0,
+        "trump_nw_return_10d": -0.04082311068112079
+      },
+      {
+        "ticker": "NOC",
+        "n_event_trade_pairs": 1,
+        "n_unique_events": 1,
+        "n_trades": 1,
+        "n_buys": 1,
+        "n_sells": 0,
+        "trump_total_notional": 1001.0,
+        "n_all_trades": 1,
+        "trump_pnl_10d": 43.89717019438054,
+        "matched_notional": 1001.0,
+        "trump_nw_return_10d": 0.04385331687750304
+      }
+    ],
+    "buy_post_sell_patterns": [
+      {
+        "ticker": "JPM",
+        "buy_date": "2026-01-17",
+        "sell_date": "2026-03-18",
+        "holding_days": 60,
+        "pattern": "buy\u2192post\u2192sell (during hold)",
+        "n_posts_during_hold": 2,
+        "n_posts_after_buy_30d": 2,
+        "n_posts_before_buy_30d": 0,
+        "post_date": "2026-01-17",
+        "days_post_minus_buy": 0,
+        "sample_post": "A front page Article in The Fake News Wall Street Journal states, without any verification, that I offered Jamie Dimon, of JPMorgan Chase, the job of Fed Chairman. This statement is totally untrue, th",
+        "sample_platform": "truth_social",
+        "buy_trump_ret_10d": 0.04000132121891767,
+        "buy_trump_pnl_10d": 40.04132254013658,
+        "realized_return_pct": -0.0495475331809338,
+        "realized_pnl": -49.59708071411477
+      },
+      {
+        "ticker": "JPM",
+        "buy_date": "2026-01-11",
+        "sell_date": "2026-01-22",
+        "holding_days": 11,
+        "pattern": "buy\u2192post\u2192sell (during hold)",
+        "n_posts_during_hold": 1,
+        "n_posts_after_buy_30d": 2,
+        "n_posts_before_buy_30d": 0,
+        "post_date": "2026-01-17",
+        "days_post_minus_buy": 6,
+        "sample_post": "A front page Article in The Fake News Wall Street Journal states, without any verification, that I offered Jamie Dimon, of JPMorgan Chase, the job of Fed Chairman. This statement is totally untrue, th",
+        "sample_platform": "truth_social",
+        "buy_trump_ret_10d": -0.07451693957385698,
+        "buy_trump_pnl_10d": -3725.9214956324226,
+        "realized_return_pct": -0.0642854840397479,
+        "realized_pnl": -964.3465460802596
+      },
+      {
+        "ticker": "JPM",
+        "buy_date": "2026-01-07",
+        "sell_date": "2026-01-12",
+        "holding_days": 5,
+        "pattern": "buy\u2192post within 30d (no sell yet in lot)",
+        "n_posts_during_hold": 0,
+        "n_posts_after_buy_30d": 2,
+        "n_posts_before_buy_30d": 0,
+        "post_date": "2026-01-17",
+        "days_post_minus_buy": 10,
+        "sample_post": "A front page Article in The Fake News Wall Street Journal states, without any verification, that I offered Jamie Dimon, of JPMorgan Chase, the job of Fed Chairman. This statement is totally untrue, th",
+        "sample_platform": "truth_social",
+        "buy_trump_ret_10d": -0.07143949317520824,
+        "buy_trump_pnl_10d": -71.51093266838345,
+        "realized_return_pct": -0.007645504065007,
+        "realized_pnl": -7.653149569072099
+      }
+    ],
+    "pattern_summary": {
+      "match_days": 30,
+      "n_lots_with_any_media": 3,
+      "n_buy_post_sell_during_hold": 2,
+      "n_post_before_buy_30d": 0,
+      "n_post_after_buy_30d": 3,
+      "median_days_post_minus_buy_during_hold": 3.0,
+      "mean_buy_ret_10d_during_hold": -0.017257809177469656,
+      "mean_buy_pnl_10d_during_hold": -1842.940086546143,
+      "mean_realized_return_during_hold": -0.05691650861034085,
+      "mean_realized_pnl_during_hold": -506.9718133971872,
+      "mean_buy_pnl_10d_other_patterns": -71.51093266838345
+    },
+    "media_timelines": [
+      {
+        "ticker": "PLTR",
+        "max_trade_notional": 1000001.0,
+        "buys": [
+          {
+            "date": "2026-01-06 00:00:00",
+            "notional": 50001.0
+          },
+          {
+            "date": "2026-01-07 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-01-17 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-03-02 00:00:00",
+            "notional": 50001.0
+          },
+          {
+            "date": "2026-03-11 00:00:00",
+            "notional": 15001.0
+          },
+          {
+            "date": "2026-03-12 00:00:00",
+            "notional": 15001.0
+          },
+          {
+            "date": "2026-03-18 00:00:00",
+            "notional": 100001.0
+          }
+        ],
+        "sells": [
+          {
+            "date": "2026-01-21 00:00:00",
+            "notional": 100001.0
+          },
+          {
+            "date": "2026-01-23 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-02-03 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-02-10 00:00:00",
+            "notional": 1000001.0
+          },
+          {
+            "date": "2026-02-12 00:00:00",
+            "notional": 1001.0
+          }
+        ],
+        "posts": [
+          {
+            "date": "2026-04-10 00:00:00",
+            "text": "Palantir Technologies (PLTR) has proven to have great war fighting capabilities "
+          }
+        ],
+        "first_buy": "2026-01-06 00:00:00",
+        "hold_end": "2026-05-30 00:00:00",
+        "still_open": true,
+        "status": "\u4ecd\u6301\u6709"
+      },
+      {
+        "ticker": "JPM",
+        "max_trade_notional": 50001.0,
+        "buys": [
+          {
+            "date": "2026-01-07 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-01-11 00:00:00",
+            "notional": 50001.0
+          },
+          {
+            "date": "2026-01-17 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-03-02 00:00:00",
+            "notional": 100001.0
+          },
+          {
+            "date": "2026-03-12 00:00:00",
+            "notional": 50001.0
+          },
+          {
+            "date": "2026-03-21 00:00:00",
+            "notional": 15001.0
+          },
+          {
+            "date": "2026-03-23 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-03-23 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-03-26 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-03-26 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-03-31 00:00:00",
+            "notional": 100001.0
+          }
+        ],
+        "sells": [
+          {
+            "date": "2026-01-02 00:00:00",
+            "notional": 50001.0
+          },
+          {
+            "date": "2026-01-12 00:00:00",
+            "notional": 50001.0
+          },
+          {
+            "date": "2026-01-22 00:00:00",
+            "notional": 15001.0
+          },
+          {
+            "date": "2026-03-18 00:00:00",
+            "notional": 15001.0
+          }
+        ],
+        "posts": [
+          {
+            "date": "2025-04-09 00:00:00",
+            "text": "\u00e2\u0080\u009cFixing Trade and Tariffs is a good thing!\u00e2\u0080\u009d Jamie Dimon, JPMorgan Chase, Cha"
+          },
+          {
+            "date": "2026-01-17 00:00:00",
+            "text": "A front page Article in The Fake News Wall Street Journal states, without any ve"
+          },
+          {
+            "date": "2026-01-22 00:00:00",
+            "text": "Trump sues JPMorgan Chase and CEO Jamie Dimon for $5B over alleged 'political' d"
+          }
+        ],
+        "first_buy": "2026-01-07 00:00:00",
+        "hold_end": "2026-05-30 00:00:00",
+        "still_open": true,
+        "status": "\u4ecd\u6301\u6709"
+      },
+      {
+        "ticker": "TTD",
+        "max_trade_notional": 50001.0,
+        "buys": [
+          {
+            "date": "2026-01-02 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-01-12 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-01-21 00:00:00",
+            "notional": 50001.0
+          },
+          {
+            "date": "2026-01-23 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-02-10 00:00:00",
+            "notional": 50001.0
+          },
+          {
+            "date": "2026-03-02 00:00:00",
+            "notional": 15001.0
+          },
+          {
+            "date": "2026-03-25 00:00:00",
+            "notional": 15001.0
+          }
+        ],
+        "sells": [
+          {
+            "date": "2026-02-19 00:00:00",
+            "notional": 1001.0
+          },
+          {
+            "date": "2026-03-26 00:00:00",
+            "notional": 1001.0
+          }
+        ],
+        "posts": [],
+        "first_buy": "2026-01-02 00:00:00",
+        "hold_end": "2026-05-30 00:00:00",
+        "still_open": true,
+        "status": "\u4ecd\u6301\u6709"
+      }
+    ]
+  },
+  "open_holdings": [
+    {
+      "ticker": "AMZN",
+      "net_notional": 2396015.0,
+      "n_open_lots": 15,
+      "n_open_buys": 15,
+      "first_buy_date": "2026-01-23",
+      "latest_buy_date": "2026-03-27",
+      "days_held": 127,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": -0.0030941858246898127,
+      "pnl_1d": -154.71238542031531,
+      "ret_3d": 0.01609797117316454,
+      "pnl_3d": 804.9146566294002,
+      "ret_5d": 0.000585379609904304,
+      "pnl_5d": 29.2695658748251,
+      "ret_10d": -0.1205887100530255,
+      "pnl_10d": -6029.556091361328,
+      "ret_20d": -0.14170429365576107,
+      "pnl_20d": -7085.356387081709,
+      "ret_30d": -0.10733399304179833,
+      "pnl_30d": -5366.806986082958
+    },
+    {
+      "ticker": "AAPL",
+      "net_notional": 2200008.0,
+      "n_open_lots": 8,
+      "n_open_buys": 8,
+      "first_buy_date": "2026-01-23",
+      "latest_buy_date": "2026-03-25",
+      "days_held": 127,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": 0.029712973556775536,
+      "pnl_1d": 7428.273102167441,
+      "ret_3d": 0.03386559742980822,
+      "pnl_3d": 8466.433223049486,
+      "ret_5d": 0.04612162507633092,
+      "pnl_5d": 11530.452390707806,
+      "ret_10d": 0.1212706937836494,
+      "pnl_10d": 30317.79471660613,
+      "ret_20d": 0.07413744520629502,
+      "pnl_20d": 18534.435439018962,
+      "ret_30d": 0.04871459595089281,
+      "pnl_30d": 12178.697702319152
+    },
+    {
+      "ticker": "MSFT",
+      "net_notional": 2062013.0,
+      "n_open_lots": 13,
+      "n_open_buys": 13,
+      "first_buy_date": "2026-01-26",
+      "latest_buy_date": "2026-03-31",
+      "days_held": 124,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": 0.02190190950704457,
+      "pnl_1d": 328.5505445151756,
+      "ret_3d": -0.07820868368034468,
+      "pnl_3d": -1173.2084638888507,
+      "ret_5d": -0.09974903226887201,
+      "pnl_5d": -1496.335233065349,
+      "ret_10d": -0.12052389114637234,
+      "pnl_10d": -1807.9788910867314,
+      "ret_20d": -0.1709451809900173,
+      "pnl_20d": -2564.3486600312494,
+      "ret_30d": -0.13522547824041395,
+      "pnl_30d": -2028.5173990844496
+    },
+    {
+      "ticker": "CMCSA",
+      "net_notional": 2046006.0,
+      "n_open_lots": 6,
+      "n_open_buys": 6,
+      "first_buy_date": "2026-01-12",
+      "latest_buy_date": "2026-03-25",
+      "days_held": 138,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": -0.019958720087598057,
+      "pnl_1d": -19958.740046318144,
+      "ret_3d": -0.012995682235362677,
+      "pnl_3d": -12995.695231044912,
+      "ret_5d": -0.01961054468323797,
+      "pnl_5d": -19610.564293782652,
+      "ret_10d": -0.0008104163762685848,
+      "pnl_10d": -810.417186684961,
+      "ret_20d": 0.12487163425124319,
+      "pnl_20d": 124871.75912287744,
+      "ret_30d": 0.07195286902108836,
+      "pnl_30d": 71952.94097395737
+    },
+    {
+      "ticker": "PTC",
+      "net_notional": 2018006.0,
+      "n_open_lots": 6,
+      "n_open_buys": 6,
+      "first_buy_date": "2026-01-23",
+      "latest_buy_date": "2026-03-02",
+      "days_held": 127,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": 0.022388089900561896,
+      "pnl_1d": 22.410477990462457,
+      "ret_3d": -0.001418500853613215,
+      "pnl_3d": -1.4199193544668283,
+      "ret_5d": -0.03706669871382543,
+      "pnl_5d": -37.10376541253925,
+      "ret_10d": -0.03959540022889125,
+      "pnl_10d": -39.63499562912014,
+      "ret_20d": -0.06944612402382193,
+      "pnl_20d": -69.51557014784575,
+      "ret_30d": 0.00789440473735807,
+      "pnl_30d": 7.902299142095427
+    },
+    {
+      "ticker": "COST",
+      "net_notional": 1862012.0,
+      "n_open_lots": 12,
+      "n_open_buys": 12,
+      "first_buy_date": "2026-01-06",
+      "latest_buy_date": "2026-03-25",
+      "days_held": 144,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": -0.007333164349704689,
+      "pnl_1d": -733.3237681348187,
+      "ret_3d": 0.04024304728976098,
+      "pnl_3d": 4024.344972023388,
+      "ret_5d": 0.05941968304967995,
+      "pnl_5d": 5942.027724651045,
+      "ret_10d": 0.1054550090726585,
+      "pnl_10d": 10545.606362274923,
+      "ret_20d": 0.1018857691781847,
+      "pnl_20d": 10188.678803587649,
+      "ret_30d": 0.11255156421609656,
+      "pnl_30d": 11255.268973173872
+    },
+    {
+      "ticker": "MCHP",
+      "net_notional": 1530005.0,
+      "n_open_lots": 5,
+      "n_open_buys": 5,
+      "first_buy_date": "2026-02-10",
+      "latest_buy_date": "2026-03-17",
+      "days_held": 109,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": 0.0506114874872657,
+      "pnl_1d": 25305.794355120335,
+      "ret_3d": 0.022118053130451468,
+      "pnl_3d": 11059.048683278865,
+      "ret_5d": 0.029273949926584573,
+      "pnl_5d": 14637.004237242214,
+      "ret_10d": -0.012303205311921236,
+      "pnl_10d": -6151.6149591659305,
+      "ret_20d": -0.13898806728369342,
+      "pnl_20d": -69494.172629914,
+      "ret_30d": -0.14723305323882854,
+      "pnl_30d": -73616.67385246752
+    },
+    {
+      "ticker": "VOO",
+      "net_notional": 1500002.0,
+      "n_open_lots": 2,
+      "n_open_buys": 2,
+      "first_buy_date": "2026-03-02",
+      "latest_buy_date": "2026-03-25",
+      "days_held": 89,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": -0.008807657007082303,
+      "pnl_1d": -8807.66581473931,
+      "ret_3d": -0.0070809449963226264,
+      "pnl_3d": -7080.952077267622,
+      "ret_5d": -0.0118490677374874,
+      "pnl_5d": -11849.079586555137,
+      "ret_10d": -0.02548798794065806,
+      "pnl_10d": -25488.013428645998,
+      "ret_20d": -0.07685386340537326,
+      "pnl_20d": -76853.94025923667,
+      "ret_30d": 0.014391271215217102,
+      "pnl_30d": 14391.285606488316
+    },
+    {
+      "ticker": "GOOGL",
+      "net_notional": 1445009.0,
+      "n_open_lots": 9,
+      "n_open_buys": 9,
+      "first_buy_date": "2026-01-10",
+      "latest_buy_date": "2026-03-31",
+      "days_held": 140,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": 0.012384857350936408,
+      "pnl_1d": 1238.4981199509916,
+      "ret_3d": 0.0027723130897238896,
+      "pnl_3d": 277.2340812854787,
+      "ret_5d": -0.02971121600612806,
+      "pnl_5d": -2971.151311828812,
+      "ret_10d": 0.008105836360460701,
+      "pnl_10d": 810.5917418824306,
+      "ret_20d": -0.04001688455173945,
+      "pnl_20d": -4001.7284720584967,
+      "ret_30d": -0.057132508393963305,
+      "pnl_30d": -5713.307971904725
+    },
+    {
+      "ticker": "AVGO",
+      "net_notional": 1381008.0,
+      "n_open_lots": 8,
+      "n_open_buys": 8,
+      "first_buy_date": "2026-01-31",
+      "latest_buy_date": "2026-03-31",
+      "days_held": 119,
+      "status": "\u4ecd\u6301\u6709",
+      "ret_1d": -0.03255719444726658,
+      "pnl_1d": -32.589751641713846,
+      "ret_3d": -0.062214905191602554,
+      "pnl_3d": -62.27712009679416,
+      "ret_5d": 0.0387485106815306,
+      "pnl_5d": 38.78725919221213,
+      "ret_10d": 0.004318885019996121,
+      "pnl_10d": 4.323203905016117,
+      "ret_20d": -0.05215782619538011,
+      "pnl_20d": -52.209984021575494,
+      "ret_30d": -0.02959739911887763,
+      "pnl_30d": -29.626996517996506
+    }
+  ]
+}

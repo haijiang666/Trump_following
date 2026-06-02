@@ -1,6 +1,6 @@
 # Trump 股票/ETF 交易分析报告
 
-> 生成时间: 2026-06-02 21:37 · OGE Form 278-T · 第二任期上任以来
+> 生成时间: 2026-06-02 21:55 · OGE Form 278-T · 第二任期上任以来
 
 ## 数据范围
 
@@ -83,6 +83,18 @@ Horizon 收益以 **最早一笔未平买入** 的交易日为 anchor（Trump ti
 <figure class="report-fig">
 <img src="figures/18_portfolio_timeseries.png" alt="组合持仓规模与累计 PnL 随时间变化（FIFO 日度）">
 <figcaption>组合持仓规模与累计 PnL 随时间变化（FIFO 日度）</figcaption>
+</figure>
+
+
+<figure class="report-fig">
+<img src="figures/20_daily_accumulated_pnl.png" alt="每个交易日累计 PnL（FIFO 盯市，直至分析截止日）">
+<figcaption>每个交易日累计 PnL（FIFO 盯市，直至分析截止日）</figcaption>
+</figure>
+
+
+<figure class="report-fig">
+<img src="figures/21_weekly_pnl_top3_bars.png" alt="每周 PnL：当周 |PnL| 前三股票 + 其他（堆叠柱）">
+<figcaption>每周 PnL：当周 |PnL| 前三股票 + 其他（堆叠柱）</figcaption>
 </figure>
 
 
@@ -425,18 +437,6 @@ ticker  trades  buys  sales  total_notional  avg_post_5d  avg_post_1d
 <figure class="report-fig">
 <img src="figures/07_event_study.png" alt="事件研究：披露日 abnormal return">
 <figcaption>事件研究：披露日 abnormal return</figcaption>
-</figure>
-
-
-<figure class="report-fig">
-<img src="figures/20_daily_accumulated_pnl.png" alt="20 daily accumulated pnl">
-<figcaption>20 daily accumulated pnl</figcaption>
-</figure>
-
-
-<figure class="report-fig">
-<img src="figures/21_daily_pnl_top3_stack.png" alt="21 daily pnl top3 stack">
-<figcaption>21 daily pnl top3 stack</figcaption>
 </figure>
 
 

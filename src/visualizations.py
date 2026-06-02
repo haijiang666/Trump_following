@@ -629,7 +629,6 @@ def plot_daily_accumulated_pnl(
     title: str,
     prefix: str = "20_daily_accumulated_pnl",
 ) -> Path | None:
-    """Single-panel cumulative PnL on every trading day through analysis end."""
     if daily.empty or "cum_pnl" not in daily.columns:
         return None
     df = daily.copy()
@@ -651,68 +650,83 @@ def plot_daily_accumulated_pnl(
     return _save(fig, out_dir, prefix)
 
 
-def _daily_top3_other_rows(ticker_daily: pd.DataFrame) -> pd.DataFrame:
+def _weekly_top3_other_rows(ticker_daily: pd.DataFrame) -> pd.DataFrame:
     td = ticker_daily.copy()
     td["date"] = pd.to_datetime(td["date"])
+    td["week"] = td["date"].dt.to_period("W-SUN").apply(lambda p: p.start_time)
+    weekly = td.groupby(["week", "ticker"], as_index=False)["daily_pnl"].sum()
     records: list[dict[str, Any]] = []
-    for d, g in td.groupby("date", sort=True):
+    for week, g in weekly.groupby("week", sort=True):
         g = g[g["daily_pnl"].notna()].copy()
         if g.empty:
-            records.append({"date": d, "rank1": 0.0, "rank2": 0.0, "rank3": 0.0, "other": 0.0})
             continue
         g = g.assign(_abs=g["daily_pnl"].abs()).sort_values("_abs", ascending=False)
         top = g.head(3)
         other = float(g["daily_pnl"].sum() - top["daily_pnl"].sum())
         vals = top["daily_pnl"].tolist()
+        names = top["ticker"].astype(str).tolist()
         while len(vals) < 3:
             vals.append(0.0)
+            names.append("")
         records.append(
             {
-                "date": d,
-                "rank1": vals[0],
-                "rank2": vals[1],
-                "rank3": vals[2],
+                "week": week,
+                "pnl_1": vals[0],
+                "pnl_2": vals[1],
+                "pnl_3": vals[2],
                 "other": other,
+                "ticker_1": names[0],
+                "ticker_2": names[1],
+                "ticker_3": names[2],
             }
         )
     return pd.DataFrame(records)
 
 
-def plot_daily_pnl_top3_stack(
+def plot_weekly_pnl_top3_bars(
     ticker_daily: pd.DataFrame,
     out_dir: Path,
     title: str,
-    prefix: str = "21_daily_pnl_top3_stack",
+    prefix: str = "21_weekly_pnl_top3_bars",
 ) -> Path | None:
-    """Stacked daily PnL: top-3 tickers by |daily_pnl| each day; remainder = Other."""
-    if ticker_daily.empty:
-        return None
-    wide = _daily_top3_other_rows(ticker_daily)
+    wide = _weekly_top3_other_rows(ticker_daily)
     if wide.empty:
         return None
-    wide["date"] = pd.to_datetime(wide["date"])
-    wide = wide.sort_values("date")
+    legacy = out_dir / "21_daily_pnl_top3_stack.png"
+    if legacy.exists():
+        try:
+            legacy.unlink()
+        except OSError:
+            pass
+    wide = wide.sort_values("week")
     scale, unit = _pnl_scale(
-        pd.concat([wide["rank1"], wide["rank2"], wide["rank3"], wide["other"]], ignore_index=True)
+        pd.concat([wide["pnl_1"], wide["pnl_2"], wide["pnl_3"], wide["other"]], ignore_index=True)
     )
-    fig, ax = plt.subplots(figsize=(12, 5.5))
-    dates = wide["date"]
-    layers = [
-        wide["rank1"] / scale,
-        wide["rank2"] / scale,
-        wide["rank3"] / scale,
-        wide["other"] / scale,
-    ]
-    labels = ["Daily #1", "Daily #2", "Daily #3", "Other"]
+    n = len(wide)
+    fig_w = max(12, min(28, n * 0.35))
+    fig, ax = plt.subplots(figsize=(fig_w, 5.5))
+    x = np.arange(n)
+    w = 0.72
+    b1 = wide["pnl_1"] / scale
+    b2 = wide["pnl_2"] / scale
+    b3 = wide["pnl_3"] / scale
+    bo = wide["other"] / scale
     colors = ["#2980b9", "#27ae60", "#e67e22", "#95a5a6"]
-    ax.stackplot(dates, *layers, labels=labels, colors=colors, alpha=0.88)
+    ax.bar(x, b1, w, label="Top 1", color=colors[0])
+    ax.bar(x, b2, w, bottom=b1, label="Top 2", color=colors[1])
+    ax.bar(x, b3, w, bottom=b1 + b2, label="Top 3", color=colors[2])
+    ax.bar(x, bo, w, bottom=b1 + b2 + b3, label="Other", color=colors[3])
     ax.axhline(0, color="gray", lw=0.8)
+    labels = pd.to_datetime(wide["week"]).dt.strftime("%Y-%m-%d")
+    step = max(1, n // 24)
+    ax.set_xticks(x[::step])
+    ax.set_xticklabels(labels.iloc[::step], rotation=45, ha="right")
     ax.set_title(_mpl_label(title))
-    ax.set_xlabel("Date")
-    ax.set_ylabel(f"Daily PnL contribution ({unit})")
+    ax.set_xlabel("Week (Mon start)")
+    ax.set_ylabel(f"Weekly PnL ({unit})")
     ax.legend(loc="upper left", fontsize=9)
-    ax.grid(True, alpha=0.25)
-    plt.xticks(rotation=45, ha="right")
+    ax.grid(True, axis="y", alpha=0.25)
+    fig.tight_layout()
     return _save(fig, out_dir, prefix)
 
 
@@ -808,9 +822,7 @@ def generate_all_charts(
         pt = plot_portfolio_daily_timeseries(portfolio_daily, out_dir)
         if pt:
             paths.append(pt)
-    accum_src = pnl_daily_for_accum
-    if accum_src is None or accum_src.empty:
-        accum_src = portfolio_daily
+    accum_src = pnl_daily_for_accum if pnl_daily_for_accum is not None and not pnl_daily_for_accum.empty else portfolio_daily
     if accum_src is not None and not accum_src.empty:
         acc = plot_daily_accumulated_pnl(
             accum_src,
@@ -820,13 +832,13 @@ def generate_all_charts(
         if acc:
             paths.append(acc)
     if ticker_daily_pnl is not None and not ticker_daily_pnl.empty:
-        stk = plot_daily_pnl_top3_stack(
+        wk = plot_weekly_pnl_top3_bars(
             ticker_daily_pnl,
             out_dir,
-            "Daily PnL — top 3 tickers by |PnL| each day (rest = Other)",
+            "Weekly PnL — top 3 tickers by |PnL| + Other (FIFO daily sum)",
         )
-        if stk:
-            paths.append(stk)
+        if wk:
+            paths.append(wk)
     paths += [
         plot_post_returns(returns_df, out_dir),
         plot_backtest_cum(bt, out_dir),

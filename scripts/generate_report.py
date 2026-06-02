@@ -211,6 +211,8 @@ _FIGURE_CAPTIONS: dict[str, str] = {
     "16_media_match_timelines": "Top3 匹配 ticker：买入 / Trump 发帖 / 卖出或仍持有",
     "17_open_holdings": "当前净多头 Top10：名义 + 买入后 horizon 收益",
     "18_portfolio_timeseries": "组合持仓规模与累计 PnL 随时间变化（FIFO 日度）",
+    "20_daily_accumulated_pnl": "每个交易日累计 PnL（FIFO 盯市，直至分析截止日）",
+    "21_weekly_pnl_top3_bars": "每周 PnL：当周 |PnL| 前三股票 + 其他（堆叠柱）",
     "06_backtest_cum": "Legacy：等权披露日回测累计收益",
     "07_event_study": "事件研究：披露日 abnormal return",
     "08_disclosure_timeline": "披露日批次：披露名义总额 + 笔数",
@@ -416,6 +418,8 @@ def _md_report(
     lines += fig("17_open_holdings")
     lines += _portfolio_daily_section(summary)
     lines += fig("18_portfolio_timeseries")
+    lines += fig("20_daily_accumulated_pnl")
+    lines += fig("21_weekly_pnl_top3_bars")
     lines += [
         "",
         "## Cross-Check",

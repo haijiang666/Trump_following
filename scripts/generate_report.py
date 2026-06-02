@@ -205,14 +205,14 @@ def _filing_content_label(n_equity_etf: int, n_bond_other: int, file_ok: bool) -
 _FIGURE_CAPTIONS: dict[str, str] = {
     "01_monthly_volume": "交易时间线（按日/周）：名义金额为主；柱顶标注 Top3 公司 buy/sell 名义",
     "02_reveal_lag": "披露滞后（交易日 → 披露日）",
-    "03_top_tickers": "Trump 名义金额 Top Ticker（amount_min 合计）",
+    "03_top_tickers": "股票 Top Ticker：trump_timing 名义合计（与下表一致）",
     "04_buy_sell": "买入 vs 卖出：笔数与名义金额双饼图",
     "05_post_returns": "Legacy：披露后收益分布",
     "16_media_match_timelines": "Top3 匹配 ticker：买入 / Trump 发帖 / 卖出或仍持有",
     "17_open_holdings": "当前净多头 Top10：名义 + 买入后 horizon 收益",
     "18_portfolio_timeseries": "组合持仓规模与累计 PnL 随时间变化（FIFO 日度）",
     "20_daily_accumulated_pnl": "每个交易日累计 PnL（FIFO 盯市，直至分析截止日）",
-    "21_weekly_pnl_top3_bars": "每周 PnL：当周 |PnL| 前三股票 + 其他（堆叠柱）",
+    "21_monthly_pnl_top3_bars": "每月 PnL（2024 起）：当月 |PnL| 前三股票 + 其他（堆叠柱）",
     "06_backtest_cum": "Legacy：等权披露日回测累计收益",
     "07_event_study": "事件研究：披露日 abnormal return",
     "08_disclosure_timeline": "披露日批次：披露名义总额 + 笔数",
@@ -419,7 +419,7 @@ def _md_report(
     lines += _portfolio_daily_section(summary)
     lines += fig("18_portfolio_timeseries")
     lines += fig("20_daily_accumulated_pnl")
-    lines += fig("21_weekly_pnl_top3_bars")
+    lines += fig("21_monthly_pnl_top3_bars")
     lines += [
         "",
         "## Cross-Check",
@@ -659,7 +659,9 @@ def _md_report(
     lines += fig("14_follow_buy_vs_sell")
     lines += fig("13_follow_cumulative_pnl")
     lines += [
-        "## Top Tickers（按 Trump 名义金额 `amount_min` 合计）",
+        "## 股票 Top Tickers（`trump_timing` 名义合计）",
+        "",
+        "与 **§1 Trump timing** 同一批有金额交易；`total_notional` 按 ticker 求和。`avg_post_*` 为旧版披露日后收益，≠ 主表 horizon NW。",
         "",
         "```",
         by_ticker.head(15).to_string(index=False),

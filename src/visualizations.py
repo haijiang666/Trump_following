@@ -228,6 +228,8 @@ def plot_top_tickers(
     out_dir: Path,
     n: int = 15,
     returns_df: pd.DataFrame | None = None,
+    prefix: str = "03_top_tickers",
+    title: str | None = None,
 ) -> Path:
     if returns_df is not None and "notional" in returns_df.columns and "ticker" in returns_df.columns:
         dedupe_col = "trade_id" if "trade_id" in returns_df.columns else "ticker"
@@ -237,20 +239,20 @@ def plot_top_tickers(
             .sum()
             .nlargest(n)
         )
-        title = f"Top {n} Tickers by Trump Notional (amount_min)"
+        chart_title = title or f"Top {n} tickers by Trump timing notional (amount_min)"
         xlabel = "Notional ($)"
     else:
         df = trades[trades["ticker"].notna()].copy()
         df["notional"] = df.apply(trade_notional, axis=1)
         top = df.groupby("ticker")["notional"].sum().nlargest(n)
-        title = f"Top {n} Tickers by Trump Notional (amount_min)"
+        chart_title = title or f"Top {n} tickers by raw amount_min (all parsed rows)"
         xlabel = "Notional ($)"
     fig, ax = plt.subplots(figsize=(8, 5))
     top.sort_values().plot(kind="barh", ax=ax, color="#9b59b6")
-    ax.set_title(title)
+    ax.set_title(_mpl_label(chart_title))
     ax.set_xlabel(xlabel)
     ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"${x/1e6:.1f}M" if x >= 1e6 else f"${x/1e3:.0f}K"))
-    return _save(fig, out_dir, "03_top_tickers")
+    return _save(fig, out_dir, prefix)
 
 
 def plot_buy_sell(trades: pd.DataFrame, out_dir: Path, trump_df: pd.DataFrame | None = None) -> Path:
@@ -650,13 +652,19 @@ def plot_daily_accumulated_pnl(
     return _save(fig, out_dir, prefix)
 
 
-def _weekly_top3_other_rows(ticker_daily: pd.DataFrame) -> pd.DataFrame:
+def _monthly_top3_other_rows(
+    ticker_daily: pd.DataFrame,
+    start: str | pd.Timestamp = "2024-01-01",
+) -> pd.DataFrame:
     td = ticker_daily.copy()
     td["date"] = pd.to_datetime(td["date"])
-    td["week"] = td["date"].dt.to_period("W-SUN").apply(lambda p: p.start_time)
-    weekly = td.groupby(["week", "ticker"], as_index=False)["daily_pnl"].sum()
+    td = td[td["date"] >= pd.Timestamp(start).normalize()].copy()
+    if td.empty:
+        return pd.DataFrame()
+    td["month"] = td["date"].dt.to_period("M").dt.to_timestamp()
+    monthly = td.groupby(["month", "ticker"], as_index=False)["daily_pnl"].sum()
     records: list[dict[str, Any]] = []
-    for week, g in weekly.groupby("week", sort=True):
+    for month, g in monthly.groupby("month", sort=True):
         g = g[g["daily_pnl"].notna()].copy()
         if g.empty:
             continue
@@ -670,7 +678,7 @@ def _weekly_top3_other_rows(ticker_daily: pd.DataFrame) -> pd.DataFrame:
             names.append("")
         records.append(
             {
-                "week": week,
+                "month": month,
                 "pnl_1": vals[0],
                 "pnl_2": vals[1],
                 "pnl_3": vals[2],
@@ -683,47 +691,48 @@ def _weekly_top3_other_rows(ticker_daily: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(records)
 
 
-def plot_weekly_pnl_top3_bars(
+def plot_monthly_pnl_top3_bars(
     ticker_daily: pd.DataFrame,
     out_dir: Path,
     title: str,
-    prefix: str = "21_weekly_pnl_top3_bars",
+    prefix: str = "21_monthly_pnl_top3_bars",
+    start: str | pd.Timestamp = "2024-01-01",
 ) -> Path | None:
-    wide = _weekly_top3_other_rows(ticker_daily)
+    wide = _monthly_top3_other_rows(ticker_daily, start=start)
     if wide.empty:
         return None
-    legacy = out_dir / "21_daily_pnl_top3_stack.png"
-    if legacy.exists():
-        try:
-            legacy.unlink()
-        except OSError:
-            pass
-    wide = wide.sort_values("week")
+    for legacy_name in ("21_daily_pnl_top3_stack.png", "21_weekly_pnl_top3_bars.png"):
+        legacy = out_dir / legacy_name
+        if legacy.exists():
+            try:
+                legacy.unlink()
+            except OSError:
+                pass
+    wide = wide.sort_values("month")
     scale, unit = _pnl_scale(
         pd.concat([wide["pnl_1"], wide["pnl_2"], wide["pnl_3"], wide["other"]], ignore_index=True)
     )
     n = len(wide)
-    fig_w = max(12, min(28, n * 0.35))
+    fig_w = max(10, min(22, n * 0.55))
     fig, ax = plt.subplots(figsize=(fig_w, 5.5))
     x = np.arange(n)
-    w = 0.72
+    bar_w = 0.72
     b1 = wide["pnl_1"] / scale
     b2 = wide["pnl_2"] / scale
     b3 = wide["pnl_3"] / scale
     bo = wide["other"] / scale
     colors = ["#2980b9", "#27ae60", "#e67e22", "#95a5a6"]
-    ax.bar(x, b1, w, label="Top 1", color=colors[0])
-    ax.bar(x, b2, w, bottom=b1, label="Top 2", color=colors[1])
-    ax.bar(x, b3, w, bottom=b1 + b2, label="Top 3", color=colors[2])
-    ax.bar(x, bo, w, bottom=b1 + b2 + b3, label="Other", color=colors[3])
+    ax.bar(x, b1, bar_w, label="Top 1", color=colors[0])
+    ax.bar(x, b2, bar_w, bottom=b1, label="Top 2", color=colors[1])
+    ax.bar(x, b3, bar_w, bottom=b1 + b2, label="Top 3", color=colors[2])
+    ax.bar(x, bo, bar_w, bottom=b1 + b2 + b3, label="Other", color=colors[3])
     ax.axhline(0, color="gray", lw=0.8)
-    labels = pd.to_datetime(wide["week"]).dt.strftime("%Y-%m-%d")
-    step = max(1, n // 24)
-    ax.set_xticks(x[::step])
-    ax.set_xticklabels(labels.iloc[::step], rotation=45, ha="right")
+    labels = pd.to_datetime(wide["month"]).dt.strftime("%Y-%m")
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=45, ha="right")
     ax.set_title(_mpl_label(title))
-    ax.set_xlabel("Week (Mon start)")
-    ax.set_ylabel(f"Weekly PnL ({unit})")
+    ax.set_xlabel("Month")
+    ax.set_ylabel(f"Monthly PnL ({unit})")
     ax.legend(loc="upper left", fontsize=9)
     ax.grid(True, axis="y", alpha=0.25)
     fig.tight_layout()
@@ -832,13 +841,13 @@ def generate_all_charts(
         if acc:
             paths.append(acc)
     if ticker_daily_pnl is not None and not ticker_daily_pnl.empty:
-        wk = plot_weekly_pnl_top3_bars(
+        mo = plot_monthly_pnl_top3_bars(
             ticker_daily_pnl,
             out_dir,
-            "Weekly PnL — top 3 tickers by |PnL| + Other (FIFO daily sum)",
+            "Monthly PnL (2024→) — top 3 tickers by |PnL| + Other (FIFO daily sum)",
         )
-        if wk:
-            paths.append(wk)
+        if mo:
+            paths.append(mo)
     paths += [
         plot_post_returns(returns_df, out_dir),
         plot_backtest_cum(bt, out_dir),

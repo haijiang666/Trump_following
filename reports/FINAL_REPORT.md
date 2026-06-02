@@ -1,6 +1,6 @@
 # Trump 股票/ETF 交易分析报告
 
-> 生成时间: 2026-06-02 21:55 · OGE Form 278-T · 第二任期上任以来
+> 生成时间: 2026-06-02 22:18 · OGE Form 278-T · 第二任期上任以来
 
 ## 数据范围
 
@@ -93,8 +93,8 @@ Horizon 收益以 **最早一笔未平买入** 的交易日为 anchor（Trump ti
 
 
 <figure class="report-fig">
-<img src="figures/21_weekly_pnl_top3_bars.png" alt="每周 PnL：当周 |PnL| 前三股票 + 其他（堆叠柱）">
-<figcaption>每周 PnL：当周 |PnL| 前三股票 + 其他（堆叠柱）</figcaption>
+<img src="figures/21_monthly_pnl_top3_bars.png" alt="每月 PnL（2024 起）：当月 |PnL| 前三股票 + 其他（堆叠柱）">
+<figcaption>每月 PnL（2024 起）：当月 |PnL| 前三股票 + 其他（堆叠柱）</figcaption>
 </figure>
 
 
@@ -388,7 +388,9 @@ ticker  n_matched_pairs  n_open_buys  n_prior_sells  avg_holding_days  median_ho
 <figcaption>Follow 披露日：累计 PnL</figcaption>
 </figure>
 
-## Top Tickers（按 Trump 名义金额 `amount_min` 合计）
+## 股票 Top Tickers（`trump_timing` 名义合计）
+
+与 **§1 Trump timing** 同一批有金额交易；`total_notional` 按 ticker 求和。`avg_post_*` 为旧版披露日后收益，≠ 主表 horizon NW。
 
 ```
 ticker  trades  buys  sales  total_notional  avg_post_5d  avg_post_1d
@@ -411,8 +413,8 @@ ticker  trades  buys  sales  total_notional  avg_post_5d  avg_post_1d
 
 
 <figure class="report-fig">
-<img src="figures/03_top_tickers.png" alt="Trump 名义金额 Top Ticker（amount_min 合计）">
-<figcaption>Trump 名义金额 Top Ticker（amount_min 合计）</figcaption>
+<img src="figures/03_top_tickers.png" alt="股票 Top Ticker：trump_timing 名义合计（与下表一致）">
+<figcaption>股票 Top Ticker：trump_timing 名义合计（与下表一致）</figcaption>
 </figure>
 
 

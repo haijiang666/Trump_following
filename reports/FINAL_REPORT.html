@@ -245,11 +245,11 @@ strong { font-weight: 650; }
     <nav class="mobile-nav" aria-label="报告目录">
       <p class="nav-title">Trump 交易分析报告 · 手机版</p>
       <button type="button" class="nav-toggle" aria-expanded="false">展开目录 ▾</button>
-      <div class="nav-links"><a href="#sec-1">数据范围</a><a href="#sec-2">Trump 当前净多头持仓（Top 10）</a><a href="#sec-3">Trump 组合持仓与 PnL 时间序列</a><a href="#sec-4">Cross-Check</a><a href="#sec-5">样本验证</a><a href="#sec-6">Trump 本人发帖匹配</a><a href="#sec-7">Trump 发帖 × 收益 / 行为规律</a><a href="#sec-8">持仓时间（FIFO 买→卖配对）</a><a href="#sec-9">1. Trump 自身交易 timing（锚点 = 交易发生日）</a><a href="#sec-10">2. Follow Trump（锚点 = OGE 披露日）</a><a href="#sec-11">附录：旧版等权披露日回测（参考）</a><a href="#sec-12">Top Tickers（按 Trump 名义金额 amount_min 合计）</a><a href="#sec-13">说明</a></div>
+      <div class="nav-links"><a href="#sec-1">数据范围</a><a href="#sec-2">Trump 当前净多头持仓（Top 10）</a><a href="#sec-3">Trump 组合持仓与 PnL 时间序列</a><a href="#sec-4">Cross-Check</a><a href="#sec-5">样本验证</a><a href="#sec-6">Trump 本人发帖匹配</a><a href="#sec-7">Trump 发帖 × 收益 / 行为规律</a><a href="#sec-8">持仓时间（FIFO 买→卖配对）</a><a href="#sec-9">1. Trump 自身交易 timing（锚点 = 交易发生日）</a><a href="#sec-10">2. Follow Trump（锚点 = OGE 披露日）</a><a href="#sec-11">Top Tickers（按 Trump 名义金额 amount_min 合计）</a><a href="#sec-12">说明</a></div>
     </nav>
       <h1>Trump 股票/ETF 交易分析报告</h1>
 <blockquote>
-<p>生成时间: 2026-06-02 09:44 · OGE Form 278-T · 第二任期上任以来</p>
+<p>生成时间: 2026-06-02 21:37 · OGE Form 278-T · 第二任期上任以来</p>
 </blockquote>
 <h2 id="sec-1">数据范围</h2>
 <ul>
@@ -482,24 +482,14 @@ Horizon 收益以 <strong>最早一笔未平买入</strong> 的交易日为 anch
 - <strong>每日 PnL</strong>：各仍持有标的的日度价格变动 × 对应名义仓位，卖出日记入已实现收益；<br>
 - <strong>累计 PnL</strong>：全部交易日 daily PnL 的 running sum（整组合曲线）。</p>
 <ul>
-<li>样本交易日: <strong>337</strong> 天</li>
-<li>截止 <strong>2026-05-29</strong>：MTM 持仓 <strong>$95.1M</strong>，累计 PnL <strong>$11.6M</strong></li>
-<li>持仓 MTM 峰值: <strong>$95.1M</strong>（2026-05-29）</li>
+<li>样本交易日: <strong>119</strong> 天</li>
+<li>截止 <strong>2026-05-29</strong>：MTM 持仓 <strong>$94.4M</strong>，累计 PnL <strong>$11.4M</strong></li>
+<li>持仓 MTM 峰值: <strong>$94.4M</strong>（2026-05-29）</li>
 </ul>
 <p>明细: <code>reports/portfolio_daily.csv</code></p>
 <figure class="report-fig">
 <img src="figures/18_portfolio_timeseries.png" alt="组合持仓规模与累计 PnL 随时间变化（FIFO 日度）">
 <figcaption>组合持仓规模与累计 PnL 随时间变化（FIFO 日度）</figcaption>
-</figure>
-
-<figure class="report-fig">
-<img src="figures/20_daily_accumulated_pnl.png" alt="每个交易日累计 PnL（FIFO 盯市，直至分析截止日）">
-<figcaption>每个交易日累计 PnL（FIFO 盯市，直至分析截止日）</figcaption>
-</figure>
-
-<figure class="report-fig">
-<img src="figures/21_daily_pnl_top3_stack.png" alt="每日 PnL 贡献：当日 |PnL| 前三标的 + 其他">
-<figcaption>每日 PnL 贡献：当日 |PnL| 前三标的 + 其他</figcaption>
 </figure>
 
 <h2 id="sec-4">Cross-Check</h2>
@@ -1046,7 +1036,7 @@ Top 表按 <code>(ticker, event)</code> 去重；<strong>sale</strong> 行的 Pn
 <td>+20d</td>
 <td style="text-align: right;">2288</td>
 <td style="text-align: right;">148,906,275</td>
-<td style="text-align: right;">-124,233</td>
+<td style="text-align: right;">-124,232</td>
 <td style="text-align: right;"><strong>-0.08%</strong></td>
 </tr>
 <tr>
@@ -1086,7 +1076,7 @@ Top 表按 <code>(ticker, event)</code> 去重；<strong>sale</strong> 行的 Pn
 <td>+3d</td>
 <td style="text-align: right;">1774</td>
 <td style="text-align: right;">105,356,763</td>
-<td style="text-align: right;">-409,758</td>
+<td style="text-align: right;">-409,757</td>
 <td style="text-align: right;"><strong>-0.39%</strong></td>
 </tr>
 <tr>
@@ -1209,6 +1199,15 @@ Top 表按 <code>(ticker, event)</code> 去重；<strong>sale</strong> 行的 Pn
 <td style="text-align: right;"><strong>-8.57%</strong></td>
 <td style="text-align: right;">31</td>
 <td style="text-align: right;">15.2%</td>
+</tr>
+<tr>
+<td>未平仓（MTM）</td>
+<td style="text-align: right;">1476</td>
+<td style="text-align: right;">84,842,476</td>
+<td style="text-align: right;">14,738,654</td>
+<td style="text-align: right;"><strong>17.37%</strong></td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">—</td>
 </tr>
 </tbody>
 </table></div>
@@ -1404,33 +1403,7 @@ Top 表按 <code>(ticker, event)</code> 去重；<strong>sale</strong> 行的 Pn
 <figcaption>Follow 披露日：累计 PnL</figcaption>
 </figure>
 
-<h2 id="sec-11">附录：旧版等权披露日回测（参考）</h2>
-<ul>
-<li>Reveal lag 中位: <strong>71</strong> 天</li>
-<li>等权按披露日复利 (+1td only): <strong>2.25%</strong></li>
-<li>胜率 (+1td): <strong>43.3%</strong></li>
-</ul>
-<figure class="report-fig">
-<img src="figures/02_reveal_lag.png" alt="披露滞后（交易日 → 披露日）">
-<figcaption>披露滞后（交易日 → 披露日）</figcaption>
-</figure>
-
-<figure class="report-fig">
-<img src="figures/06_backtest_cum.png" alt="Legacy：等权披露日回测累计收益">
-<figcaption>Legacy：等权披露日回测累计收益</figcaption>
-</figure>
-
-<figure class="report-fig">
-<img src="figures/05_post_returns.png" alt="Legacy：披露后收益分布">
-<figcaption>Legacy：披露后收益分布</figcaption>
-</figure>
-
-<figure class="report-fig">
-<img src="figures/07_event_study.png" alt="事件研究：披露日 abnormal return">
-<figcaption>事件研究：披露日 abnormal return</figcaption>
-</figure>
-
-<h2 id="sec-12">Top Tickers（按 Trump 名义金额 <code>amount_min</code> 合计）</h2>
+<h2 id="sec-11">Top Tickers（按 Trump 名义金额 <code>amount_min</code> 合计）</h2>
 <pre><code>ticker  trades  buys  sales  total_notional  avg_post_5d  avg_post_1d
   AMZN      23    19      4       8848023.0    -0.015898     0.010574
   MSFT      21    17      4       8443021.0     0.014650    -0.003886
@@ -1453,7 +1426,37 @@ Top 表按 <code>(ticker, event)</code> 去重；<strong>sale</strong> 行的 Pn
 <figcaption>Trump 名义金额 Top Ticker（amount_min 合计）</figcaption>
 </figure>
 
-<h2 id="sec-13">说明</h2>
+<figure class="report-fig">
+<img src="figures/02_reveal_lag.png" alt="披露滞后（交易日 → 披露日）">
+<figcaption>披露滞后（交易日 → 披露日）</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/05_post_returns.png" alt="Legacy：披露后收益分布">
+<figcaption>Legacy：披露后收益分布</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/06_backtest_cum.png" alt="Legacy：等权披露日回测累计收益">
+<figcaption>Legacy：等权披露日回测累计收益</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/07_event_study.png" alt="事件研究：披露日 abnormal return">
+<figcaption>事件研究：披露日 abnormal return</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/20_daily_accumulated_pnl.png" alt="20 daily accumulated pnl">
+<figcaption>20 daily accumulated pnl</figcaption>
+</figure>
+
+<figure class="report-fig">
+<img src="figures/21_daily_pnl_top3_stack.png" alt="21 daily pnl top3 stack">
+<figcaption>21 daily pnl top3 stack</figcaption>
+</figure>
+
+<h2 id="sec-12">说明</h2>
 <ul>
 <li>上任以来 <strong>6 份</strong> 278-T 中，<strong>股票/ETF 批量披露</strong>集中在 <code>trump_278t_2026_05_08_equity</code>（2026-05-12 收到）；其余多为市政/公司债 periodic report。</li>
 <li>名义金额 = OGE 披露区间<strong>下限</strong>相加，非精确成交价；单笔可能落在 $1,001–$15,000 至 $50M+ 等 bracket。</li>

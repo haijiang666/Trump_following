@@ -1,6 +1,6 @@
 # Trump 股票/ETF 交易分析报告
 
-> 生成时间: 2026-06-02 09:44 · OGE Form 278-T · 第二任期上任以来
+> 生成时间: 2026-06-02 21:37 · OGE Form 278-T · 第二任期上任以来
 
 ## 数据范围
 
@@ -73,9 +73,9 @@ Horizon 收益以 **最早一笔未平买入** 的交易日为 anchor（Trump ti
 - **每日 PnL**：各仍持有标的的日度价格变动 × 对应名义仓位，卖出日记入已实现收益；
 - **累计 PnL**：全部交易日 daily PnL 的 running sum（整组合曲线）。
 
-- 样本交易日: **337** 天
-- 截止 **2026-05-29**：MTM 持仓 **$95.1M**，累计 PnL **$11.6M**
-- 持仓 MTM 峰值: **$95.1M**（2026-05-29）
+- 样本交易日: **119** 天
+- 截止 **2026-05-29**：MTM 持仓 **$94.4M**，累计 PnL **$11.4M**
+- 持仓 MTM 峰值: **$94.4M**（2026-05-29）
 
 明细: `reports/portfolio_daily.csv`
 
@@ -83,18 +83,6 @@ Horizon 收益以 **最早一笔未平买入** 的交易日为 anchor（Trump ti
 <figure class="report-fig">
 <img src="figures/18_portfolio_timeseries.png" alt="组合持仓规模与累计 PnL 随时间变化（FIFO 日度）">
 <figcaption>组合持仓规模与累计 PnL 随时间变化（FIFO 日度）</figcaption>
-</figure>
-
-
-<figure class="report-fig">
-<img src="figures/20_daily_accumulated_pnl.png" alt="每个交易日累计 PnL（FIFO 盯市，直至分析截止日）">
-<figcaption>每个交易日累计 PnL（FIFO 盯市，直至分析截止日）</figcaption>
-</figure>
-
-
-<figure class="report-fig">
-<img src="figures/21_daily_pnl_top3_stack.png" alt="每日 PnL 贡献：当日 |PnL| 前三标的 + 其他">
-<figcaption>每日 PnL 贡献：当日 |PnL| 前三标的 + 其他</figcaption>
 </figure>
 
 
@@ -275,7 +263,7 @@ ticker  n_matched_pairs  n_open_buys  n_prior_sells  avg_holding_days  median_ho
 | +3d | 2288 | 148,906,275 | 238,569 | **0.16%** |
 | +5d | 2288 | 148,906,275 | 1,785 | **0.00%** |
 | +10d | 2288 | 148,906,275 | -219,695 | **-0.15%** |
-| +20d | 2288 | 148,906,275 | -124,233 | **-0.08%** |
+| +20d | 2288 | 148,906,275 | -124,232 | **-0.08%** |
 | +30d | 2288 | 148,906,275 | 1,901,053 | **1.28%** |
 
 
@@ -289,7 +277,7 @@ ticker  n_matched_pairs  n_open_buys  n_prior_sells  avg_holding_days  median_ho
 | 窗口(交易日) | 笔数 | 总名义($) | 总PnL($) | **名义加权收益率** |
 |---|---:|---:|---:|---:|
 | +1d | 1774 | 105,356,763 | -582,065 | **-0.55%** |
-| +3d | 1774 | 105,356,763 | -409,758 | **-0.39%** |
+| +3d | 1774 | 105,356,763 | -409,757 | **-0.39%** |
 | +5d | 1774 | 105,356,763 | -501,241 | **-0.48%** |
 | +10d | 1774 | 105,356,763 | -346,415 | **-0.33%** |
 | +20d | 1774 | 105,356,763 | 535,786 | **0.51%** |
@@ -326,6 +314,7 @@ ticker  n_matched_pairs  n_open_buys  n_prior_sells  avg_holding_days  median_ho
 | 类型 | 配对/笔数 | 名义($) | 总 PnL($) | **NW 收益率** | 中位持仓(天) | 胜率 |
 |------|----------:|--------:|----------:|--------------:|-------------:|-----:|
 | 已实现（买→卖） | 290 | 8,531,290 | -730,951 | **-8.57%** | 31 | 15.2% |
+| 未平仓（MTM） | 1476 | 84,842,476 | 14,738,654 | **17.37%** | 85 | — |
 
 - 无对应买入的卖出（`prior_position`）: **227** 笔 — 未计入 realized
 
@@ -387,36 +376,6 @@ ticker  n_matched_pairs  n_open_buys  n_prior_sells  avg_holding_days  median_ho
 <figcaption>Follow 披露日：累计 PnL</figcaption>
 </figure>
 
-## 附录：旧版等权披露日回测（参考）
-
-- Reveal lag 中位: **71** 天
-- 等权按披露日复利 (+1td only): **2.25%**
-- 胜率 (+1td): **43.3%**
-
-
-<figure class="report-fig">
-<img src="figures/02_reveal_lag.png" alt="披露滞后（交易日 → 披露日）">
-<figcaption>披露滞后（交易日 → 披露日）</figcaption>
-</figure>
-
-
-<figure class="report-fig">
-<img src="figures/06_backtest_cum.png" alt="Legacy：等权披露日回测累计收益">
-<figcaption>Legacy：等权披露日回测累计收益</figcaption>
-</figure>
-
-
-<figure class="report-fig">
-<img src="figures/05_post_returns.png" alt="Legacy：披露后收益分布">
-<figcaption>Legacy：披露后收益分布</figcaption>
-</figure>
-
-
-<figure class="report-fig">
-<img src="figures/07_event_study.png" alt="事件研究：披露日 abnormal return">
-<figcaption>事件研究：披露日 abnormal return</figcaption>
-</figure>
-
 ## Top Tickers（按 Trump 名义金额 `amount_min` 合计）
 
 ```
@@ -442,6 +401,42 @@ ticker  trades  buys  sales  total_notional  avg_post_5d  avg_post_1d
 <figure class="report-fig">
 <img src="figures/03_top_tickers.png" alt="Trump 名义金额 Top Ticker（amount_min 合计）">
 <figcaption>Trump 名义金额 Top Ticker（amount_min 合计）</figcaption>
+</figure>
+
+
+<figure class="report-fig">
+<img src="figures/02_reveal_lag.png" alt="披露滞后（交易日 → 披露日）">
+<figcaption>披露滞后（交易日 → 披露日）</figcaption>
+</figure>
+
+
+<figure class="report-fig">
+<img src="figures/05_post_returns.png" alt="Legacy：披露后收益分布">
+<figcaption>Legacy：披露后收益分布</figcaption>
+</figure>
+
+
+<figure class="report-fig">
+<img src="figures/06_backtest_cum.png" alt="Legacy：等权披露日回测累计收益">
+<figcaption>Legacy：等权披露日回测累计收益</figcaption>
+</figure>
+
+
+<figure class="report-fig">
+<img src="figures/07_event_study.png" alt="事件研究：披露日 abnormal return">
+<figcaption>事件研究：披露日 abnormal return</figcaption>
+</figure>
+
+
+<figure class="report-fig">
+<img src="figures/20_daily_accumulated_pnl.png" alt="20 daily accumulated pnl">
+<figcaption>20 daily accumulated pnl</figcaption>
+</figure>
+
+
+<figure class="report-fig">
+<img src="figures/21_daily_pnl_top3_stack.png" alt="21 daily pnl top3 stack">
+<figcaption>21 daily pnl top3 stack</figcaption>
 </figure>
 
 

@@ -614,6 +614,108 @@ def plot_open_holdings_snapshot(holdings: pd.DataFrame, out_dir: Path) -> Path |
     return _save(fig, out_dir, "17_open_holdings")
 
 
+def _pnl_scale(pnl: pd.Series) -> tuple[float, str]:
+    mx = float(pnl.abs().max()) if len(pnl) else 0.0
+    if mx >= 5e5:
+        return 1e6, "$M"
+    if mx >= 5e3:
+        return 1e3, "$K"
+    return 1.0, "$"
+
+
+def plot_daily_accumulated_pnl(
+    daily: pd.DataFrame,
+    out_dir: Path,
+    title: str,
+    prefix: str = "20_daily_accumulated_pnl",
+) -> Path | None:
+    """Single-panel cumulative PnL on every trading day through analysis end."""
+    if daily.empty or "cum_pnl" not in daily.columns:
+        return None
+    df = daily.copy()
+    df["date"] = pd.to_datetime(df["date"])
+    df = df.sort_values("date")
+    scale, unit = _pnl_scale(df["cum_pnl"])
+    fig, ax = plt.subplots(figsize=(12, 5))
+    y = df["cum_pnl"] / scale
+    ax.plot(df["date"], y, color="#1e4d8c", lw=2.2, label="Accumulated PnL")
+    ax.fill_between(df["date"], 0, y, where=df["cum_pnl"] >= 0, alpha=0.12, color="#2ecc71")
+    ax.fill_between(df["date"], 0, y, where=df["cum_pnl"] < 0, alpha=0.12, color="#e74c3c")
+    ax.axhline(0, color="gray", lw=0.8)
+    ax.set_title(_mpl_label(title))
+    ax.set_xlabel("Date")
+    ax.set_ylabel(f"Accumulated PnL ({unit})")
+    ax.legend(loc="upper left")
+    ax.grid(True, alpha=0.3)
+    plt.xticks(rotation=45, ha="right")
+    return _save(fig, out_dir, prefix)
+
+
+def _daily_top3_other_rows(ticker_daily: pd.DataFrame) -> pd.DataFrame:
+    td = ticker_daily.copy()
+    td["date"] = pd.to_datetime(td["date"])
+    records: list[dict[str, Any]] = []
+    for d, g in td.groupby("date", sort=True):
+        g = g[g["daily_pnl"].notna()].copy()
+        if g.empty:
+            records.append({"date": d, "rank1": 0.0, "rank2": 0.0, "rank3": 0.0, "other": 0.0})
+            continue
+        g = g.assign(_abs=g["daily_pnl"].abs()).sort_values("_abs", ascending=False)
+        top = g.head(3)
+        other = float(g["daily_pnl"].sum() - top["daily_pnl"].sum())
+        vals = top["daily_pnl"].tolist()
+        while len(vals) < 3:
+            vals.append(0.0)
+        records.append(
+            {
+                "date": d,
+                "rank1": vals[0],
+                "rank2": vals[1],
+                "rank3": vals[2],
+                "other": other,
+            }
+        )
+    return pd.DataFrame(records)
+
+
+def plot_daily_pnl_top3_stack(
+    ticker_daily: pd.DataFrame,
+    out_dir: Path,
+    title: str,
+    prefix: str = "21_daily_pnl_top3_stack",
+) -> Path | None:
+    """Stacked daily PnL: top-3 tickers by |daily_pnl| each day; remainder = Other."""
+    if ticker_daily.empty:
+        return None
+    wide = _daily_top3_other_rows(ticker_daily)
+    if wide.empty:
+        return None
+    wide["date"] = pd.to_datetime(wide["date"])
+    wide = wide.sort_values("date")
+    scale, unit = _pnl_scale(
+        pd.concat([wide["rank1"], wide["rank2"], wide["rank3"], wide["other"]], ignore_index=True)
+    )
+    fig, ax = plt.subplots(figsize=(12, 5.5))
+    dates = wide["date"]
+    layers = [
+        wide["rank1"] / scale,
+        wide["rank2"] / scale,
+        wide["rank3"] / scale,
+        wide["other"] / scale,
+    ]
+    labels = ["Daily #1", "Daily #2", "Daily #3", "Other"]
+    colors = ["#2980b9", "#27ae60", "#e67e22", "#95a5a6"]
+    ax.stackplot(dates, *layers, labels=labels, colors=colors, alpha=0.88)
+    ax.axhline(0, color="gray", lw=0.8)
+    ax.set_title(_mpl_label(title))
+    ax.set_xlabel("Date")
+    ax.set_ylabel(f"Daily PnL contribution ({unit})")
+    ax.legend(loc="upper left", fontsize=9)
+    ax.grid(True, alpha=0.25)
+    plt.xticks(rotation=45, ha="right")
+    return _save(fig, out_dir, prefix)
+
+
 def plot_portfolio_daily_timeseries(daily: pd.DataFrame, out_dir: Path) -> Path | None:
     """Gross-long FIFO portfolio: MTM exposure and cumulative PnL over time."""
     if daily.empty:
@@ -688,6 +790,8 @@ def generate_all_charts(
     media_timelines: list | None = None,
     open_holdings: pd.DataFrame | None = None,
     portfolio_daily: pd.DataFrame | None = None,
+    ticker_daily_pnl: pd.DataFrame | None = None,
+    pnl_daily_for_accum: pd.DataFrame | None = None,
 ) -> list[Path]:
     trump_df = return_analysis.get("trump_timing") if return_analysis else None
     paths = [
@@ -704,6 +808,25 @@ def generate_all_charts(
         pt = plot_portfolio_daily_timeseries(portfolio_daily, out_dir)
         if pt:
             paths.append(pt)
+    accum_src = pnl_daily_for_accum
+    if accum_src is None or accum_src.empty:
+        accum_src = portfolio_daily
+    if accum_src is not None and not accum_src.empty:
+        acc = plot_daily_accumulated_pnl(
+            accum_src,
+            out_dir,
+            "Trump portfolio — daily accumulated PnL (FIFO MTM through analysis end)",
+        )
+        if acc:
+            paths.append(acc)
+    if ticker_daily_pnl is not None and not ticker_daily_pnl.empty:
+        stk = plot_daily_pnl_top3_stack(
+            ticker_daily_pnl,
+            out_dir,
+            "Daily PnL — top 3 tickers by |PnL| each day (rest = Other)",
+        )
+        if stk:
+            paths.append(stk)
     paths += [
         plot_post_returns(returns_df, out_dir),
         plot_backtest_cum(bt, out_dir),

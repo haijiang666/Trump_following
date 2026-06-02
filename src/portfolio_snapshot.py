@@ -181,6 +181,98 @@ def compute_portfolio_daily_timeseries(
     return out.sort_values("date").reset_index(drop=True)
 
 
+def compute_ticker_daily_pnl(
+    trades: pd.DataFrame,
+    price_cache: dict[str, pd.DataFrame],
+    settings: dict[str, Any] | None = None,
+) -> pd.DataFrame:
+    """Per-ticker daily and cumulative PnL on the same FIFO calendar as portfolio_daily."""
+    settings = settings or load_settings()
+    end = pd.Timestamp(settings["oge"].get("analysis_end_date", "2026-05-30")).normalize()
+
+    df = trades.copy()
+    df = df[df["ticker"].notna() & df["action"].isin(["purchase", "sale"])].copy()
+    if df.empty:
+        return pd.DataFrame()
+
+    df["transaction_date"] = pd.to_datetime(df["transaction_date"]).dt.normalize()
+    df = df[df["transaction_date"] <= end].copy()
+    df["_sort"] = df.apply(_sort_key, axis=1)
+    df = df.sort_values("_sort").drop(columns="_sort")
+
+    tickers = set(df["ticker"].astype(str).unique())
+    start = df["transaction_date"].min()
+    calendar = _trading_calendar(price_cache, tickers, start, end)
+    if not calendar:
+        return pd.DataFrame()
+
+    by_day: dict[pd.Timestamp, list[pd.Series]] = {}
+    for _, row in df.iterrows():
+        d = pd.Timestamp(row["transaction_date"]).normalize()
+        by_day.setdefault(d, []).append(row)
+
+    queues: dict[str, deque[_OpenLot]] = {t: deque() for t in tickers}
+    realized: dict[str, float] = {t: 0.0 for t in tickers}
+    prev_total: dict[str, float] = {t: 0.0 for t in tickers}
+    rows: list[dict[str, Any]] = []
+
+    for day in calendar:
+        for row in by_day.get(day, []):
+            ticker = str(row["ticker"])
+            prices = price_cache.get(ticker)
+            if prices is None or prices.empty:
+                continue
+            notional = trade_notional(row)
+            if pd.isna(notional) or notional <= 0:
+                continue
+
+            if row["action"] == "purchase":
+                entry_price = _close_on_date(prices, day)
+                if not entry_price or entry_price <= 0:
+                    continue
+                queues.setdefault(ticker, deque()).append(
+                    _OpenLot(ticker, float(notional), day, float(entry_price))
+                )
+                continue
+
+            q = queues.get(ticker)
+            if not q:
+                continue
+            lot = q.popleft()
+            exit_price = _close_on_date(prices, day)
+            if exit_price and lot.entry_price > 0:
+                realized[ticker] = realized.get(ticker, 0.0) + lot.notional * (
+                    exit_price / lot.entry_price - 1.0
+                )
+
+        active = set(queues.keys()) | set(realized.keys())
+        for ticker in active:
+            prices = price_cache.get(ticker)
+            unrealized = 0.0
+            if prices is not None and not prices.empty:
+                close = _close_on_date(prices, day)
+                if close and close > 0:
+                    for lot in queues.get(ticker, deque()):
+                        if lot.entry_price > 0:
+                            unrealized += lot.notional * (close / lot.entry_price - 1.0)
+            total = realized.get(ticker, 0.0) + unrealized
+            daily = total - prev_total.get(ticker, 0.0)
+            prev_total[ticker] = total
+            rows.append(
+                {
+                    "date": day.date(),
+                    "ticker": ticker,
+                    "daily_pnl": daily,
+                    "cum_pnl": total,
+                }
+            )
+
+    out = pd.DataFrame(rows)
+    if out.empty:
+        return out
+    return out.sort_values(["date", "ticker"]).reset_index(drop=True)
+
+
 def portfolio_daily_summary_records(df: pd.DataFrame) -> dict[str, Any]:
     if df.empty:
         return {}

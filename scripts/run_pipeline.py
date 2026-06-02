@@ -38,6 +38,7 @@ from src.trade_returns import run_both_analyses
 from src.portfolio_snapshot import (
     compute_open_holdings_top_n,
     compute_portfolio_daily_timeseries,
+    compute_ticker_daily_pnl,
     open_holdings_summary_records,
     portfolio_daily_summary_records,
 )
@@ -247,6 +248,9 @@ def main() -> int:
     portfolio_daily = compute_portfolio_daily_timeseries(tradable, price_cache, settings)
     portfolio_daily.to_csv(reports / "portfolio_daily.csv", index=False)
     summary["portfolio_daily"] = portfolio_daily_summary_records(portfolio_daily)
+    ticker_daily_pnl = compute_ticker_daily_pnl(tradable, price_cache, settings)
+    if not ticker_daily_pnl.empty:
+        ticker_daily_pnl.to_csv(reports / "portfolio_ticker_daily_pnl.csv", index=False)
     (reports / "final_summary.json").write_text(json.dumps(summary, indent=2, default=str))
 
     chart_paths = generate_all_charts(
@@ -261,6 +265,8 @@ def main() -> int:
         media_timelines=media_analysis.get("media_timelines"),
         open_holdings=open_holdings,
         portfolio_daily=portfolio_daily,
+        ticker_daily_pnl=ticker_daily_pnl if not ticker_daily_pnl.empty else None,
+        pnl_daily_for_accum=portfolio_daily if not portfolio_daily.empty else None,
     )
     for p in chart_paths:
         print(f"  {p.name}")

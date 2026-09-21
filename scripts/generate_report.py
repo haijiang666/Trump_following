@@ -12,6 +12,7 @@ from html import escape
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 from matplotlib.backends.backend_pdf import PdfPages
 
@@ -212,7 +213,7 @@ _FIGURE_CAPTIONS: dict[str, str] = {
     "17_open_holdings": "当前净多头 Top10：名义 + 买入后 horizon 收益",
     "18_portfolio_timeseries": "组合持仓规模与累计 PnL 随时间变化（FIFO 日度）",
     "20_daily_accumulated_pnl": "每个交易日累计 PnL（FIFO 盯市，直至分析截止日）",
-    "21_monthly_pnl_top3_bars": "每月 PnL（2024 起）：当月 |PnL| 前三股票 + 其他（堆叠柱）",
+    "21_monthly_pnl_top3_bars": "每月 PnL（2024 起）：柱上标注 Top3 股票代码，灰色段=其他",
     "06_backtest_cum": "Legacy：等权披露日回测累计收益",
     "07_event_study": "事件研究：披露日 abnormal return",
     "08_disclosure_timeline": "披露日批次：披露名义总额 + 笔数",
@@ -413,13 +414,13 @@ def _md_report(
     lines += _trade_action_summary_lines()
     lines += fig("08_disclosure_timeline")
     lines += fig("01_monthly_volume")
+    lines += fig("21_monthly_pnl_top3_bars")
     lines += fig("04_buy_sell")
     lines += _open_holdings_section(summary)
     lines += fig("17_open_holdings")
     lines += _portfolio_daily_section(summary)
     lines += fig("18_portfolio_timeseries")
     lines += fig("20_daily_accumulated_pnl")
-    lines += fig("21_monthly_pnl_top3_bars")
     lines += [
         "",
         "## Cross-Check",
@@ -751,7 +752,15 @@ def _pdf_report(
         for chart in chart_paths:
             if not chart.exists():
                 continue
-            img = plt.imread(chart)
+            # PDF embedding: downscale large PNGs to keep PDF generation stable.
+            from PIL import Image
+
+            with Image.open(chart) as im:
+                max_w = 2200
+                if im.width > max_w:
+                    ratio = max_w / im.width
+                    im = im.resize((max_w, int(im.height * ratio)), Image.Resampling.LANCZOS)
+                img = np.asarray(im.convert("RGB"))
             fig, ax = plt.subplots(figsize=(11, 8.5))
             ax.imshow(img)
             ax.axis("off")
@@ -998,13 +1007,13 @@ _HTML_MOBILE_SCRIPT = """
   btn.addEventListener('click', function () {
     var open = nav.classList.toggle('is-open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    btn.textContent = open ? '收起目录 ▴' : '展开目录 ▾';
+    btn.textContent = open ? (window.t ? window.t('收起目录 ▴') : '收起目录 ▴') : (window.t ? window.t('展开目录 ▾') : '展开目录 ▾');
   });
   document.querySelectorAll('.nav-links a').forEach(function (a) {
     a.addEventListener('click', function () {
       nav.classList.remove('is-open');
       btn.setAttribute('aria-expanded', 'false');
-      btn.textContent = '展开目录 ▾';
+      btn.textContent = window.t ? window.t('展开目录 ▾') : '展开目录 ▾';
     });
   });
 })();
@@ -1033,6 +1042,12 @@ def _add_section_ids_and_toc(html: str) -> tuple[str, str]:
     return html, links
 
 
+_EMBED_FIGURE_PROFILES: dict[str, dict[str, int | str]] = {
+    "01_monthly_volume.png": {"max_w": 3600, "quality": 95, "format": "jpeg"},
+    "21_monthly_pnl_top3_bars.png": {"max_w": 3600, "quality": 95, "format": "jpeg"},
+}
+
+
 def _embed_figure_src(html: str, figures_dir: Path, *, compress: bool = True) -> str:
     def _repl(match: re.Match) -> str:
         fname = match.group(1)
@@ -1044,13 +1059,22 @@ def _embed_figure_src(html: str, figures_dir: Path, *, compress: bool = True) ->
 
             from PIL import Image
 
+            profile = _EMBED_FIGURE_PROFILES.get(fname, {})
+            max_w = int(profile.get("max_w", 900))
+            quality = int(profile.get("quality", 72))
+            fmt = str(profile.get("format", "jpeg")).lower()
+
             with Image.open(path) as img:
-                max_w = 900
                 if img.width > max_w:
                     ratio = max_w / img.width
                     img = img.resize((max_w, int(img.height * ratio)), Image.Resampling.LANCZOS)
                 buf = BytesIO()
-                img.convert("RGB").save(buf, format="JPEG", quality=72, optimize=True)
+                if fmt == "png":
+                    img.save(buf, format="PNG", optimize=True)
+                    payload = buf.getvalue()
+                    b64 = base64.b64encode(payload).decode("ascii")
+                    return f'src="data:image/png;base64,{b64}"'
+                img.convert("RGB").save(buf, format="JPEG", quality=quality, optimize=True)
                 payload = buf.getvalue()
             b64 = base64.b64encode(payload).decode("ascii")
             return f'src="data:image/jpeg;base64,{b64}"'
@@ -1125,6 +1149,13 @@ def _html_report(
   <style>{_HTML_STYLES}</style>
 </head>
 <body>
+<style>
+.lang-bar{{position:sticky;top:0;z-index:300;display:flex;justify-content:flex-end;align-items:center;padding:10px 16px;background:#1e4d8c;color:#fff}}
+.lang-switch{{display:inline-flex;padding:4px;gap:2px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.55);box-shadow:0 6px 18px rgba(0,0,0,.2)}}
+.lang-switch button{{border:0;background:transparent;color:#fff;font-weight:800;font-size:.95rem;padding:8px 18px;min-width:72px;border-radius:999px;cursor:pointer}}
+.lang-switch button.active{{background:#fff;color:#1e4d8c}}
+</style>
+<div class="lang-bar"><div class="lang-switch" role="group" aria-label="Language"><button type="button" data-set-lang="zh" onclick="setDashLang('zh')">中文</button><button type="button" data-set-lang="en" onclick="setDashLang('en')">EN</button></div></div>
   <div class="page">
     <article>
 {nav_html}
@@ -1133,6 +1164,7 @@ def _html_report(
     </article>
   </div>
   <script>{_HTML_MOBILE_SCRIPT}</script>
+  <script src="lang.js"></script>
 </body>
 </html>
 """
@@ -1159,8 +1191,11 @@ def main() -> None:
     print(f"Wrote {md_path}")
 
     pdf_path = reports / "FINAL_REPORT.pdf"
-    _pdf_report(summary, xcheck, chart_paths, pdf_path, filing_stats)
-    print(f"Wrote {pdf_path}")
+    try:
+        _pdf_report(summary, xcheck, chart_paths, pdf_path, filing_stats)
+        print(f"Wrote {pdf_path}")
+    except TimeoutError as e:
+        print(f"[WARN] PDF generation timed out: {e}")
 
     html_path = reports / "FINAL_REPORT.html"
     mobile_path = reports / "FINAL_REPORT.mobile.html"

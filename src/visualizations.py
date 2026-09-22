@@ -13,17 +13,43 @@ import seaborn as sns
 from .trade_returns import trade_notional
 
 sns.set_theme(style="whitegrid", palette="muted")
-plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 150, "font.size": 10})
+plt.rcParams.update({"figure.dpi": 140, "savefig.dpi": 220, "font.size": 10})
+
+
+def _setup_matplotlib_fonts() -> None:
+    from matplotlib import font_manager
+
+    for name in (
+        "PingFang SC",
+        "Arial Unicode MS",
+        "Hiragino Sans GB",
+        "Heiti SC",
+        "Microsoft YaHei",
+        "SimHei",
+        "Noto Sans CJK SC",
+        "DejaVu Sans",
+    ):
+        if name in {f.name for f in font_manager.fontManager.ttflist}:
+            plt.rcParams["font.sans-serif"] = [name, "DejaVu Sans"]
+            break
+    plt.rcParams["axes.unicode_minus"] = False
+
+
+_setup_matplotlib_fonts()
 
 _ACTION_COLORS = {"purchase": "#2ecc71", "sale": "#e74c3c", "exchange": "#f39c12"}
 _ACTION_LABELS = {"purchase": "Buy", "sale": "Sell", "exchange": "Exchange"}
 
 
-def _save(fig: plt.Figure, out_dir: Path, name: str) -> Path:
+def _save(fig: plt.Figure, out_dir: Path, name: str, *, dpi: int | None = None) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"{name}.png"
     fig.tight_layout()
-    fig.savefig(path, bbox_inches="tight")
+    kwargs: dict = {"bbox_inches": "tight"}
+    if dpi is not None:
+        kwargs["dpi"] = dpi
+        kwargs["facecolor"] = "white"
+    fig.savefig(path, **kwargs)
     plt.close(fig)
     return path
 
@@ -41,6 +67,19 @@ def _fmt_notional_short(x: float) -> str:
 def _mpl_label(s: str) -> str:
     """Escape $ so matplotlib renders dollar amounts literally (not as mathtext)."""
     return s.replace("$", r"\$")
+
+
+def _combined_legend(primary_ax, *extra_axes, **kwargs) -> None:
+    handles: list = []
+    labels: list[str] = []
+    for ax in (primary_ax, *extra_axes):
+        h, lab = ax.get_legend_handles_labels()
+        for handle, text in zip(h, lab):
+            if text and str(text).strip():
+                handles.append(handle)
+                labels.append(str(text))
+    if handles:
+        primary_ax.legend(handles, labels, **kwargs)
 
 
 def _with_notional(trades: pd.DataFrame, trump_df: pd.DataFrame | None = None) -> pd.DataFrame:
@@ -106,9 +145,11 @@ def _annotate_top_tickers(
     top_n: int = 3,
     min_notional: float = 0.0,
     ymax: float = 1.0,
+    *,
+    fontsize: float = 11.5,
 ) -> None:
     """Place top-ticker labels on each bar with dark text on white box."""
-    bbox = dict(boxstyle="round,pad=0.35", facecolor="white", edgecolor="#7f8c8d", alpha=0.97, linewidth=0.8)
+    bbox = dict(boxstyle="round,pad=0.45", facecolor="white", edgecolor="#7f8c8d", alpha=0.97, linewidth=0.9)
     for period, xpos, h in zip(periods, x_positions, heights):
         if h < min_notional:
             continue
@@ -119,14 +160,14 @@ def _annotate_top_tickers(
         text = _mpl_label("\n".join(lines))
         ax.text(
             xpos,
-            h + ymax * 0.006,
+            h + ymax * 0.008,
             text,
             ha="center",
             va="bottom",
-            fontsize=9.5,
+            fontsize=fontsize,
             fontweight="bold",
             color="#1a1a1a",
-            linespacing=1.15,
+            linespacing=1.2,
             bbox=bbox,
             zorder=10,
             clip_on=False,
@@ -165,9 +206,12 @@ def plot_trade_volume_monthly(
     counts = np.array(buy_n) + np.array(sell_n)
     totals_not = np.array(buy_not) + np.array(sell_not)
     ymax = float(totals_not.max()) if len(totals_not) else 1.0
+    n = len(periods)
 
-    fig_w = max(18.0, len(periods) * 0.52)
-    fig, ax1 = plt.subplots(figsize=(fig_w, 8))
+    fig_w = max(20.0, min(52.0, n * 0.88))
+    fig_h = max(9.5, min(13.0, 8.5 + n * 0.025))
+    label_fs = 12.0 if n <= 36 else 10.5
+    fig, ax1 = plt.subplots(figsize=(fig_w, fig_h), dpi=120)
     ax2 = ax1.twinx()
     ax1.bar(x, buy_not, width, label=f"Buy notional ({sum(buy_n):,} trades)", color=_ACTION_COLORS["purchase"], alpha=0.92)
     ax1.bar(
@@ -179,7 +223,7 @@ def plot_trade_volume_monthly(
         color=_ACTION_COLORS["sale"],
         alpha=0.92,
     )
-    ax2.plot(x, counts, color="#34495e", marker="o", lw=1.5, ms=3, label="Trade count", zorder=5)
+    ax2.plot(x, counts, color="#34495e", marker="o", lw=2.0, ms=5, label="Trade count", zorder=5)
 
     _annotate_top_tickers(
         ax1,
@@ -190,25 +234,28 @@ def plot_trade_volume_monthly(
         top_n=3,
         min_notional=max(200_000.0, ymax * 0.03),
         ymax=ymax,
+        fontsize=label_fs,
     )
 
     ax1.set_xticks(x)
-    ax1.set_xticklabels([pd.Timestamp(p).strftime("%Y-%m-%d") for p in periods], rotation=45, ha="right")
-    ax1.set_ylabel("Notional ($) — primary", fontweight="bold")
-    ax2.set_ylabel("Trade count")
+    ax1.set_xticklabels([pd.Timestamp(p).strftime("%Y-%m-%d") for p in periods], rotation=45, ha="right", fontsize=10)
+    ax1.set_ylabel("Notional ($) — primary", fontweight="bold", fontsize=12)
+    ax2.set_ylabel("Trade count", fontsize=12)
+    ax1.tick_params(axis="y", labelsize=11)
+    ax2.tick_params(axis="y", labelsize=11)
     ax1.yaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: _fmt_notional_short(v)))
     ax1.set_title(
         _mpl_label(
             f"Trade Volume by {gran_label.title()} · Total {_fmt_notional_short(total_notional)} notional · {total_trades:,} trades"
-        )
+        ),
+        fontsize=14,
+        pad=12,
     )
-    ax1.set_xlabel(f"Period start ({gran_label}) · on-bar labels: top-3 tickers (buy/sell notional)")
-    h1, l1 = ax1.get_legend_handles_labels()
-    h2, l2 = ax2.get_legend_handles_labels()
-    ax1.legend(h1 + h2, l1 + l2, loc="upper left", fontsize=8)
-    ax1.set_ylim(0, ymax * 1.10)
-    fig.subplots_adjust(top=0.92, bottom=0.14, right=0.92)
-    return _save(fig, out_dir, "01_monthly_volume")
+    ax1.set_xlabel(f"Period start ({gran_label}) · on-bar labels: top-3 tickers (buy/sell notional)", fontsize=11)
+    _combined_legend(ax1, ax2, loc="upper left", fontsize=10)
+    ax1.set_ylim(0, ymax * 1.28)
+    fig.subplots_adjust(top=0.90, bottom=0.16, right=0.90)
+    return _save(fig, out_dir, "01_monthly_volume", dpi=600)
 
 
 def plot_reveal_lag(returns_df: pd.DataFrame, out_dir: Path) -> Path:
@@ -397,9 +444,7 @@ def plot_disclosure_timeline(trades: pd.DataFrame, out_dir: Path, trump_df: pd.D
         )
     )
     ax1.set_xlabel("Disclosure date")
-    h1, l1 = ax1.get_legend_handles_labels()
-    h2, l2 = ax2.get_legend_handles_labels()
-    ax1.legend(h1 + h2, l1 + l2, loc="upper right", fontsize=8)
+    _combined_legend(ax1, ax2, loc="upper right", fontsize=8)
     ax1.set_ylim(0, by_disc["notional"].max() * 1.22 if len(by_disc) else 1)
     return _save(fig, out_dir, "08_disclosure_timeline")
 
@@ -691,6 +736,32 @@ def _monthly_top3_other_rows(
     return pd.DataFrame(records)
 
 
+def _annotate_bar_segment(
+    ax,
+    x: float,
+    bottom: float,
+    height: float,
+    label: str,
+    *,
+    text_color: str = "#1a1a1a",
+    min_height: float,
+    fontsize: float = 10.5,
+) -> None:
+    if not label or abs(height) < min_height:
+        return
+    ax.text(
+        x,
+        bottom + height / 2.0,
+        label,
+        ha="center",
+        va="center",
+        fontsize=fontsize,
+        fontweight="bold",
+        color=text_color,
+        clip_on=False,
+    )
+
+
 def plot_monthly_pnl_top3_bars(
     ticker_daily: pd.DataFrame,
     out_dir: Path,
@@ -698,6 +769,7 @@ def plot_monthly_pnl_top3_bars(
     prefix: str = "21_monthly_pnl_top3_bars",
     start: str | pd.Timestamp = "2024-01-01",
 ) -> Path | None:
+    """Stacked monthly PnL (from 2024): segment labels = top-3 tickers; gray = Other."""
     wide = _monthly_top3_other_rows(ticker_daily, start=start)
     if wide.empty:
         return None
@@ -713,30 +785,46 @@ def plot_monthly_pnl_top3_bars(
         pd.concat([wide["pnl_1"], wide["pnl_2"], wide["pnl_3"], wide["other"]], ignore_index=True)
     )
     n = len(wide)
-    fig_w = max(10, min(22, n * 0.55))
-    fig, ax = plt.subplots(figsize=(fig_w, 5.5))
+    fig_w = max(16.0, min(40.0, n * 1.05))
+    fig_h = max(8.5, min(11.0, 7.5 + n * 0.04))
+    fig, ax = plt.subplots(figsize=(fig_w, fig_h), dpi=120)
     x = np.arange(n)
-    bar_w = 0.72
-    b1 = wide["pnl_1"] / scale
-    b2 = wide["pnl_2"] / scale
-    b3 = wide["pnl_3"] / scale
-    bo = wide["other"] / scale
-    colors = ["#2980b9", "#27ae60", "#e67e22", "#95a5a6"]
-    ax.bar(x, b1, bar_w, label="Top 1", color=colors[0])
-    ax.bar(x, b2, bar_w, bottom=b1, label="Top 2", color=colors[1])
-    ax.bar(x, b3, bar_w, bottom=b1 + b2, label="Top 3", color=colors[2])
-    ax.bar(x, bo, bar_w, bottom=b1 + b2 + b3, label="Other", color=colors[3])
+    bar_w = 0.78
+    seg_fs = 11.0 if n <= 20 else 10.0
+    colors = ["#2980b9", "#27ae60", "#e67e22", "#bdc3c7"]
+    min_seg = max(0.02, float(np.abs(wide[["pnl_1", "pnl_2", "pnl_3", "other"]].values).max()) / scale * 0.08)
+
+    for i in range(n):
+        row = wide.iloc[i]
+        v1, v2, v3, vo = row["pnl_1"] / scale, row["pnl_2"] / scale, row["pnl_3"] / scale, row["other"] / scale
+        btm = 0.0
+        for val, col, tick in (
+            (v1, colors[0], str(row["ticker_1"]).strip()),
+            (v2, colors[1], str(row["ticker_2"]).strip()),
+            (v3, colors[2], str(row["ticker_3"]).strip()),
+        ):
+            if val == 0:
+                continue
+            ax.bar(i, val, bar_w, bottom=btm, color=col, edgecolor="white", linewidth=0.5)
+            _annotate_bar_segment(ax, i, btm, val, tick, min_height=min_seg, fontsize=seg_fs)
+            btm += val
+        if vo != 0:
+            ax.bar(i, vo, bar_w, bottom=btm, color=colors[3], edgecolor="white", linewidth=0.5)
+            _annotate_bar_segment(
+                ax, i, btm, vo, "Other", text_color="#4a5568", min_height=min_seg, fontsize=seg_fs
+            )
+
     ax.axhline(0, color="gray", lw=0.8)
     labels = pd.to_datetime(wide["month"]).dt.strftime("%Y-%m")
     ax.set_xticks(x)
-    ax.set_xticklabels(labels, rotation=45, ha="right")
-    ax.set_title(_mpl_label(title))
-    ax.set_xlabel("Month")
-    ax.set_ylabel(f"Monthly PnL ({unit})")
-    ax.legend(loc="upper left", fontsize=9)
+    ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=11)
+    ax.set_title(_mpl_label(title), fontsize=14, pad=12)
+    ax.set_xlabel("Month (2024+)", fontsize=12)
+    ax.set_ylabel(f"Monthly PnL ({unit})", fontsize=12)
+    ax.tick_params(axis="y", labelsize=11)
     ax.grid(True, axis="y", alpha=0.25)
     fig.tight_layout()
-    return _save(fig, out_dir, prefix)
+    return _save(fig, out_dir, prefix, dpi=600)
 
 
 def plot_portfolio_daily_timeseries(daily: pd.DataFrame, out_dir: Path) -> Path | None:

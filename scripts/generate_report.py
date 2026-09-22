@@ -1045,6 +1045,9 @@ def _add_section_ids_and_toc(html: str) -> tuple[str, str]:
 _EMBED_FIGURE_PROFILES: dict[str, dict[str, int | str]] = {
     "01_monthly_volume.png": {"max_w": 3600, "quality": 95, "format": "jpeg"},
     "21_monthly_pnl_top3_bars.png": {"max_w": 3600, "quality": 95, "format": "jpeg"},
+    "16_media_match_timelines.png": {"max_w": 2400, "quality": 92, "format": "jpeg"},
+    "18_portfolio_timeseries.png": {"max_w": 2400, "quality": 92, "format": "jpeg"},
+    "20_daily_accumulated_pnl.png": {"max_w": 2400, "quality": 92, "format": "jpeg"},
 }
 
 
@@ -1060,8 +1063,8 @@ def _embed_figure_src(html: str, figures_dir: Path, *, compress: bool = True) ->
             from PIL import Image
 
             profile = _EMBED_FIGURE_PROFILES.get(fname, {})
-            max_w = int(profile.get("max_w", 900))
-            quality = int(profile.get("quality", 72))
+            max_w = int(profile.get("max_w", 1800))
+            quality = int(profile.get("quality", 90))
             fmt = str(profile.get("format", "jpeg")).lower()
 
             with Image.open(path) as img:

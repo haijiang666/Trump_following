@@ -101,6 +101,9 @@
     "NW 收益率": "NW return",
     "生成时间: 2026-06-02 22:31 · OGE Form 278-T · 第二任期上任以来": "Generated 2026-06-02 22:31 · OGE Form 278-T · since the second term began",
     "生成时间: 2026-06-02 23:38 · House STOCK Act PTR · 2023-03-09 起": "Generated 2026-06-02 23:38 · House STOCK Act PTR · from 2023-03-09",
+    "生成时间:": "Generated:",
+    "第二任期上任以来": "since the second term began",
+    "第二任期": "second term",
     "分析区间": "Period",
     "278-T 文件数": "278-T filings",
     "House PTR 文件数": "House PTR filings",
@@ -538,6 +541,10 @@
     const c = canon(s);
     const hit = Object.keys(DICT).find((k) => canon(k) === c);
     if (hit) return DICT[hit];
+    const genTrump = s.match(/^生成时间:\s*(.+?)\s*·\s*OGE Form 278-T\s*·\s*第二任期上任以来$/);
+    if (genTrump) return `Generated ${genTrump[1]} · OGE Form 278-T · since the second term began`;
+    const genPelosi = s.match(/^生成时间:\s*(.+?)\s*·\s*House STOCK Act PTR\s*·\s*(.+?)\s*起$/);
+    if (genPelosi) return `Generated ${genPelosi[1]} · House STOCK Act PTR · from ${genPelosi[2]}`;
     if (!/[\u4e00-\u9fff]/.test(s)) return null;
     const keys = Object.keys(DICT).filter((k) => /[\u4e00-\u9fff]/.test(k) && k.length >= 2);
     keys.sort((a, b) => b.length - a.length);
